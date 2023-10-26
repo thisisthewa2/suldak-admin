@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     width: 100vw;
     height: 100vh;
+
+    background-color: ${props => props.theme.bgColor};
   }
 
   h2, p {

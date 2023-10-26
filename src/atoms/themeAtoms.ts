@@ -1,6 +1,5 @@
-import { atom } from "jotai";
+import { atomWithStorage } from 'jotai/utils'
 
-
-// 다크 모드 상태
-export const darkModeAtom = atom<string>('light');
+// 테마 상태
+export const themeMode = atomWithStorage<string>('theme', 'DARK');
 

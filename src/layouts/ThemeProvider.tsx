@@ -11,8 +11,8 @@ interface IProps {
 
 /** 테마 레이아웃 */
 const ThemeProvider = ({ children }: IProps) => {
-  const { isDarkMode } = useTheme();
-  const themeObject = isDarkMode === 'light' ? lightTheme : darkTheme;
+  const { currentTheme } = useTheme();
+  const themeObject = currentTheme === 'LIGHT' ? lightTheme : darkTheme;
 
   return <StyledProvider theme={themeObject}>{children}</StyledProvider>;
 };
