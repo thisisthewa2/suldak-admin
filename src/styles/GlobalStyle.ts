@@ -16,6 +16,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${props => props.theme.bgColor};
   }
 
+  h1 {
+    font-size: 1.75rem;
+  }
+
   h2, p {
     margin: 0;
   }

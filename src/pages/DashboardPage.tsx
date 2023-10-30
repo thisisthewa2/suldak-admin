@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -7,7 +8,7 @@ import RowContainer from '@components/RowContainer';
 import useResponsive from '@hooks/useResponsive';
 
 /** 메인 페이지 */
-const MainPage = () => {
+const DashboardPage = () => {
   const { isTablet, isMobile } = useResponsive();
   return (
     <>
@@ -20,7 +21,7 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default DashboardPage;
 
 const Box = styled.div`
   background-color: ${(props) => props.theme.componentBgColor};

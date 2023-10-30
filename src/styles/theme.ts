@@ -3,6 +3,7 @@ export const commonColor = {
   primaryHover: "#4096ff",
 }
 
+/** 다크 모드 테마 */
 export const darkTheme = {
   ...commonColor,
   bgColor: "#121212",
@@ -19,11 +20,20 @@ export const darkTheme = {
   // 강조용 색상
   utils: {
     accent: "#1E88E5",
+    accentHover: "#1A78D1",
     error: "FF6B6B",
-    success: "#81C784"
+    errorHover: "#E65C5C",
+    success: "#81C784",
+    successHover: "#74B475"
+  },
+
+  // 폼 색상
+  form: {
+    border: 'rgba(255, 255, 255, 0.25)'
   }
 }
 
+/** 라이트 모드 테마 */
 export const lightTheme = {
   ...commonColor,
   bgColor: "#F2EDF3",
@@ -38,8 +48,15 @@ export const lightTheme = {
 
   utils: {
     accent: "#007BFF",
+    accentHover: "#0068E6",
     error: "#D9534F",
-    success: "#5CB85C"
+    errorHover: "#C24845",
+    success: "#5CB85C",
+    successHover: "#53A753"
+  },
+
+  form: {
+    border: '#dee2e6'
   }
 }
 
