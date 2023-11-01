@@ -21,7 +21,7 @@ const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 /** 라우터 컴포넌트 */
 const RouterComponent = () => {
   return (
-    <Router basename={'/suldak-admin'}>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         {/* 비로그인 상태에서 접근 가능한 페이지 */}
         <Route path="/login" element={<LoginPage />} />
