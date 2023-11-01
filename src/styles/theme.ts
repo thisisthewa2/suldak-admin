@@ -21,7 +21,6 @@ export const darkTheme = {
 
   // 텍스트 색상
   text: {
-
     primary: "#EFF2F7",
     secondary: "#919BAE",
   },

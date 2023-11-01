@@ -10,6 +10,7 @@ import Button from '@components/core/Button';
 import Input from '@components/core/Input';
 import Tag from '@components/core/Tag';
 import Status from '@components/core/Status';
+import CircleProgressBar from '@components/core/CircleProgressBar';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -99,6 +100,14 @@ const TestPage = () => {
           <Status label="Pending" type="pending" />
           <Status label="Cancel" type="cancel" />
         </Box>
+        <Box gridColumn="3">
+          <Title>원형 바</Title>
+          <ProgressWrap>
+            <CircleProgressBar />
+            <CircleProgressBar percentage={80} />
+            <CircleProgressBar percentage={65} />
+          </ProgressWrap>
+        </Box>
       </RowContainer>
     </>
   );
@@ -130,6 +139,14 @@ const InputWrap = styled.div`
 // 태그
 const TagWrap = styled.div`
   display: flex;
+
   gap: 1rem;
   margin-bottom: 1rem;
+`;
+
+// progress
+const ProgressWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;
