@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ErrorBoundaryProps {
-  type: 'global' | 'api' | 'component';
+  type: 'global' | 'api' | 'component'; // 에러 바운더리 타입
   children: React.ReactNode;
 }
 

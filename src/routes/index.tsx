@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'rea
 
 // components
 import NavigationBar from '@layouts/NavigationBar/NavigationBar';
+import Header from '@layouts/Header/Header';
 import Loader from '@components/core/Loader';
 import ActionButton from '@components/ActionButton';
 
@@ -12,6 +13,7 @@ const LoginPage = lazy(() => import('@pages/LoginPage'));
 
 // pages - 로그인 후 접근 가능
 const DashboardPage = lazy(() => import('@pages/DashboardPage'));
+const TestPage = lazy(() => import('@pages/TestPage'));
 
 // 에러페이지
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
@@ -20,20 +22,19 @@ const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 const RouterComponent = () => {
   return (
     <Router>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          {/* 비로그인 상태에서 접근 가능한 페이지 */}
-          <Route path="/login" element={<LoginPage />} />
+      <Routes>
+        {/* 비로그인 상태에서 접근 가능한 페이지 */}
+        <Route path="/login" element={<LoginPage />} />
 
-          {/* 로그인 상태에서 접근 가능한 페이지 */}
-          <Route path="/" element={<PrivateLayout />}>
-            <Route path="/" element={<DashboardPage />} />
-          </Route>
+        {/* 로그인 상태에서 접근 가능한 페이지 */}
+        <Route path="/" element={<PrivateLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/test" element={<TestPage />} />
+        </Route>
 
-          {/* 404 페이지 */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
+        {/* 404 페이지 */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Router>
   );
 };
@@ -46,10 +47,15 @@ const PrivateLayout = () => {
     <>
       <ActionButton />
       <Container>
-        <NavigationBar />
-        <ColFlex>
-          <Outlet />
-        </ColFlex>
+        <Header />
+        <div className="row-flex">
+          <NavigationBar />
+          <ContentsArea>
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
+          </ContentsArea>
+        </div>
       </Container>
     </>
   );
@@ -57,14 +63,26 @@ const PrivateLayout = () => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+
+  .row-flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
-const ColFlex = styled.div`
+// 컨텐츠 영역
+const ContentsArea = ({ children }: { children: React.ReactNode }) => {
+  return <ContentsContainer>{children}</ContentsContainer>;
+};
+
+const ContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 5rem;
+  padding: 5rem 2rem;
 `;

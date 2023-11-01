@@ -37,7 +37,11 @@ const NavigationBar = () => {
               <div key={menu.id}>
                 <MenuWrap
                   onClick={() => {
-                    handleActiveMenu(menu.id);
+                    // 서브 메뉴가 있을 경우 해당 메뉴 열기
+                    if (menu.submenu) {
+                      handleActiveMenu(menu.id);
+                    }
+                    // 서브 메뉴가 없을 경우 라우팅
                     if (!menu.submenu) {
                       handleNavigate(menu.path);
                     }
@@ -49,6 +53,7 @@ const NavigationBar = () => {
                   </div>
                   {menu.submenu && (activeMenu === menu.id ? <IoIosArrowUp /> : <IoIosArrowDown />)}
                 </MenuWrap>
+
                 {/* submenu */}
                 {menu.submenu && (
                   <SubMenuWrap $isActive={activeMenu === menu.id}>
@@ -81,7 +86,7 @@ const NavigationWrapper = styled.div<{ $isOpen: boolean }>`
   background-color: ${(props) => props.theme.componentBgColor};
   box-shadow: ${(props) => props.theme.boxShadow};
   transition: width 0.2s ease-in;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 `;
 
 const MenuWrap = styled.div`
@@ -108,14 +113,16 @@ const MenuWrap = styled.div`
 `;
 
 const SubMenuWrap = styled.div<{ $isActive: boolean }>`
-  display: ${({ $isActive }) => ($isActive ? 'block' : 'none')};
+  /* display: ${({ $isActive }) => ($isActive ? 'block' : 'none')}; */
+  max-height: ${({ $isActive }) => ($isActive ? '200px' : '0')};
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out; // 부드러운 전환 효과
   width: 100%;
   color: ${(props) => props.theme.text.primary};
 
   .sub-menu {
     width: 100%;
-    text-align: right;
-    padding-right: 5rem;
+    padding: 0.5rem 0 0.5rem 4rem;
     font-size: 1rem;
     transition: all 0.2s;
 

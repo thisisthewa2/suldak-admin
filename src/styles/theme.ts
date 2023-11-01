@@ -1,20 +1,25 @@
 export const commonColor = {
   primary: "#1677ff",
   primaryHover: "#4096ff",
+
+  green: "#60d083",
+  yellow: '#f1d953',
+  red: '#e45066'
 }
 
 /** 다크 모드 테마 */
 export const darkTheme = {
   ...commonColor,
-  bgColor: "#121212",
-  componentBgColor: "#242424",
+  bgColor: "#1e222d",
+  componentBgColor: "#262b3a",
   boxShadow: 'none',
-  hoverColor: "#4A4A4A",
+  hoverColor: "#303744",
 
   // 텍스트 색상
   text: {
-    primary: "#E4E4E4",
-    secondary: "#B0B0B0",
+
+    primary: "#EFF2F7",
+    secondary: "#919BAE",
   },
 
   // 강조용 색상
@@ -42,8 +47,8 @@ export const lightTheme = {
   hoverColor: "#C0C0C0",
 
   text: {
-    primary: "#333333",
-    secondary: "#666666",
+    primary: "#343A40",
+    secondary: "#505D69",
   },
 
   utils: {
