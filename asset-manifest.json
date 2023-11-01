@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/suldak-admin/static/js/main.4caf1bce.js",
+    "static/js/30.b7321180.chunk.js": "/suldak-admin/static/js/30.b7321180.chunk.js",
+    "static/js/616.1ad0b3dd.chunk.js": "/suldak-admin/static/js/616.1ad0b3dd.chunk.js",
+    "static/js/411.b95494c5.chunk.js": "/suldak-admin/static/js/411.b95494c5.chunk.js",
+    "static/js/720.9e39be8c.chunk.js": "/suldak-admin/static/js/720.9e39be8c.chunk.js",
+    "static/js/787.4bb1a436.chunk.js": "/suldak-admin/static/js/787.4bb1a436.chunk.js",
+    "static/js/885.6f58c84d.chunk.js": "/suldak-admin/static/js/885.6f58c84d.chunk.js",
+    "index.html": "/suldak-admin/index.html",
+    "main.4caf1bce.js.map": "/suldak-admin/static/js/main.4caf1bce.js.map",
+    "30.b7321180.chunk.js.map": "/suldak-admin/static/js/30.b7321180.chunk.js.map",
+    "616.1ad0b3dd.chunk.js.map": "/suldak-admin/static/js/616.1ad0b3dd.chunk.js.map",
+    "411.b95494c5.chunk.js.map": "/suldak-admin/static/js/411.b95494c5.chunk.js.map",
+    "720.9e39be8c.chunk.js.map": "/suldak-admin/static/js/720.9e39be8c.chunk.js.map",
+    "787.4bb1a436.chunk.js.map": "/suldak-admin/static/js/787.4bb1a436.chunk.js.map",
+    "885.6f58c84d.chunk.js.map": "/suldak-admin/static/js/885.6f58c84d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.4caf1bce.js"
+  ]
+}
