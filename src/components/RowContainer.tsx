@@ -26,6 +26,7 @@ const Wrapper = styled.div<IWrapperProps>`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 2rem;
+  margin-bottom: 2rem;
 
   ${(props) =>
     props.$isTablet &&

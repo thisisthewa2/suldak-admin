@@ -5,20 +5,49 @@ interface IProps {
   children?: React.ReactNode;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  buttonType?: 'confirm' | 'cancel' | 'reset';
 }
 
-const StyledButton = styled.button<IProps>`
-  background-color: ${(props) => props.theme.primary};
+interface IStyledProps {
+  $buttonType?: 'confirm' | 'cancel' | 'reset';
+}
+
+const StyledButton = styled.button<IStyledProps>`
+  width: fit-content;
   border: none;
   border-radius: 0.25rem;
   color: white;
   cursor: pointer;
   font-size: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   transition: background-color 0.2s;
 
+  background-color: ${(props) => {
+    switch (props.$buttonType) {
+      case 'confirm':
+        return props.theme.green;
+      case 'cancel':
+        return props.theme.red;
+      case 'reset':
+        return props.theme.gray;
+      default:
+        return props.theme.primary;
+    }
+  }};
+
   &:hover {
-    background-color: ${(props) => props.theme.primaryHover};
+    background-color: ${(props) => {
+      switch (props.$buttonType) {
+        case 'confirm':
+          return props.theme.greenHover;
+        case 'cancel':
+          return props.theme.redHover;
+        case 'reset':
+          return props.theme.grayHover;
+        default:
+          return props.theme.primaryHover;
+      }
+    }};
   }
 
   &:disabled {
@@ -27,8 +56,12 @@ const StyledButton = styled.button<IProps>`
   }
 `;
 
-const Button = ({ children, ...props }: IProps) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+const Button = ({ children, buttonType, ...props }: IProps) => {
+  return (
+    <StyledButton {...props} $buttonType={buttonType}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;

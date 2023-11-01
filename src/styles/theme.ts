@@ -1,15 +1,19 @@
-export const commonColor = {
+export const Color = {
   primary: "#1677ff",
   primaryHover: "#4096ff",
 
-  green: "#60d083",
   yellow: '#f1d953',
-  red: '#e45066'
+  green: "#60d083",
+  greenHover: "#57bd7b",
+  red: '#ff3d60',
+  redHover: "#eb4f64",
+  gray: '#6C757D',
+  grayHover: '#5c636a'
 }
 
 /** 다크 모드 테마 */
 export const darkTheme = {
-  ...commonColor,
+  ...Color,
   bgColor: "#1e222d",
   componentBgColor: "#262b3a",
   boxShadow: 'none',
@@ -40,7 +44,7 @@ export const darkTheme = {
 
 /** 라이트 모드 테마 */
 export const lightTheme = {
-  ...commonColor,
+  ...Color,
   bgColor: "#F2EDF3",
   componentBgColor: "#F4F4F4",
   boxShadow: '10px 10px 15px 2px #bac1ce',

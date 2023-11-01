@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 // components
 import RowContainer from '@components/RowContainer';
+import Box from '@components/core/Box';
+import Title from '@components/core/Title';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -13,23 +15,18 @@ const DashboardPage = () => {
   return (
     <>
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box>span 3</Box>
-        <Box2>span 6</Box2>
-        <Box>span 3</Box>
+        <Box gridColumn="3">
+          <Title>span 3</Title>
+        </Box>
+        <Box gridColumn="6">
+          <Title>span 6</Title>
+        </Box>
+        <Box gridColumn="3">
+          <Title>span 3</Title>
+        </Box>
       </RowContainer>
     </>
   );
 };
 
 export default DashboardPage;
-
-const Box = styled.div`
-  background-color: ${(props) => props.theme.componentBgColor};
-  box-shadow: ${(props) => props.theme.boxShadow};
-  grid-column: span 3;
-`;
-
-const Box2 = styled.div`
-  background-color: red;
-  grid-column: span 6;
-`;

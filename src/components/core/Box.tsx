@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
@@ -5,11 +6,11 @@ interface IProps {
   gridColumn?: string;
 }
 
-interface IStyleProps {
+interface IStyledProps {
   $gridColumn?: string;
 }
 
-const StyledBox = styled.div<IStyleProps>`
+const StyledBox = styled.div<IStyledProps>`
   background-color: ${(props) => props.theme.componentBgColor};
   border-radius: 0.25rem;
   box-shadow: ${(props) => props.theme.boxShadow};
