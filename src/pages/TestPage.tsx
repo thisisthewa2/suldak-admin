@@ -78,9 +78,9 @@ const TestPage = () => {
         <Box gridColumn="3">
           <Title>태그 컴포넌트</Title>
           <TagWrap>
-            <Tag>0 ~ 15%</Tag>
-            <Tag>16 ~ 20%</Tag>
-            <Tag>21 ~ 26%</Tag>
+            <Tag>0 ~ 10%</Tag>
+            <Tag>21 ~ 50%</Tag>
+            <Tag>71 ~ 100%</Tag>
           </TagWrap>
         </Box>
       </RowContainer>
