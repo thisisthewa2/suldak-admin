@@ -9,6 +9,7 @@ import Title from '@components/core/Title';
 import Button from '@components/core/Button';
 import Input from '@components/core/Input';
 import Tag from '@components/core/Tag';
+import Status from '@components/core/Status';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -53,6 +54,10 @@ const TestPage = () => {
               <Button buttonType="reset">Button</Button>
               <span>Reset Button</span>
             </div>
+            <div className="btn-flex">
+              <Button disabled>Button</Button>
+              <span>Disabled Button</span>
+            </div>
           </ButtonWrap>
         </Box>
         {/* 인풋 컴포넌트 */}
@@ -82,6 +87,17 @@ const TestPage = () => {
             <Tag>21 ~ 50%</Tag>
             <Tag>71 ~ 100%</Tag>
           </TagWrap>
+          <TagWrap>
+            <Tag>우울할때</Tag>
+            <Tag>즐거울때</Tag>
+            <Tag>와인파</Tag>
+          </TagWrap>
+        </Box>
+        <Box gridColumn="3">
+          <Title>상태 컴포넌트</Title>
+          <Status label="Complete" type="complete" />
+          <Status label="Pending" type="pending" />
+          <Status label="Cancel" type="cancel" />
         </Box>
       </RowContainer>
     </>
@@ -115,4 +131,5 @@ const InputWrap = styled.div`
 const TagWrap = styled.div`
   display: flex;
   gap: 1rem;
+  margin-bottom: 1rem;
 `;

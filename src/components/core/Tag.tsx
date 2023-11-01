@@ -17,5 +17,5 @@ const StyledTag = styled.div`
   color: white;
   border-radius: 0.25rem;
   padding: 0 0.5rem;
-  background-color: ${(props) => props.theme.yellow};
+  background-color: ${(props) => props.theme.green};
 `;

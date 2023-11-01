@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 
@@ -43,20 +43,33 @@ export default RouterComponent;
 
 // 로그인시 접속 가능한 페이지 레이아웃
 const PrivateLayout = () => {
+  const navigate = useNavigate();
+
+  // 토큰이 없을 경우 로그인 페이지로 이동
+  // useEffect(() => {
+  //   if (!localStorage.getItem('token')) {
+  //     navigate('/login');
+  //   }
+  // }, [navigate]);
+
   return (
     <>
-      <ActionButton />
-      <Container>
-        <Header />
-        <div className="row-flex">
-          <NavigationBar />
-          <ContentsArea>
-            <Suspense fallback={<Loader />}>
-              <Outlet />
-            </Suspense>
-          </ContentsArea>
-        </div>
-      </Container>
+      {/* {localStorage.getItem('token') && ( */}
+      <>
+        <ActionButton />
+        <Container>
+          <Header />
+          <div className="row-flex">
+            <NavigationBar />
+            <ContentsArea>
+              <Suspense fallback={<Loader />}>
+                <Outlet />
+              </Suspense>
+            </ContentsArea>
+          </div>
+        </Container>
+      </>
+      {/* )} */}
     </>
   );
 };

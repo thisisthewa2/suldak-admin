@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
 // components
 import Input from '@components/core/Input';
@@ -7,21 +8,49 @@ import Button from '@components/core/Button';
 
 // hooks
 import useInput from '@hooks/useInput';
+import useToastify from '@hooks/useToastify';
+
+// apis
+import AuthApi from '@apis/services/AuthApi';
+import { useEffect } from 'react';
 
 /** 로그인 페이지 */
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { showWarningToastMessage, showErrorToastMessage } = useToastify();
 
   const userID = useInput('');
   const userPW = useInput('');
 
-  // 로그인
-  const handleLogin = () => {
-    const reqData = {};
-    console.log('로그인 시도');
+  // 로그인 mutation
+  const mutation = useMutation(AuthApi.login, {
+    // 로그인 성공시 수행될 코드
+    onSuccess: (data) => {
+      console.log(data);
+      // queryClient.invalidateQueries('user');  // user 관련 쿼리를 무효화하여 다시 호출하도록 함
+      // navigate('/');
+    },
+    onError: () => {
+      showErrorToastMessage('로그인을 실패했습니다.');
+    },
+  });
 
-    // 로그인 성공시
-    navigate('/');
+  // 로그인 함수
+  const handleLogin = () => {
+    if (userID.value === '' || userPW.value === '') {
+      showWarningToastMessage('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    const reqData = {
+      adminId: userID.value,
+      adminPw: userPW.value,
+    };
+
+    // const response = AuthApi.login(reqData);
+    // console.log(response);
+
+    mutation.mutate(reqData);
   };
 
   return (
@@ -40,7 +69,9 @@ const LoginPage = () => {
             onEnterKeyDown={handleLogin}
           />
         </div>
-        <Button onClick={handleLogin}>로그인</Button>
+        <Button onClick={handleLogin} width="100%">
+          로그인
+        </Button>
       </div>
     </Container>
   );

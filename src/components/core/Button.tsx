@@ -6,14 +6,16 @@ interface IProps {
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
   buttonType?: 'confirm' | 'cancel' | 'reset';
+  width?: string;
 }
 
 interface IStyledProps {
   $buttonType?: 'confirm' | 'cancel' | 'reset';
+  $width?: string;
 }
 
 const StyledButton = styled.button<IStyledProps>`
-  width: fit-content;
+  width: ${({ $width }) => ($width ? $width : 'fit-content')};
   border: none;
   border-radius: 0.25rem;
   color: white;
@@ -56,9 +58,9 @@ const StyledButton = styled.button<IStyledProps>`
   }
 `;
 
-const Button = ({ children, buttonType, ...props }: IProps) => {
+const Button = ({ children, buttonType, width, ...props }: IProps) => {
   return (
-    <StyledButton {...props} $buttonType={buttonType}>
+    <StyledButton {...props} $buttonType={buttonType} $width={width}>
       {children}
     </StyledButton>
   );

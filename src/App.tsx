@@ -1,5 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
 
 // components
 import RouterComponent from '@routes/index';
