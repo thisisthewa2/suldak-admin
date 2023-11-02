@@ -31,7 +31,7 @@ class AuthApi {
       })
 
       // 로그인 성공시 토큰 저장
-      localStorage.setItem('token', data.refreshToken)
+      localStorage.setItem('token', data.data.refreshToken)
 
       return [data, true]
     }

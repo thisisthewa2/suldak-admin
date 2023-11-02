@@ -22,19 +22,21 @@ const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 const RouterComponent = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Routes>
-        {/* 비로그인 상태에서 접근 가능한 페이지 */}
-        <Route path="/login" element={<LoginPage />} />
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          {/* 비로그인 상태에서 접근 가능한 페이지 */}
+          <Route path="/login" element={<LoginPage />} />
 
-        {/* 로그인 상태에서 접근 가능한 페이지 */}
-        <Route path="/" element={<PrivateLayout />}>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/test" element={<TestPage />} />
-        </Route>
+          {/* 로그인 상태에서 접근 가능한 페이지 */}
+          <Route path="/" element={<PrivateLayout />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/test" element={<TestPage />} />
+          </Route>
 
-        {/* 404 페이지 */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          {/* 404 페이지 */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 };
@@ -46,30 +48,30 @@ const PrivateLayout = () => {
   const navigate = useNavigate();
 
   // 토큰이 없을 경우 로그인 페이지로 이동
-  // useEffect(() => {
-  //   if (!localStorage.getItem('token')) {
-  //     navigate('/login');
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   return (
     <>
-      {/* {localStorage.getItem('token') && ( */}
-      <>
-        <ActionButton />
-        <Container>
-          <Header />
-          <div className="row-flex">
-            <NavigationBar />
-            <ContentsArea>
-              <Suspense fallback={<Loader />}>
-                <Outlet />
-              </Suspense>
-            </ContentsArea>
-          </div>
-        </Container>
-      </>
-      {/* )} */}
+      {localStorage.getItem('token') && (
+        <>
+          <ActionButton />
+          <Container>
+            <Header />
+            <div className="row-flex">
+              <NavigationBar />
+              <ContentsArea>
+                <Suspense fallback={<Loader />}>
+                  <Outlet />
+                </Suspense>
+              </ContentsArea>
+            </div>
+          </Container>
+        </>
+      )}
     </>
   );
 };

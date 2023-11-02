@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { useAtom } from 'jotai';
 
 // components
 import Input from '@components/core/Input';
 import Button from '@components/core/Button';
+
+// atoms
+import { userAtom } from '@atoms/userAtoms';
 
 // hooks
 import useInput from '@hooks/useInput';
@@ -12,12 +16,12 @@ import useToastify from '@hooks/useToastify';
 
 // apis
 import AuthApi from '@apis/services/AuthApi';
-import { useEffect } from 'react';
 
 /** 로그인 페이지 */
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { showWarningToastMessage, showErrorToastMessage } = useToastify();
+  const { showSuccessToastMessage, showWarningToastMessage, showErrorToastMessage } = useToastify();
+  const [, setUser] = useAtom(userAtom);
 
   const userID = useInput('');
   const userPW = useInput('');
@@ -25,10 +29,10 @@ const LoginPage = () => {
   // 로그인 mutation
   const mutation = useMutation(AuthApi.login, {
     // 로그인 성공시 수행될 코드
-    onSuccess: (data) => {
-      console.log(data);
-      // queryClient.invalidateQueries('user');  // user 관련 쿼리를 무효화하여 다시 호출하도록 함
-      // navigate('/');
+    onSuccess: (response) => {
+      setUser(response[0].data);
+      navigate('/');
+      showSuccessToastMessage(`${response[0].data.adminNm}님 안녕하세요.`);
     },
     onError: () => {
       showErrorToastMessage('로그인을 실패했습니다.');

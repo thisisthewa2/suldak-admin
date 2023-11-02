@@ -1,15 +1,23 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 
 // components
 import ThemeToggle from '@components/ThemeToggle';
 
+// atoms
+import { userAtom } from '@atoms/userAtoms';
+
 // icons
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 /** 화면 우측 하단 액션 버튼 */
 const ActionButton = () => {
+  const navigate = useNavigate();
+  const [, setUser] = useAtom(userAtom);
   const [isOpen, setIsOpen] = useState(false);
   const [animation, setAnimation] = useState<'openAnimation' | 'closeAnimation'>('openAnimation');
 
@@ -26,6 +34,14 @@ const ActionButton = () => {
     }
   };
 
+  // 로그아웃
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // setUser(null);
+    navigate('/login');
+  };
+
   return (
     <ActionButtonContainer>
       {isOpen ? (
@@ -33,8 +49,8 @@ const ActionButton = () => {
           <ActionMenuItem $delay={0.3} $animation={animation}>
             1
           </ActionMenuItem>
-          <ActionMenuItem $delay={0.2} $animation={animation}>
-            2
+          <ActionMenuItem $delay={0.2} $animation={animation} onClick={handleLogOut}>
+            <FaSignOutAlt>2</FaSignOutAlt>
           </ActionMenuItem>
           <ActionMenuItem $delay={0.1} $animation={animation}>
             <ThemeToggle />

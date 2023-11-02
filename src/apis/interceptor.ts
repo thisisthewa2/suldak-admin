@@ -12,16 +12,16 @@ export const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 })
 
-let isRefreshing = false;
-let failedQueue: ((token: string | AxiosError) => void)[] = [];
+// let isRefreshing = false;
+// let failedQueue: ((token: string | AxiosError) => void)[] = [];
 
-// 대기 중인 요청 처리 함수
-const processQueue = (token: string | AxiosError) => {
-  failedQueue.forEach(prom => {
-    prom(token)
-  })
-  failedQueue = []
-}
+// // 대기 중인 요청 처리 함수
+// const processQueue = (token: string | AxiosError) => {
+//   failedQueue.forEach(prom => {
+//     prom(token)
+//   })
+//   failedQueue = []
+// }
 
 // api 요청 인터셉터
 axiosInstance.interceptors.request.use((config) => {
@@ -34,7 +34,7 @@ axiosInstance.interceptors.request.use((config) => {
 
   // 헤더에 토큰 추가
   if (token) {
-    headers.Authorization = `Bearer ${token}`
+    headers.Authorization = `${token}`
   }
 
   // 폼데이터를 사용하는 경우
@@ -58,5 +58,12 @@ axiosInstance.interceptors.response.use((response) => {
   return response
 }, async (error) => {
   const { config, response: { status } } = error;
-  
+
+  // 토큰 만료
+  if (status === 9999 || status === 406) {
+    localStorage.removeItem('token');
+    window.location.assign('/login')
+  }
+
+  return Promise.reject(error)
 })
