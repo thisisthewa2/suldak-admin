@@ -21,6 +21,7 @@ const TestPage = () => {
   const { isTablet, isMobile } = useResponsive();
   const testInput = useInput('');
   const testLabelInput = useInput('');
+  const disabledInput = useInput('');
 
   return (
     <>
@@ -75,6 +76,12 @@ const TestPage = () => {
               placeholder="With label input"
               value={testLabelInput.value}
               onChange={testLabelInput.onChange}
+            />
+            <Input
+              placeholder="Disabled input"
+              value={disabledInput.value}
+              onChange={disabledInput.onChange}
+              disabled
             />
           </InputWrap>
         </Box>

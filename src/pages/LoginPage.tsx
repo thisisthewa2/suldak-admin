@@ -47,9 +47,6 @@ const LoginPage = () => {
       adminPw: userPW.value,
     };
 
-    // const response = AuthApi.login(reqData);
-    // console.log(response);
-
     mutation.mutate(reqData);
   };
 
@@ -98,6 +95,7 @@ const Container = styled.div`
     gap: 1rem;
     width: 400px;
     background-color: ${(props) => props.theme.componentBgColor};
+    box-shadow: ${(props) => props.theme.boxShadow};
     padding: 1rem;
     border-radius: 0.25rem;
   }

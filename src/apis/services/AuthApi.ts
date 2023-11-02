@@ -26,8 +26,8 @@ class AuthApi {
   login = async ({ adminId, adminPw }: ILogin) => {
     try {
       const { data } = await axiosInstance.post(`/api/admin/auth/login`, {
-        adminId,
-        adminPw
+        adminId: adminId,
+        adminPw: adminPw
       })
 
       // 로그인 성공시 토큰 저장

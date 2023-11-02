@@ -6,9 +6,10 @@ interface IProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEnterKeyDown?: () => void;
+  disabled?: boolean;
 }
 
-const Input = ({ label, onEnterKeyDown, ...props }: IProps) => {
+const Input = ({ label, onEnterKeyDown, disabled, ...props }: IProps) => {
   // 엔터키 입력시 실행할 함수
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && onEnterKeyDown) {
@@ -19,7 +20,7 @@ const Input = ({ label, onEnterKeyDown, ...props }: IProps) => {
   return (
     <InputWrapper>
       {label && <Label>{label}</Label>}
-      <StyledInput {...props} onKeyDown={handleKeyDown} />
+      <StyledInput {...props} onKeyDown={handleKeyDown} disabled={disabled} />
     </InputWrapper>
   );
 };

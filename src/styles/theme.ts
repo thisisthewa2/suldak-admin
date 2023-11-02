@@ -44,9 +44,9 @@ export const darkTheme = {
 /** 라이트 모드 테마 */
 export const lightTheme = {
   ...Color,
-  bgColor: "#F2EDF3",
-  componentBgColor: "#F4F4F4",
-  boxShadow: '10px 10px 15px 2px #bac1ce',
+  bgColor: "#f3f3f4",
+  componentBgColor: "#FFFFFF",
+  boxShadow: '0 1px 1px rgba(0,0,0,.08)',
   hoverColor: "#C0C0C0",
 
   text: {

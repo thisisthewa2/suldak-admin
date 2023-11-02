@@ -10,7 +10,6 @@ export const BASE_URL = "http://122.45.203.134:8083"
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
-  withCredentials: true,
 })
 
 let isRefreshing = false;
@@ -47,6 +46,8 @@ axiosInstance.interceptors.request.use((config) => {
     config.headers['Content-Type'] = 'application/json'
   }
 
+  config.withCredentials = true;
+
   return config;
 })
 
@@ -57,5 +58,5 @@ axiosInstance.interceptors.response.use((response) => {
   return response
 }, async (error) => {
   const { config, response: { status } } = error;
-
+  
 })
