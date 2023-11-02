@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import { useAtom } from 'jotai';
 import { FaUserCircle } from 'react-icons/fa';
+
+// atoms
+import { userAtom } from '@atoms/userAtoms';
 
 /** 헤더 컴포넌트 */
 const Header = () => {
+  const [user, setuser] = useAtom(userAtom);
+
   return (
     <Container>
       <div></div>
@@ -10,7 +16,7 @@ const Header = () => {
         <div className="user-icon">
           <FaUserCircle />
         </div>
-        <span className="user-name">admin</span>
+        <span className="user-name">{user?.adminNm}</span>
       </UserBox>
     </Container>
   );

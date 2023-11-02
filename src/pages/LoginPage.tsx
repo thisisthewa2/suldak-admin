@@ -34,7 +34,8 @@ const LoginPage = () => {
       navigate('/');
       showSuccessToastMessage(`${response[0].data.adminNm}님 안녕하세요.`);
     },
-    onError: () => {
+    onError: (error) => {
+      console.log(error);
       showErrorToastMessage('로그인을 실패했습니다.');
     },
   });
@@ -68,6 +69,7 @@ const LoginPage = () => {
             value={userPW.value}
             onChange={userPW.onChange}
             onEnterKeyDown={handleLogin}
+            type="password"
           />
         </div>
         <Button onClick={handleLogin} width="100%">

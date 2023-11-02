@@ -23,13 +23,8 @@ export const menuList = [
   {
     id: 'tag',
     title: '태그',
-    path: '/',
+    path: '/tag',
     icon: <AiFillTag />,
-    submenu: [
-      { id: 'add-tag', title: '태그 추가', path: '/tag/add' },
-      { id: 'delete-tag', title: '태그 삭제', path: '/tag/delete' },
-      { id: 'research-tag', title: '태그 조회', path: '/tag/research' },
-    ],
   },
   {
     id: 'test',

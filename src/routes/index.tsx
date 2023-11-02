@@ -15,6 +15,8 @@ const LoginPage = lazy(() => import('@pages/LoginPage'));
 const DashboardPage = lazy(() => import('@pages/DashboardPage'));
 const TestPage = lazy(() => import('@pages/TestPage'));
 
+const TagPage = lazy(() => import('@pages/Tag/TagPage'));
+
 // 에러페이지
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 
@@ -31,6 +33,9 @@ const RouterComponent = () => {
           <Route path="/" element={<PrivateLayout />}>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/test" element={<TestPage />} />
+
+            {/* 태그 페이지 */}
+            <Route path="/tag" element={<TagPage />} />
           </Route>
 
           {/* 404 페이지 */}
