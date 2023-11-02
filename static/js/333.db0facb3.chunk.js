@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksuldak_admin=self.webpackChunksuldak_admin||[]).push([[333],{3333:function(n,u,a){a.r(u);var e=a(184);u.default=function(){return(0,e.jsx)(e.Fragment,{})}}}]);
-//# sourceMappingURL=333.db0facb3.chunk.js.map
