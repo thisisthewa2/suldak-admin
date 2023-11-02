@@ -1,5 +1,8 @@
 import { AiFillHome, AiFillTag } from 'react-icons/ai';
-import { MdLiquor } from 'react-icons/md';
+import { MdLiquor, MdQuestionAnswer } from 'react-icons/md';
+import { FaUserCog } from 'react-icons/fa';
+import { HiDocumentText } from 'react-icons/hi';
+import { PiTestTubeFill } from 'react-icons/pi';
 
 export const menuList = [
   {
@@ -27,9 +30,31 @@ export const menuList = [
     icon: <AiFillTag />,
   },
   {
+    id: 'user',
+    title: '유저',
+    path: '/user',
+    icon: <FaUserCog />,
+    submenu: [
+      { id: 'user-common', title: '유저 관리', path: '/user/common' },
+      { id: 'user-admin', title: '어드민 관리', path: '/user/admin' },
+    ],
+  },
+  {
+    id: 'question',
+    title: '질문/답변',
+    path: '/question',
+    icon: <MdQuestionAnswer />,
+  },
+  {
+    id: 'consent',
+    title: '동의 항목',
+    path: '/consent',
+    icon: <HiDocumentText />,
+  },
+  {
     id: 'test',
-    title: '테스트',
+    title: '실험실',
     path: '/test',
-    icon: <AiFillHome />,
+    icon: <PiTestTubeFill />,
   },
 ];

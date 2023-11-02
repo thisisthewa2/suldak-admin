@@ -59,6 +59,7 @@ axiosInstance.interceptors.response.use((response) => {
 }, async (error) => {
   const { config, response: { status } } = error;
 
+  console.log(error)
   // 토큰 만료
   if (status === 9999 || status === 406) {
     localStorage.removeItem('token');

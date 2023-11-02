@@ -14,7 +14,8 @@
       "@styles/*": ["./styles/*"],
       "@layouts/*": ["./layouts/*"],
       "@types/*": ["./types/*"],
-      "@workers/*": ["./workers/*"]
+      "@workers/*": ["./workers/*"],
+      "@libs/*": ["./libs/*"]
     }
   }
 }
