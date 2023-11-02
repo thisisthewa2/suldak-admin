@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/suldak-admin/static/css/main.98ec47ca.css",
-    "main.js": "/suldak-admin/static/js/main.8073a9b7.js",
-    "static/js/799.5b9b8539.chunk.js": "/suldak-admin/static/js/799.5b9b8539.chunk.js",
+    "main.js": "/suldak-admin/static/js/main.03d5695b.js",
+    "static/js/799.bfb62750.chunk.js": "/suldak-admin/static/js/799.bfb62750.chunk.js",
     "static/js/616.1ad0b3dd.chunk.js": "/suldak-admin/static/js/616.1ad0b3dd.chunk.js",
     "static/css/631.b0af5bea.chunk.css": "/suldak-admin/static/css/631.b0af5bea.chunk.css",
-    "static/js/631.1fbfe31a.chunk.js": "/suldak-admin/static/js/631.1fbfe31a.chunk.js",
+    "static/js/631.e35d40fd.chunk.js": "/suldak-admin/static/js/631.e35d40fd.chunk.js",
+    "static/js/333.db0facb3.chunk.js": "/suldak-admin/static/js/333.db0facb3.chunk.js",
     "static/js/720.9e39be8c.chunk.js": "/suldak-admin/static/js/720.9e39be8c.chunk.js",
     "static/js/787.4bb1a436.chunk.js": "/suldak-admin/static/js/787.4bb1a436.chunk.js",
     "static/js/384.e3f55b3c.chunk.js": "/suldak-admin/static/js/384.e3f55b3c.chunk.js",
     "static/js/885.737e4107.chunk.js": "/suldak-admin/static/js/885.737e4107.chunk.js",
     "index.html": "/suldak-admin/index.html",
     "main.98ec47ca.css.map": "/suldak-admin/static/css/main.98ec47ca.css.map",
-    "main.8073a9b7.js.map": "/suldak-admin/static/js/main.8073a9b7.js.map",
-    "799.5b9b8539.chunk.js.map": "/suldak-admin/static/js/799.5b9b8539.chunk.js.map",
+    "main.03d5695b.js.map": "/suldak-admin/static/js/main.03d5695b.js.map",
+    "799.bfb62750.chunk.js.map": "/suldak-admin/static/js/799.bfb62750.chunk.js.map",
     "616.1ad0b3dd.chunk.js.map": "/suldak-admin/static/js/616.1ad0b3dd.chunk.js.map",
     "631.b0af5bea.chunk.css.map": "/suldak-admin/static/css/631.b0af5bea.chunk.css.map",
-    "631.1fbfe31a.chunk.js.map": "/suldak-admin/static/js/631.1fbfe31a.chunk.js.map",
+    "631.e35d40fd.chunk.js.map": "/suldak-admin/static/js/631.e35d40fd.chunk.js.map",
+    "333.db0facb3.chunk.js.map": "/suldak-admin/static/js/333.db0facb3.chunk.js.map",
     "720.9e39be8c.chunk.js.map": "/suldak-admin/static/js/720.9e39be8c.chunk.js.map",
     "787.4bb1a436.chunk.js.map": "/suldak-admin/static/js/787.4bb1a436.chunk.js.map",
     "384.e3f55b3c.chunk.js.map": "/suldak-admin/static/js/384.e3f55b3c.chunk.js.map",
@@ -24,6 +26,6 @@
   },
   "entrypoints": [
     "static/css/main.98ec47ca.css",
-    "static/js/main.8073a9b7.js"
+    "static/js/main.03d5695b.js"
   ]
 }
