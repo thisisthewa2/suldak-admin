@@ -7,11 +7,11 @@ import { userAtom } from '@atoms/userAtoms';
 
 /** 헤더 컴포넌트 */
 const Header = () => {
-  const [user, setuser] = useAtom(userAtom);
+  const [user] = useAtom(userAtom);
 
   return (
     <Container>
-      <div></div>
+      <LeftArea></LeftArea>
       <UserBox>
         <div className="user-icon">
           <FaUserCircle />
@@ -31,7 +31,13 @@ const Container = styled.header`
   height: 70px;
   display: flex;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 2rem 0 0;
+`;
+
+const LeftArea = styled.div`
+  width: 250px;
+  height: 100%;
+  background-color: ${(props) => props.theme.nav.bgColor};
 `;
 
 const UserBox = styled.div`
@@ -47,7 +53,7 @@ const UserBox = styled.div`
   }
 
   .user-name {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: ${(props) => props.theme.text.primary};
   }
 `;

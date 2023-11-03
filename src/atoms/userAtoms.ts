@@ -21,3 +21,4 @@ const defaultUser: IUser = {
 
 // 유저 데이터
 export const userAtom = atomWithStorage<IUser | null>('user', defaultUser)
+

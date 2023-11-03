@@ -22,3 +22,33 @@ export const getTagType = (type: string) => {
       return 'drinking-capacity';
   }
 }
+
+export const TagTypes = [
+  {
+    value: 'drinking-capacity', label: '주량',
+  },
+  {
+    value: 'liquor-abv', label: '도수'
+  },
+  {
+    value: 'liquor-name', label: '1차분류'
+  },
+  {
+    value: 'liquor-detail', label: '2차분류'
+  },
+  {
+    value: 'liquor-material', label: '재료'
+  },
+  {
+    value: 'liquor-sell', label: '판매처'
+  },
+  {
+    value: 'liquor-snack', label: '추천안주'
+  },
+  {
+    value: 'state-type', label: '상태'
+  },
+  {
+    value: 'taste-type', label: '맛'
+  }
+]

@@ -6,6 +6,7 @@ import { useAtom } from 'jotai';
 // components
 import Input from '@components/core/Input';
 import Button from '@components/core/Button';
+import Maka from '@components/core/Maka';
 
 // atoms
 import { userAtom } from '@atoms/userAtoms';
@@ -30,9 +31,9 @@ const LoginPage = () => {
   const mutation = useMutation(AuthApi.login, {
     // 로그인 성공시 수행될 코드
     onSuccess: (response) => {
-      setUser(response[0].data);
+      setUser(response.data);
       navigate('/');
-      showSuccessToastMessage(`${response[0].data.adminNm}님 안녕하세요.`);
+      showSuccessToastMessage(`${response.data.adminNm}님 안녕하세요.`);
     },
     onError: (error) => {
       console.log(error);
@@ -56,27 +57,37 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
-      <div className="content-wrap">
-        <div className="title">
-          <h1>로그인</h1>
+    <>
+      <MakaWrapper>
+        <Maka width={300} height={300} />
+      </MakaWrapper>
+      <Container>
+        <div className="content-wrap">
+          <div className="title">
+            <h1>관리자 로그인</h1>
+          </div>
+          <div className="input-wrap">
+            <Input
+              label="아이디"
+              placeholder="ID"
+              value={userID.value}
+              onChange={userID.onChange}
+            />
+            <Input
+              label="비밀번호"
+              placeholder="Password"
+              value={userPW.value}
+              onChange={userPW.onChange}
+              onEnterKeyDown={handleLogin}
+              type="password"
+            />
+          </div>
+          <Button onClick={handleLogin} width="100%">
+            로그인
+          </Button>
         </div>
-        <div className="input-wrap">
-          <Input label="아이디" placeholder="ID" value={userID.value} onChange={userID.onChange} />
-          <Input
-            label="비밀번호"
-            placeholder="Password"
-            value={userPW.value}
-            onChange={userPW.onChange}
-            onEnterKeyDown={handleLogin}
-            type="password"
-          />
-        </div>
-        <Button onClick={handleLogin} width="100%">
-          로그인
-        </Button>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 
@@ -104,6 +115,7 @@ const Container = styled.div`
     box-shadow: ${(props) => props.theme.boxShadow};
     padding: 1rem;
     border-radius: 0.25rem;
+    z-index: 999;
   }
 
   .input-wrap {
@@ -112,4 +124,12 @@ const Container = styled.div`
     gap: 1rem;
     margin-bottom: 1rem;
   }
+`;
+
+const MakaWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -120%);
+  z-index: 2;
 `;

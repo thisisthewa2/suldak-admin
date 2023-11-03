@@ -7,24 +7,35 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import GlobalStyle from '@styles/GlobalStyle';
 import ThemeProvider from '@utils/ThemeProvider';
 
-// components
-import ErrorBoundary from '@utils/ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 // react-query
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+      retry: 0,
+    },
+    mutations: {
+      useErrorBoundary: false,
+      retry: 0,
+    },
+  },
+});
 
 root.render(
   <React.Fragment>
+    {/* <ErrorBoundary fallback={<div>test</div>}> */}
     <QueryClientProvider client={queryClient}>
-      <ErrorBoundary>
-        <ThemeProvider>
-          <GlobalStyle />
-          <App />
-        </ThemeProvider>
-      </ErrorBoundary>
+      <ThemeProvider>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
     </QueryClientProvider>
+    {/* </ErrorBoundary> */}
   </React.Fragment>
 );
 

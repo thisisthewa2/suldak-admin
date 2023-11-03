@@ -83,7 +83,7 @@ export default NavigationBar;
 const NavigationWrapper = styled.div<{ $isOpen: boolean }>`
   width: ${(props) => (props.$isOpen ? '250px' : '80px')};
   height: 100%;
-  background-color: ${(props) => props.theme.componentBgColor};
+  background-color: ${(props) => props.theme.nav.bgColor};
   box-shadow: ${(props) => props.theme.boxShadow};
   transition: width 0.2s ease-in;
   font-size: 1.1rem;
@@ -97,12 +97,12 @@ const MenuWrap = styled.div`
   justify-content: space-between;
   padding: 0 1.2rem;
   gap: 1rem;
-  color: ${(props) => props.theme.text.primary};
+  color: ${(props) => props.theme.nav.textColor};
   transition: all 0.2s;
 
   &:hover {
     cursor: pointer;
-    background-color: ${(props) => props.theme.hoverColor};
+    background-color: ${(props) => props.theme.nav.hoverColor};
   }
 
   .menu-flex-box {
@@ -118,7 +118,7 @@ const SubMenuWrap = styled.div<{ $isActive: boolean }>`
   overflow: hidden;
   transition: max-height 0.3s ease-in-out; // 부드러운 전환 효과
   width: 100%;
-  color: ${(props) => props.theme.text.primary};
+  color: ${(props) => props.theme.nav.textColor};
 
   .sub-menu {
     width: 100%;
@@ -128,7 +128,7 @@ const SubMenuWrap = styled.div<{ $isActive: boolean }>`
 
     &:hover {
       cursor: pointer;
-      background-color: ${(props) => props.theme.hoverColor};
+      background-color: ${(props) => props.theme.nav.hoverColor};
     }
   }
 `;

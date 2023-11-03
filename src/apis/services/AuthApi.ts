@@ -33,7 +33,19 @@ class AuthApi {
       // 로그인 성공시 토큰 저장
       localStorage.setItem('token', data.data.refreshToken)
 
-      return [data, true]
+      return data
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
+  // 로그아웃
+  logout = async () => {
+    try {
+      const { data } = await axiosInstance.post(`/api/admin/auth/logout`)
+
+      return data
     }
     catch (error) {
       throw error
@@ -44,7 +56,7 @@ class AuthApi {
   getAdmins = async () => {
     try {
       const { data } = await axiosInstance.get(`/api/admin/auth/admin-user`)
-      return [data, true]
+      return data
     }
     catch (error) {
       throw error
@@ -58,7 +70,7 @@ class AuthApi {
         adminId, adminNm, adminPw,
         priKey: priKey ? priKey : null
       })
-      return [data, true]
+      return data
     }
     catch (error) {
       throw error;
@@ -74,7 +86,7 @@ class AuthApi {
         }
       })
 
-      return [[response.data], true]
+      return response.data
     }
     catch (error) {
       throw error

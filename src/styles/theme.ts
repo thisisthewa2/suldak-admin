@@ -38,6 +38,12 @@ export const darkTheme = {
   // 폼 색상
   form: {
     border: 'rgba(255, 255, 255, 0.25)'
+  },
+
+  nav: {
+    bgColor: "#262b3a",
+    textColor: "#EFF2F7",
+    hoverColor: "#303744",
   }
 }
 
@@ -65,6 +71,12 @@ export const lightTheme = {
 
   form: {
     border: '#dee2e6'
+  },
+
+  nav: {
+    bgColor: "#FFFFFF",
+    textColor: "#343A40",
+    hoverColor: "#C0C0C0"
   }
 }
 

@@ -7,6 +7,7 @@ import NavigationBar from '@layouts/NavigationBar/NavigationBar';
 import Header from '@layouts/Header/Header';
 import Loader from '@components/core/Loader';
 import ActionButton from '@components/ActionButton';
+import MakaLoader from '@components/core/MakaLoader';
 
 // pages - 로그인 하지 않아도 접근 가능
 const LoginPage = lazy(() => import('@pages/LoginPage'));
@@ -28,7 +29,9 @@ const RouterComponent = () => {
         <Routes>
           {/* 비로그인 상태에서 접근 가능한 페이지 */}
           <Route path="/login" element={<LoginPage />} />
+        </Routes>
 
+        <Routes>
           {/* 로그인 상태에서 접근 가능한 페이지 */}
           <Route path="/" element={<PrivateLayout />}>
             <Route path="/" element={<DashboardPage />} />
@@ -37,7 +40,6 @@ const RouterComponent = () => {
             {/* 태그 페이지 */}
             <Route path="/tag" element={<TagPage />} />
           </Route>
-
           {/* 404 페이지 */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
@@ -69,7 +71,7 @@ const PrivateLayout = () => {
             <div className="row-flex">
               <NavigationBar />
               <ContentsArea>
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={<MakaLoader />}>
                   <Outlet />
                 </Suspense>
               </ContentsArea>

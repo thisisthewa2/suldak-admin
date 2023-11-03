@@ -23,45 +23,29 @@ class TagApi {
 
   // 추가
   add = async ({ tagType, id, name }: IAdd) => {
-    try {
-      const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, {
-        id: id ? id : null,
-        name
-      })
+    const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, {
+      id: id ? id : null,
+      name
+    })
 
-      return [data, true]
-    }
-    catch (error) {
-      throw error
-    }
+    return [data, true]
   }
 
   // 삭제
   delete = async ({ tagType, priKey }: IDelete) => {
-    try {
-      const response = await axiosInstance.delete(`/api/admin/tag/del/${tagType}`, {
-        data: {
-          priKey
-        }
-      })
+    const response = await axiosInstance.delete(`/api/admin/tag/del/${tagType}`, {
+      data: {
+        priKey
+      }
+    })
 
-      return [response.data, true]
-    }
-    catch (error) {
-      throw error
-    }
+    return [response.data, true]
   }
 
   // 조회
   get = async ({ tagType }: IGet) => {
-    try {
-      const { data } = await axiosInstance.get(`/api/tag/view/${tagType}`)
-      return [data, true]
-    }
-
-    catch (error) {
-      throw error
-    }
+    const { data } = await axiosInstance.get(`/api/tag/view/${tagType}`)
+    return data
   }
 }
 

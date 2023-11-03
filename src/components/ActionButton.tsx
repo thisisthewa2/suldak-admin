@@ -9,6 +9,9 @@ import ThemeToggle from '@components/ThemeToggle';
 // atoms
 import { userAtom } from '@atoms/userAtoms';
 
+// apis
+import AuthApi from '@apis/services/AuthApi';
+
 // icons
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -38,8 +41,7 @@ const ActionButton = () => {
   const handleLogOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // setUser(null);
-    navigate('/login');
+    AuthApi.logout();
   };
 
   return (

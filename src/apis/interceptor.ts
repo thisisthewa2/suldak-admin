@@ -5,23 +5,12 @@ interface HeaderType extends AxiosRequestHeaders {
   Authorization: string | null;
 }
 
-export const BASE_URL = "https://122.45.203.134:8083"
+export const BASE_URL = "http://122.45.203.134:8083"
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
 })
-
-// let isRefreshing = false;
-// let failedQueue: ((token: string | AxiosError) => void)[] = [];
-
-// 대기 중인 요청 처리 함수
-// const processQueue = (token: string | AxiosError) => {
-//   failedQueue.forEach(prom => {
-//     prom(token)
-//   })
-//   failedQueue = []
-// }
 
 // api 요청 인터셉터
 axiosInstance.interceptors.request.use((config) => {
@@ -55,16 +44,14 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use((response) => {
   console.log(response)
 
+  if (response.data.errorCode === 9999 || response.data.errorCode === 406) {
+    localStorage.removeItem('token');
+    window.location.assign('/suldak-admin/login')
+  }
+
   return response
 }, async (error) => {
   const { config, response: { status } } = error;
-
-  console.log(error)
-  // 토큰 만료
-  if (status === 9999 || status === 406) {
-    localStorage.removeItem('token');
-    window.location.assign('/login')
-  }
 
   return Promise.reject(error)
 })
