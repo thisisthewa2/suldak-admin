@@ -28,7 +28,9 @@ const Input = ({ label, onEnterKeyDown, disabled = false, type = 'text', ...prop
 
 export default Input;
 
-const InputWrapper = styled.div``;
+const InputWrapper = styled.div`
+  width: 100%;
+`;
 
 const Label = styled.label`
   display: block;

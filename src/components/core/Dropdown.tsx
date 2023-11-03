@@ -59,7 +59,8 @@ const DropdownHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
   background-color: ${(props) => props.theme.componentBgColor};
   border: 1px solid ${(props) => props.theme.form.border};
   border-radius: 0.25rem;
@@ -90,7 +91,8 @@ const DropdownList = styled.ul`
 `;
 
 const DropdownListItem = styled.li`
-  padding: 10px;
+  padding: 0.5rem 0.75rem;
+  height: 2.5rem;
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};

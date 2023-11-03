@@ -9,7 +9,6 @@ interface IProps {
 const ErrorFallback = ({ error, resetErrorBoundary }: IProps) => {
   return (
     <FallbackWrapper>
-      <InfoText>{error.message}</InfoText>
       <InfoText>잠시 후 다시 시도해주세요</InfoText>
       <SubText>요청사항을 처리하는데 실패했습니다</SubText>
       <RefreshButton onClick={resetErrorBoundary}>새로고침</RefreshButton>

@@ -28,7 +28,7 @@ class TagApi {
       name
     })
 
-    return [data, true]
+    return data
   }
 
   // 삭제
@@ -39,7 +39,7 @@ class TagApi {
       }
     })
 
-    return [response.data, true]
+    return response.data
   }
 
   // 조회

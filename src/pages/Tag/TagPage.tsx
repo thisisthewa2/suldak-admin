@@ -1,7 +1,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary, QueryErrorResetBoundary } from 'react-query';
+import { useQueryErrorResetBoundary } from 'react-query';
 
 // components
 import ErrorFallback from '@components/core/ErrorFallback';
@@ -27,6 +27,7 @@ const TagPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { isTablet, isMobile } = useResponsive();
   const [tagType, setTagType] = useState<string>('drinking-capacity');
+  const searchInput = useInput('');
 
   // 태그 타입 선택 함수
   const handleSelect = (selected: { value: string; label: string }) => {
@@ -40,18 +41,23 @@ const TagPage = () => {
   return (
     <>
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="9">
+        <Box gridColumn="6">
           <Title>태그 목록</Title>
-          <Dropdown options={TagTypes} onSelect={handleSelect} placeholder="주량" />
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
-                <Suspense fallback={<Loader />}>
-                  <TagList tagType={tagType} />
-                </Suspense>
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
+
+          <FormWrap>
+            <Dropdown options={TagTypes} onSelect={handleSelect} placeholder="주량" />
+            <Input
+              placeholder="검색어를 입력해주세요..."
+              value={searchInput.value}
+              onChange={searchInput.onChange}
+            />
+          </FormWrap>
+
+          <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
+            <Suspense fallback={<Loader />}>
+              <TagList tagType={tagType} searchKeyword={searchInput.value} />
+            </Suspense>
+          </ErrorBoundary>
         </Box>
 
         <Box gridColumn="3">
@@ -63,3 +69,10 @@ const TagPage = () => {
 };
 
 export default TagPage;
+
+const FormWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+`;

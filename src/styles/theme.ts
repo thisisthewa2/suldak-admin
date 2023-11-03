@@ -53,7 +53,7 @@ export const lightTheme = {
   bgColor: "#f3f3f4",
   componentBgColor: "#FFFFFF",
   boxShadow: '0 1px 1px rgba(0,0,0,.08)',
-  hoverColor: "#C0C0C0",
+  hoverColor: "#dbdbdb",
 
   text: {
     primary: "#343A40",
@@ -76,7 +76,7 @@ export const lightTheme = {
   nav: {
     bgColor: "#FFFFFF",
     textColor: "#343A40",
-    hoverColor: "#C0C0C0"
+    hoverColor: "#dbdbdb"
   }
 }
 
