@@ -48,11 +48,11 @@ const ActionButton = () => {
     <ActionButtonContainer>
       {isOpen ? (
         <>
-          <ActionMenuItem $delay={0.3} $animation={animation}>
-            1
+          <ActionMenuItem $delay={0.3} $animation={animation} onClick={handleLogOut}>
+            <FaSignOutAlt />
           </ActionMenuItem>
-          <ActionMenuItem $delay={0.2} $animation={animation} onClick={handleLogOut}>
-            <FaSignOutAlt>2</FaSignOutAlt>
+          <ActionMenuItem $delay={0.2} $animation={animation}>
+            1
           </ActionMenuItem>
           <ActionMenuItem $delay={0.1} $animation={animation}>
             <ThemeToggle />

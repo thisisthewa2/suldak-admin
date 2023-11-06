@@ -37,7 +37,9 @@ export const darkTheme = {
 
   // 폼 색상
   form: {
-    border: 'rgba(255, 255, 255, 0.25)'
+    border: 'rgba(255, 255, 255, 0.25)',
+    tableHeaderBg: '#009879',
+    tableRow: '#919BAE'
   },
 
   nav: {
@@ -70,7 +72,9 @@ export const lightTheme = {
   },
 
   form: {
-    border: '#dee2e6'
+    border: '#dee2e6',
+    tableHeaderBg: '#00a685',
+    tableRow: "#505D69",
   },
 
   nav: {

@@ -1,52 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  
-} from '@tanstack/react-table';
+
+export interface IColumn {
+  Header: string;
+  accessor: string | ((row: any) => JSX.Element);
+  width: string;
+  align?: 'left' | 'right' | 'center';
+}
 
 interface IProps {
-  data: any; // 테이블에 표기할 데이터
-  columns: any;
+  data: any[]; // 테이블 데이터
+  columns: IColumn[];
 }
 
 /** 테이블 컴포넌트 */
 const Table = ({ data, columns }: IProps) => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   return (
     <StyledTable>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id} className="table-header-row">
-            {headerGroup.headers.map((header) => (
-              <th key={header.id} style={{ width: header.getSize() }} className="table-header-cell">
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(header.column.columnDef.header, header.getContext())}
-              </th>
-            ))}
-          </tr>
+      <Thead>
+        <tr>
+          {columns.map((column, index) => (
+            <Th key={index} $width={column.width}>
+              {column.Header}
+            </Th>
+          ))}
+        </tr>
+      </Thead>
+      <Tbody>
+        {data.map((row, rowIndex) => (
+          <Tr key={rowIndex}>
+            {columns.map((column, columnIndex) => {
+              const cellData =
+                typeof column.accessor === 'function'
+                  ? column.accessor(row)
+                  : row[column.accessor as string];
+              return (
+                <Td key={columnIndex} $align={column.align}>
+                  {cellData}
+                </Td>
+              );
+            })}
+          </Tr>
         ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="table-body-row">
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="table-body-cell">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      </Tbody>
     </StyledTable>
   );
 };
@@ -54,26 +50,38 @@ const Table = ({ data, columns }: IProps) => {
 export default Table;
 
 const StyledTable = styled.table`
-  .table-header-row {
-    border-bottom: 1px solid ${(props) => props.theme.form.border};
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  table-layout: fixed;
+`;
 
-    .table-header-cell {
-      color: ${(props) => props.theme.text.secondary};
-      font-weight: 500;
-      padding: 0.75rem;
-    }
+const Thead = styled.thead`
+  background-color: ${(props) => props.theme.form.tableHeaderBg};
+  color: #eff2f7;
+  font-weight: 500;
+  text-align: left;
+`;
+
+const Th = styled.th<{ $width: string }>`
+  padding: 12px 15px;
+  width: ${({ $width }) => $width};
+`;
+
+const Tbody = styled.tbody``;
+
+const Tr = styled.tr`
+  color: ${(props) => props.theme.form.tableRow};
+  border-bottom: 1px solid ${(props) => props.theme.form.border};
+
+  &:hover {
+    /* cursor: pointer; */
+    background-color: ${(props) => props.theme.hoverColor};
   }
+`;
 
-  .table-body-row {
-    border-bottom: 1px solid ${(props) => props.theme.form.border};
-    &:hover {
-      background-color: ${(props) => props.theme.hoverColor};
-      cursor: pointer;
-    }
-
-    .table-body-cell {
-      color: ${(props) => props.theme.text.secondary};
-      padding: 0.75rem;
-    }
-  }
+const Td = styled.td<{ $align?: 'left' | 'right' | 'center' }>`
+  text-align: ${({ $align }) => $align || 'left'};
+  padding: 12px 15px;
 `;

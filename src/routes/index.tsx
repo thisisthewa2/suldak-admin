@@ -27,21 +27,23 @@ const RouterComponent = () => {
     <Router basename={process.env.PUBLIC_URL}>
       <Suspense fallback={<Loader />}>
         <Routes>
-          {/* 비로그인 상태에서 접근 가능한 페이지 */}
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-
-        <Routes>
+          {/* <Routes> */}
           {/* 로그인 상태에서 접근 가능한 페이지 */}
           <Route path="/" element={<PrivateLayout />}>
             <Route path="/" element={<DashboardPage />} />
-            <Route path="/test" element={<TestPage />} />
 
             {/* 태그 페이지 */}
             <Route path="/tag" element={<TagPage />} />
+
+            <Route path="/test" element={<TestPage />} />
           </Route>
           {/* 404 페이지 */}
           <Route path="*" element={<NotFoundPage />} />
+
+          {/* 비로그인 상태에서 접근 가능한 페이지 */}
+          <Route path="/login">
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
         </Routes>
       </Suspense>
     </Router>
