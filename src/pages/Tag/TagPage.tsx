@@ -17,7 +17,6 @@ import Dropdown from '@components/core/Dropdown';
 // hooks
 import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
-import useToastify from '@hooks/useToastify';
 
 // utils
 import { TagTypes } from '@libs/getTagType';
@@ -30,8 +29,6 @@ const TagPage = () => {
 
   const [tagType, setTagType] = useState<string>('drinking-capacity');
   const [selectedTag, setSelectedTag] = useState<any>();
-
-  const { showErrorToastMessage } = useToastify();
 
   // 태그 타입 선택 함수
   const handleSelectType = (selected: { value: string; label: string }) => {
@@ -55,6 +52,7 @@ const TagPage = () => {
   return (
     <>
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
+        {/* 태그 목록 테이블 */}
         <Box gridColumn="9">
           <Title>태그 목록</Title>
 
@@ -78,6 +76,7 @@ const TagPage = () => {
           </ErrorBoundary>
         </Box>
 
+        {/* 태그 수정 폼 */}
         <Box gridColumn="3">
           <TagEdit tagType={tagType} selectedTag={selectedTag} />
         </Box>

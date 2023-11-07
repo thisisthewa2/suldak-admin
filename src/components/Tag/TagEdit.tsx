@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -8,7 +8,6 @@ import Button from '@components/core/Button';
 // hooks
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
-import useToastify from '@hooks/useToastify';
 import { useAddEditTagMutation } from '@hooks/apis/Tag/useAddEditTagMutation';
 
 interface IProps {
@@ -69,5 +68,6 @@ const Wrapper = styled.div`
 const InputWrapper = styled.div``;
 
 const ButtonWrapper = styled.div`
+  text-align: right;
   width: 100%;
 `;
