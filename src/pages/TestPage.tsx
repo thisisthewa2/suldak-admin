@@ -66,23 +66,9 @@ const TestPage = () => {
         <Box gridColumn="3">
           <Title>인풋 컴포넌트</Title>
           <InputWrap>
-            <Input
-              placeholder="None label input"
-              value={testInput.value}
-              onChange={testInput.onChange}
-            />
-            <Input
-              label="Name"
-              placeholder="With label input"
-              value={testLabelInput.value}
-              onChange={testLabelInput.onChange}
-            />
-            <Input
-              placeholder="Disabled input"
-              value={disabledInput.value}
-              onChange={disabledInput.onChange}
-              disabled
-            />
+            <Input placeholder="None label input" onChange={testInput.onChange} />
+            <Input label="Name" placeholder="With label input" onChange={testLabelInput.onChange} />
+            <Input placeholder="Disabled input" onChange={disabledInput.onChange} disabled />
           </InputWrap>
         </Box>
       </RowContainer>

@@ -15,5 +15,6 @@ export default Title;
 const StyledTitle = styled.div`
   color: ${(props) => props.theme.text.primary};
   font-weight: 500;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
 `;

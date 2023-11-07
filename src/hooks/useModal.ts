@@ -1,23 +1,30 @@
+import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { modalStateAtom } from "@atoms/modalAtoms";
 
 interface IOpenProps {
-  content: JSX.Element;
+  title?: string;
+  content: React.ReactNode;
+  confirmText?: string;
   onConfirm?: () => void;
 }
 
 /** 모달 커스텀훅 */
 const useModal = () => {
-  const [, setModalState] = useAtom(modalStateAtom)
+  const [modalState, setModalState] = useAtom(modalStateAtom)
+
+  useEffect(() => {
+    console.log(modalState)
+  }, [modalState])
 
   // 모달 열기
-  const openModal = ({ content, onConfirm }: IOpenProps) => {
-    setModalState({ isOpen: true, content, onConfirm })
+  const openModal = ({ title, content, confirmText, onConfirm }: IOpenProps) => {
+    setModalState({ title: title, isOpen: true, content, confirmText: confirmText || '확인', onConfirm })
   }
 
   // 모달 닫기
   const closeModal = () => {
-    setModalState({ isOpen: true, content: null, onConfirm: undefined })
+    setModalState({ isOpen: false, content: null, onConfirm: undefined })
   }
 
   return { openModal, closeModal }

@@ -31,20 +31,19 @@ const Modal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  return ReactDOM.createPortal(
+  return (
     <Overlay>
       <Wrapper>
-        <Header></Header>
+        <Header>{modalState.title}</Header>
         {modalState.content}
         <Footer>
-          <Button onClick={handleConfirm}>확인</Button>
+          <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
           <Button onClick={handleCancel} buttonType="reset">
             취소
           </Button>
         </Footer>
       </Wrapper>
-    </Overlay>,
-    document.body
+    </Overlay>
   );
 };
 
@@ -100,7 +99,13 @@ const Wrapper = styled.div`
   animation: ${slideIn} 0.3s ease-out forwards;
 `;
 
-const Header = styled.div``;
+const Header = styled.div`
+  width: 100%;
+  text-align: left;
+  color: ${(props) => props.theme.text.primary};
+  font-size: 1.2rem;
+  font-weight: 500;
+`;
 const Footer = styled.div`
   width: 100%;
   display: flex;

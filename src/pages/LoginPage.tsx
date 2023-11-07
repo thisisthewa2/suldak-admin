@@ -67,16 +67,10 @@ const LoginPage = () => {
             <h1>관리자 로그인</h1>
           </div>
           <div className="input-wrap">
-            <Input
-              label="아이디"
-              placeholder="ID"
-              value={userID.value}
-              onChange={userID.onChange}
-            />
+            <Input label="아이디" placeholder="ID" onChange={userID.onChange} />
             <Input
               label="비밀번호"
               placeholder="Password"
-              value={userPW.value}
               onChange={userPW.onChange}
               onEnterKeyDown={handleLogin}
               type="password"

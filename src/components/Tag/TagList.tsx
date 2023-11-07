@@ -8,6 +8,8 @@ import Button from '@components/core/Button';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
+import { useDeleteTagMutation } from '@hooks/apis/Tag/useTagMutation';
+import useModal from '@hooks/useModal';
 
 // apis
 import TagApi from '@apis/services/TagApi';
@@ -23,14 +25,33 @@ interface IProps {
 
 /** 태그 목록 컴포넌트 */
 const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
+  const { openModal } = useModal();
   const { data } = useQuery(['tagList', tagType], () => TagApi.get({ tagType }), {
     suspense: true,
     useErrorBoundary: true,
     retry: false,
     refetchOnWindowFocus: false,
   });
-
   const filteredData = useSearchFilter(data?.data || [], searchKeyword, 'name');
+
+  // 태그 삭제
+  const { mutate: deleteTag } = useDeleteTagMutation();
+
+  // 태그 삭제 확인 모달 열기
+  const handleOpenDeleteModal = (priKey: number) => {
+    openModal({
+      content: <div>태그를 삭제하시겠습니까?</div>,
+      onConfirm: () => handleDeleteTag(priKey),
+    });
+  };
+
+  // 태그 삭제 함수
+  const handleDeleteTag = (priKey: number) => {
+    deleteTag({
+      tagType: tagType,
+      priKey: priKey,
+    });
+  };
 
   // 테이블 컬럼
   const columns: IColumn[] = [
@@ -50,7 +71,7 @@ const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
           <Button onClick={() => selecteTag(row)}>수정</Button>
-          <Button onClick={() => selecteTag(row)} buttonType="cancel">
+          <Button onClick={() => handleOpenDeleteModal(row.id)} buttonType="cancel">
             삭제
           </Button>
         </ButtonWrap>

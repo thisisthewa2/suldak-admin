@@ -29,7 +29,6 @@ const queryClient = new QueryClient({
 
 root.render(
   <React.Fragment>
-    {/* <ErrorBoundary fallback={<div>test</div>}> */}
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <GlobalStyle />
@@ -37,7 +36,6 @@ root.render(
         <Modal />
       </ThemeProvider>
     </QueryClientProvider>
-    {/* </ErrorBoundary> */}
   </React.Fragment>
 );
 

@@ -67,15 +67,15 @@ export default Pagination;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 1rem;
-  gap: 0.25rem;
+  gap: 0.5rem;
 `;
 
 const PaginationButton = styled.button<{ $active?: boolean }>`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,6 +88,7 @@ const PaginationButton = styled.button<{ $active?: boolean }>`
   &:hover {
     cursor: pointer;
     color: ${(props) => props.theme.text.primary};
-    background-color: ${(props) => props.theme.hoverColor};
+    background-color: ${(props) =>
+      props.$active ? props.theme.form.tableHeaderBg : props.theme.hoverColor};
   }
 `;

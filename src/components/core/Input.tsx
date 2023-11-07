@@ -3,14 +3,23 @@ import styled from 'styled-components';
 interface IProps {
   label?: string;
   placeholder?: string;
-  value: string;
+  value?: string;
+  defaultValue?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEnterKeyDown?: () => void;
   disabled?: boolean;
   type?: string;
 }
 
-const Input = ({ label, onEnterKeyDown, disabled = false, type = 'text', ...props }: IProps) => {
+const Input = ({
+  label,
+  onEnterKeyDown,
+  value,
+  defaultValue,
+  disabled = false,
+  type = 'text',
+  ...props
+}: IProps) => {
   // 엔터키 입력시 실행할 함수
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && onEnterKeyDown) {
@@ -21,7 +30,14 @@ const Input = ({ label, onEnterKeyDown, disabled = false, type = 'text', ...prop
   return (
     <InputWrapper>
       {label && <Label>{label}</Label>}
-      <StyledInput {...props} onKeyDown={handleKeyDown} disabled={disabled} type={type} />
+      <StyledInput
+        {...props}
+        value={value}
+        defaultValue={defaultValue}
+        onKeyDown={handleKeyDown}
+        disabled={disabled}
+        type={type}
+      />
     </InputWrapper>
   );
 };

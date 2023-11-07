@@ -8,7 +8,7 @@ import Button from '@components/core/Button';
 // hooks
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
-import { useAddEditTagMutation } from '@hooks/apis/Tag/useAddEditTagMutation';
+import { useAddEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
 
 interface IProps {
   tagType: string;
@@ -21,7 +21,7 @@ const TagEdit = ({ tagType, selectedTag }: IProps) => {
   const { openModal } = useModal();
   const { mutate: addEditTag } = useAddEditTagMutation();
 
-  // 수정 확인 모달 열기
+  // 태그 수정 확인 모달 열기
   const handleOpenEditModal = () => {
     openModal({
       content: <div>태그를 수정하시겠습니까?</div>,
@@ -49,7 +49,7 @@ const TagEdit = ({ tagType, selectedTag }: IProps) => {
         <Input value={tagName.value} onChange={tagName.onChange} label="태그명" />
       </InputWrapper>
       <ButtonWrapper>
-        <Button onClick={handleOpenEditModal}>수정</Button>
+        {selectedTag && <Button onClick={handleOpenEditModal}>수정</Button>}
       </ButtonWrapper>
     </Wrapper>
   );
