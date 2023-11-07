@@ -5,12 +5,12 @@ import { useQueryErrorResetBoundary } from 'react-query';
 
 // components
 import ErrorFallback from '@components/core/ErrorFallback';
-import TagList from '@components/Tag/TagList';
 import RowContainer from '@components/RowContainer';
+import TagList from '@components/Tag/TagList';
+import TagEdit from '@components/Tag/TagEdit';
 import Box from '@components/core/Box';
 import Title from '@components/core/Title';
 import Input from '@components/core/Input';
-import Button from '@components/core/Button';
 import Loader from '@components/core/Loader';
 import Dropdown from '@components/core/Dropdown';
 
@@ -26,13 +26,27 @@ import { TagTypes } from '@libs/getTagType';
 const TagPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { isTablet, isMobile } = useResponsive();
-  const [tagType, setTagType] = useState<string>('drinking-capacity');
   const searchInput = useInput('');
 
+  const [tagType, setTagType] = useState<string>('drinking-capacity');
+  const [selectedTag, setSelectedTag] = useState<any>();
+
+  const { showErrorToastMessage } = useToastify();
+
   // 태그 타입 선택 함수
-  const handleSelect = (selected: { value: string; label: string }) => {
+  const handleSelectType = (selected: { value: string; label: string }) => {
     setTagType(selected.value);
+    setSelectedTag(null);
   };
+
+  // 태그 선택 함수
+  const handleSelectTag = (tag: any) => {
+    setSelectedTag(tag);
+  };
+
+  useEffect(() => {
+    console.log(selectedTag);
+  }, [selectedTag]);
 
   useEffect(() => {
     console.log(tagType);
@@ -41,11 +55,11 @@ const TagPage = () => {
   return (
     <>
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="6">
+        <Box gridColumn="9">
           <Title>태그 목록</Title>
 
           <FormWrap>
-            <Dropdown options={TagTypes} onSelect={handleSelect} placeholder="주량" />
+            <Dropdown options={TagTypes} onSelect={handleSelectType} placeholder="주량" />
             <Input
               placeholder="검색어를 입력해주세요..."
               value={searchInput.value}
@@ -55,13 +69,17 @@ const TagPage = () => {
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              <TagList tagType={tagType} searchKeyword={searchInput.value} />
+              <TagList
+                tagType={tagType}
+                searchKeyword={searchInput.value}
+                selecteTag={handleSelectTag}
+              />
             </Suspense>
           </ErrorBoundary>
         </Box>
 
         <Box gridColumn="3">
-          <Button>test</Button>
+          <TagEdit tagType={tagType} selectedTag={selectedTag} />
         </Box>
       </RowContainer>
     </>

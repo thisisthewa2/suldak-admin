@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import GlobalStyle from '@styles/GlobalStyle';
 import ThemeProvider from '@utils/ThemeProvider';
+import Modal from '@components/core/Modal';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -33,6 +34,7 @@ root.render(
       <ThemeProvider>
         <GlobalStyle />
         <App />
+        <Modal />
       </ThemeProvider>
     </QueryClientProvider>
     {/* </ErrorBoundary> */}

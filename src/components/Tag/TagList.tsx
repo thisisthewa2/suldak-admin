@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useQuery } from 'react-query';
 
 // components
@@ -17,11 +18,12 @@ import { IColumn } from '@components/core/Table';
 interface IProps {
   tagType: string;
   searchKeyword?: string;
+  selecteTag: (row: any) => void;
 }
 
 /** 태그 목록 컴포넌트 */
-const TagList = ({ tagType, searchKeyword = '' }: IProps) => {
-  const { data } = useQuery(['tag', tagType], () => TagApi.get({ tagType }), {
+const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
+  const { data } = useQuery(['tagList', tagType], () => TagApi.get({ tagType }), {
     suspense: true,
     useErrorBoundary: true,
     retry: false,
@@ -46,11 +48,12 @@ const TagList = ({ tagType, searchKeyword = '' }: IProps) => {
       Header: '',
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
-        <>
-          <Button onClick={() => alert(`Deleting ${row.id}`)} buttonType="cancel">
+        <ButtonWrap>
+          <Button onClick={() => selecteTag(row)}>수정</Button>
+          <Button onClick={() => selecteTag(row)} buttonType="cancel">
             삭제
           </Button>
-        </>
+        </ButtonWrap>
       ),
       width: '40%',
       align: 'right',
@@ -65,3 +68,10 @@ const TagList = ({ tagType, searchKeyword = '' }: IProps) => {
 };
 
 export default TagList;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+`;

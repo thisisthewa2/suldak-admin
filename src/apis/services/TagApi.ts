@@ -3,7 +3,7 @@ import { axiosInstance } from "@apis/interceptor";
 // 태그 추가 타입
 interface IAdd {
   tagType: string; // endpoint url
-  id?: number;
+  id?: number; // prikey
   name: string;
 }
 
@@ -21,7 +21,7 @@ interface IGet {
 /** 태그 API */
 class TagApi {
 
-  // 추가
+  // 추가 및 수정 (id값이 있으면 수정)
   add = async ({ tagType, id, name }: IAdd) => {
     const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, {
       id: id ? id : null,
