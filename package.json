@@ -1,7 +1,6 @@
 {
   "name": "suldak-admin",
   "version": "0.1.0",
-  "homepage": "https://suldak.github.io/suldak-admin/",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
