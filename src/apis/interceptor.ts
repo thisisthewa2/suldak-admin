@@ -5,7 +5,7 @@ interface HeaderType extends AxiosRequestHeaders {
   Authorization: string | null;
 }
 
-export const BASE_URL = "https://122.45.203.134:8083"
+export const BASE_URL = "http://122.45.203.134:8083"
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
