@@ -23,8 +23,8 @@ const AdminEdit = ({ selectedAdmin }: IProps) => {
   useEffect(() => {
     adminName.setData(selectedAdmin?.adminNm || '');
     adminId.setData(selectedAdmin?.adminId || '');
-    adminPw.setData(selectedAdmin?.adminPw || '');
   }, [selectedAdmin]);
+
   return (
     <Wrapper>
       <InputWrapper>
