@@ -25,7 +25,7 @@ const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 /** 라우터 컴포넌트 */
 const RouterComponent = () => {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Suspense fallback={<Loader />}>
         <Routes>
           {/* <Routes> */}
