@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import styled from 'styled-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from 'react-query';
@@ -15,12 +15,12 @@ import Title from '@components/core/Title';
 import Input from '@components/core/Input';
 import Loader from '@components/core/Loader';
 import Dropdown from '@components/core/Dropdown';
+import Breadcrumbs from '@components/core/Breadcrumbs';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
-import { useAddEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
 
 // utils
 import { TagTypes } from '@libs/getTagType';
@@ -30,15 +30,11 @@ const TagPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { isTablet, isMobile } = useResponsive();
   const searchInput = useInput('');
-  const { mutate: addTag } = useAddEditTagMutation();
   const { openModal } = useModal();
 
   // 목록 태그 상태
   const [tagType, setTagType] = useState<string>('drinking-capacity');
   const [selectedTag, setSelectedTag] = useState<any>();
-
-  // 태그 추가 상태
-  const tagAddName = useInput('');
 
   // 태그 목록 타입 선택 함수
   const handleSelectType = (selected: { value: string; label: string }) => {
@@ -54,13 +50,14 @@ const TagPage = () => {
   // 태그 추가 모달 열기
   const handleOpenAddModal = () => {
     openModal({
-      content: <TagAdd tagName={tagAddName.value} onChangeTagName={tagAddName.onChange} />,
-      onConfirm: () => console.log(tagAddName.value),
+      title: '태그 추가',
+      content: <TagAdd />,
     });
   };
 
   return (
     <>
+      <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 태그 목록 테이블 */}
         <Box gridColumn="9">

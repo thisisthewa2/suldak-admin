@@ -8,7 +8,15 @@ export const Color = {
   red: '#ff3d60',
   redHover: "#eb4f64",
   gray: '#6C757D',
-  grayHover: '#5c636a'
+  grayHover: '#5c636a',
+
+  alcohol: {
+    gray: '#dddddd', // 0% ~ 15%
+    blue: '#5cd4de', // 15.1% ~ 30%
+    green: '#92de8b', // 30.1% ~ 50%
+    yellow: '#fee569', // 50.1% ~ 80%
+    orange: '#fb9800' // 80.1% ~ 99.9%
+  }
 }
 
 /** 다크 모드 테마 */
@@ -39,7 +47,8 @@ export const darkTheme = {
   form: {
     border: 'rgba(255, 255, 255, 0.25)',
     tableHeaderBg: '#009879',
-    tableRow: '#919BAE'
+    tableRow: '#919BAE',
+    point: '#009879' // 포인트 초록색
   },
 
   nav: {

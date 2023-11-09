@@ -8,7 +8,7 @@ import Button from '@components/core/Button';
 // hooks
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
-import { useAddEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
+import { useEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
 
 interface IProps {
   tagType: string;
@@ -19,7 +19,7 @@ interface IProps {
 const TagEdit = ({ tagType, selectedTag }: IProps) => {
   const tagName = useInput('');
   const { openModal } = useModal();
-  const { mutate: addEditTag } = useAddEditTagMutation();
+  const { mutate: tagEdit } = useEditTagMutation();
 
   // 태그 수정 확인 모달 열기
   const handleOpenEditModal = () => {
@@ -31,7 +31,7 @@ const TagEdit = ({ tagType, selectedTag }: IProps) => {
 
   // 폼 추가 및 수정
   const handleAddEditTag = () => {
-    addEditTag({
+    tagEdit({
       tagType: tagType,
       name: tagName.value,
       id: selectedTag.id ? selectedTag.id : null,
@@ -65,7 +65,12 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const InputWrapper = styled.div``;
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
 
 const ButtonWrapper = styled.div`
   text-align: right;

@@ -69,7 +69,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   gap: 0.5rem;
 `;
 
@@ -79,16 +79,16 @@ const PaginationButton = styled.button<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  border: 1px solid ${(props) => props.theme.form.border};
-  background-color: ${(props) => (props.$active ? props.theme.form.tableHeaderBg : 'transparent')};
+  border-radius: 0.25rem;
+  border: 1px solid ${(props) => (props.$active ? props.theme.form.point : props.theme.form.border)};
+  background-color: transparent;
   color: ${(props) => (props.$active ? '#FFFFFF' : props.theme.text.secondary)};
   padding: 0.5rem;
+  transition: all 0.3s ease;
 
   &:hover {
     cursor: pointer;
     color: ${(props) => props.theme.text.primary};
-    background-color: ${(props) =>
-      props.$active ? props.theme.form.tableHeaderBg : props.theme.hoverColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
 `;

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 
@@ -26,13 +25,13 @@ interface IProps {
 /** 태그 목록 컴포넌트 */
 const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
   const { openModal } = useModal();
-  const { data } = useQuery(['tagList', tagType], () => TagApi.get({ tagType }), {
+  const { data: tagList } = useQuery(['tagList', tagType], () => TagApi.get({ tagType }), {
     suspense: true,
     useErrorBoundary: true,
     retry: false,
     refetchOnWindowFocus: false,
   });
-  const filteredData = useSearchFilter(data?.data || [], searchKeyword, 'name');
+  const filteredData = useSearchFilter(tagList?.data || [], searchKeyword, 'name');
 
   // 태그 삭제
   const { mutate: deleteTag } = useDeleteTagMutation();
@@ -83,7 +82,7 @@ const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
 
   return (
     <>
-      <div>{data && <Table data={filteredData} columns={columns} />}</div>
+      <div>{tagList && <Table data={filteredData} columns={columns} />}</div>
     </>
   );
 };

@@ -35,8 +35,8 @@ export const menuList = [
     path: '/user',
     icon: <FaUserCog />,
     submenu: [
-      { id: 'user-common', title: '유저 관리', path: '/user/common' },
-      { id: 'user-admin', title: '어드민 관리', path: '/user/admin' },
+      { id: 'user-common', title: '유저 관리', path: '/user' },
+      { id: 'user-admin', title: '어드민 관리', path: '/admin' },
     ],
   },
   {

@@ -11,11 +11,7 @@ interface IOpenProps {
 
 /** 모달 커스텀훅 */
 const useModal = () => {
-  const [modalState, setModalState] = useAtom(modalStateAtom)
-
-  useEffect(() => {
-    console.log(modalState)
-  }, [modalState])
+  const [, setModalState] = useAtom(modalStateAtom)
 
   // 모달 열기
   const openModal = ({ title, content, confirmText, onConfirm }: IOpenProps) => {

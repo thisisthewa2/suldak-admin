@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from '@styles/theme';
 
 // components
 import RowContainer from '@components/RowContainer';
@@ -11,6 +12,7 @@ import Input from '@components/core/Input';
 import Tag from '@components/core/Tag';
 import Status from '@components/core/Status';
 import CircleProgressBar from '@components/core/CircleProgressBar';
+import Breadcrumbs from '@components/core/Breadcrumbs';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -25,6 +27,7 @@ const TestPage = () => {
 
   return (
     <>
+      <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 로딩 애니메이션 */}
         <Box gridColumn="3">
@@ -77,14 +80,13 @@ const TestPage = () => {
         <Box gridColumn="3">
           <Title>태그 컴포넌트</Title>
           <TagWrap>
-            <Tag>0 ~ 10%</Tag>
-            <Tag>21 ~ 50%</Tag>
-            <Tag>71 ~ 100%</Tag>
+            <Tag color={Color.alcohol.gray}>0 ~ 15%</Tag>
+            <Tag color={Color.alcohol.blue}>15.1 ~ 30%</Tag>
+            <Tag color={Color.alcohol.green}>30.1 ~ 50%</Tag>
           </TagWrap>
           <TagWrap>
-            <Tag>우울할때</Tag>
-            <Tag>즐거울때</Tag>
-            <Tag>와인파</Tag>
+            <Tag color={Color.alcohol.yellow}>50.1 ~ 80%</Tag>
+            <Tag color={Color.alcohol.orange}>80.1 ~ 99.9%</Tag>
           </TagWrap>
         </Box>
         <Box gridColumn="3">
@@ -100,6 +102,10 @@ const TestPage = () => {
             <CircleProgressBar percentage={80} />
             <CircleProgressBar percentage={65} />
           </ProgressWrap>
+        </Box>
+        <Box gridColumn="3">
+          <Title>경로</Title>
+          <Breadcrumbs />
         </Box>
       </RowContainer>
     </>

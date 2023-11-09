@@ -36,12 +36,14 @@ const Modal = () => {
       <Wrapper>
         <Header>{modalState.title}</Header>
         {modalState.content}
-        <Footer>
-          <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
-          <Button onClick={handleCancel} buttonType="reset">
-            취소
-          </Button>
-        </Footer>
+        {modalState.onConfirm && (
+          <Footer>
+            <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
+            <Button onClick={handleCancel} buttonType="reset">
+              취소
+            </Button>
+          </Footer>
+        )}
       </Wrapper>
     </Overlay>
   );
@@ -97,6 +99,11 @@ const Wrapper = styled.div`
   gap: 1rem;
 
   animation: ${slideIn} 0.3s ease-out forwards;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 const Header = styled.div`

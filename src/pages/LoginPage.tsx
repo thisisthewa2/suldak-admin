@@ -36,7 +36,6 @@ const LoginPage = () => {
       showSuccessToastMessage(`${response.data.adminNm}님 안녕하세요.`);
     },
     onError: (error) => {
-      console.log(error);
       showErrorToastMessage('로그인을 실패했습니다.');
     },
   });

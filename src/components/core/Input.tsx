@@ -5,7 +5,7 @@ interface IProps {
   placeholder?: string;
   value?: string;
   defaultValue?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEnterKeyDown?: () => void;
   disabled?: boolean;
   type?: string;

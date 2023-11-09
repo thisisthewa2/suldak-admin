@@ -42,56 +42,37 @@ class AuthApi {
 
   // 로그아웃
   logout = async () => {
-    try {
-      const { data } = await axiosInstance.post(`/api/admin/auth/logout`)
+    const { data } = await axiosInstance.post(`/api/admin/auth/logout`)
 
-      return data
-    }
-    catch (error) {
-      throw error
-    }
+    return data
   }
 
   // 관리자 조회
   getAdmins = async () => {
-    try {
-      const { data } = await axiosInstance.get(`/api/admin/auth/admin-user`)
-      return data
-    }
-    catch (error) {
-      throw error
-    }
+    const { data } = await axiosInstance.get(`/api/admin/auth/admin-user`)
+
+    return data
   }
 
   // 관리자 추가
   addAdmin = async ({ adminId, adminNm, adminPw, priKey }: IAdd) => {
-    try {
-      const { data } = await axiosInstance.post(`/api/admin/auth/signup`, {
-        adminId, adminNm, adminPw,
-        priKey: priKey ? priKey : null
-      })
-      return data
-    }
-    catch (error) {
-      throw error;
-    }
+    const { data } = await axiosInstance.post(`/api/admin/auth/signup`, {
+      adminId, adminNm, adminPw,
+      priKey: priKey ? priKey : null
+    })
+
+    return data
   }
 
   // 관리자 삭제
   deleteAdmin = async ({ priKey }: IDelete) => {
-    try {
-      const response = await axiosInstance.delete(`/api/admin/auth/admin-user`, {
-        data: {
-          priKey
-        }
-      })
+    const response = await axiosInstance.delete(`/api/admin/auth/admin-user`, {
+      data: {
+        priKey
+      }
+    })
 
-      return response.data
-    }
-    catch (error) {
-      throw error
-    }
+    return response.data
   }
 }
-
 export default new AuthApi()

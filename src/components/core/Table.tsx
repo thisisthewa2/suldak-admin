@@ -18,7 +18,7 @@ interface IProps {
 }
 
 /** 테이블 컴포넌트 */
-const Table = ({ data, columns, rowsPerPage = 5 }: IProps) => {
+const Table = ({ data, columns, rowsPerPage = 1 }: IProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(Math.ceil(data.length / rowsPerPage));
 

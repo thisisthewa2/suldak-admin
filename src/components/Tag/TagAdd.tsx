@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -9,21 +9,48 @@ import Button from '@components/core/Button';
 // utils
 import { TagTypes } from '@libs/getTagType';
 
-interface IProps {
-  tagName: string;
-  onChangeTagName: (event: ChangeEvent<HTMLInputElement>) => void;
-  // selectTagType: (selected: { value: string; label: string }) => void;
-}
+// hooks
+import useInput from '@hooks/useInput';
+import useModal from '@hooks/useModal';
+import { useAddTagMutation } from '@hooks/apis/Tag/useTagMutation';
+
+interface IProps {}
 
 /** 태그 추가 컴포넌트 */
-const TagAdd = ({ tagName, onChangeTagName }: IProps) => {
+const TagAdd = ({}: IProps) => {
+  const tagName = useInput('');
+  const { closeModal } = useModal();
+  const { mutate: addTag } = useAddTagMutation();
+
+  const [tagType, setTagType] = useState<string>('drinking-capacity');
+
+  // 태그 목록 타입 선택 함수
+  const handleSelectType = (selected: { value: string; label: string }) => {
+    setTagType(selected.value);
+  };
+
+  // 태그 추가
+  const handleAddTag = () => {
+    addTag({
+      tagType: tagType,
+      name: tagName.value,
+    });
+
+    closeModal();
+  };
+
   return (
     <Wrapper>
       <FormWrapper>
-        {/* <Dropdown options={TagTypes} onSelect={selectTagType} placeholder="주량" /> */}
-        <Input label="태그명" value={tagName} onChange={onChangeTagName} />
+        <Dropdown options={TagTypes} onSelect={handleSelectType} placeholder="주량" />
+        <Input label="태그명" value={tagName.value} onChange={tagName.onChange} />
 
-        <Button onClick={() => console.log(tagName)} />
+        <ButtonWrapper>
+          <Button onClick={handleAddTag}>추가</Button>
+          <Button onClick={closeModal} buttonType="reset">
+            취소
+          </Button>
+        </ButtonWrapper>
       </FormWrapper>
     </Wrapper>
   );
@@ -38,8 +65,16 @@ const Wrapper = styled.div`
   gap: 1rem;
 `;
 
-const FormWrapper = styled.div``;
+const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 const ButtonWrapper = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 `;

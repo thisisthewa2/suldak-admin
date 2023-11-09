@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // components
 import RouterComponent from '@routes/index';
+import Modal from '@components/core/Modal';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
 
       {/* 화면 렌더링용 라우터 컴포넌트 */}
       <RouterComponent />
+
+      {/* 모달 */}
+      <Modal />
     </Container>
   );
 }

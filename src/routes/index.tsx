@@ -17,6 +17,7 @@ const DashboardPage = lazy(() => import('@pages/DashboardPage'));
 const TestPage = lazy(() => import('@pages/TestPage'));
 
 const TagPage = lazy(() => import('@pages/Tag/TagPage'));
+const AdminPage = lazy(() => import('@pages/User/AdminPage'));
 
 // 에러페이지
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
@@ -34,6 +35,9 @@ const RouterComponent = () => {
 
             {/* 태그 페이지 */}
             <Route path="/tag" element={<TagPage />} />
+
+            {/* 유저 & 어드민 페이지 */}
+            <Route path="/admin" element={<AdminPage />} />
 
             <Route path="/test" element={<TestPage />} />
           </Route>
@@ -108,5 +112,5 @@ const ContentsContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 5rem 2rem;
+  padding: 3rem 2rem;
 `;

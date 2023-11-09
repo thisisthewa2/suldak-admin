@@ -4,8 +4,24 @@ import useToastify from '@hooks/useToastify';
 
 import TagApi from '@apis/services/TagApi';
 
-/** 태그 수정 및 추가 */
-export const useAddEditTagMutation = () => {
+/** 태그 추가 */
+export const useAddTagMutation = () => {
+  const queryClient = useQueryClient();
+  const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
+
+  return useMutation(TagApi.add, {
+    onSuccess: () => {
+      showSuccessToastMessage('태그가 추가되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['tagList'] });
+    },
+    onError: () => {
+      showErrorToastMessage('태그 추가를 실패했습니다.');
+    },
+  });
+};
+
+/** 태그 수정 */
+export const useEditTagMutation = () => {
   const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
@@ -35,5 +51,5 @@ export const useDeleteTagMutation = () => {
     onError: () => {
       showErrorToastMessage('태그 삭제를 실패했습니다.');
     },
-  })
+  });
 };
