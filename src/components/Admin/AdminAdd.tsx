@@ -39,10 +39,10 @@ const AdminAdd = () => {
         <Input value={adminPw.value} onChange={adminPw.onChange} label="비밀번호" />
 
         <ButtonWrapper>
-          <Button onClick={handleAddAdmin}>추가</Button>
           <Button onClick={closeModal} buttonType="reset">
             취소
           </Button>
+          <Button onClick={handleAddAdmin}>추가</Button>
         </ButtonWrapper>
       </FormWrapper>
     </Wrapper>

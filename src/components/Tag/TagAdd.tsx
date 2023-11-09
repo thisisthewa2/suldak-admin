@@ -46,10 +46,10 @@ const TagAdd = ({}: IProps) => {
         <Input label="태그명" value={tagName.value} onChange={tagName.onChange} />
 
         <ButtonWrapper>
-          <Button onClick={handleAddTag}>추가</Button>
           <Button onClick={closeModal} buttonType="reset">
             취소
           </Button>
+          <Button onClick={handleAddTag}>추가</Button>
         </ButtonWrapper>
       </FormWrapper>
     </Wrapper>

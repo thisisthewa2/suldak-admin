@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import { ReactComponent as Suldak } from '@assets/suldak_logo.svg';
+import { ReactComponent as SuldakWhite } from '@assets/suldak_logo.svg';
+import { ReactComponent as SuldakDark } from '@assets/suldak_logo_dark.svg';
 
 interface IProps {
-  color?: string;
+  mode?: 'DARK' | 'LIGHT';
 }
 
 /** 술닥술닥 로고 컴포넌트 */
-const SuldakLogo = ({ color }: IProps) => {
-  return <Suldak fill={color}></Suldak>;
+const SuldakLogo = ({ mode = 'LIGHT' }: IProps) => {
+  return <>{mode === 'DARK' ? <SuldakDark /> : <SuldakWhite />}</>;
 };
 
 export default SuldakLogo;

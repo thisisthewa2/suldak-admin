@@ -38,10 +38,10 @@ const Modal = () => {
         {modalState.content}
         {modalState.onConfirm && (
           <Footer>
-            <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
             <Button onClick={handleCancel} buttonType="reset">
               취소
             </Button>
+            <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
           </Footer>
         )}
       </Wrapper>

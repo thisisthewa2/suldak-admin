@@ -42,7 +42,7 @@ const TestPage = () => {
         </Box>
         {/* 버튼 컴포넌트 */}
         <Box gridColumn="3">
-          <Title>버튼 컴포넌트</Title>
+          <Title>버튼</Title>
           <ButtonWrap>
             <div className="btn-flex">
               <Button>Button</Button>
@@ -68,7 +68,7 @@ const TestPage = () => {
         </Box>
         {/* 인풋 컴포넌트 */}
         <Box gridColumn="3">
-          <Title>인풋 컴포넌트</Title>
+          <Title>인풋</Title>
           <InputWrap>
             <Input placeholder="None label input" onChange={testInput.onChange} />
             <Input label="Name" placeholder="With label input" onChange={testLabelInput.onChange} />
@@ -79,7 +79,7 @@ const TestPage = () => {
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         <Box gridColumn="3">
-          <Title>태그 컴포넌트</Title>
+          <Title>태그</Title>
           <TagWrap>
             <Tag color={Color.alcohol.gray}>0 ~ 15%</Tag>
             <Tag color={Color.alcohol.blue}>15.1 ~ 30%</Tag>
@@ -91,7 +91,7 @@ const TestPage = () => {
           </TagWrap>
         </Box>
         <Box gridColumn="3">
-          <Title>상태 컴포넌트</Title>
+          <Title>상태</Title>
           <Status label="Complete" type="complete" />
           <Status label="Pending" type="pending" />
           <Status label="Cancel" type="cancel" />
@@ -112,10 +112,10 @@ const TestPage = () => {
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         <Box gridColumn="3">
-          <Title>로고 컴포넌트</Title>
+          <Title>로고</Title>
           <LogoWrap>
-            <SuldakLogo />
-            <SuldakLogo color="#1e222d" />
+            <SuldakLogo mode="LIGHT" />
+            <SuldakLogo mode="DARK" />
           </LogoWrap>
         </Box>
       </RowContainer>
