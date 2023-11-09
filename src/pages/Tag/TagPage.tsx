@@ -27,10 +27,11 @@ import { TagTypes } from '@libs/getTagType';
 
 /** 태그 추가 페이지 */
 const TagPage = () => {
-  const { reset } = useQueryErrorResetBoundary();
   const { isTablet, isMobile } = useResponsive();
-  const searchInput = useInput('');
+  const { reset } = useQueryErrorResetBoundary();
   const { openModal } = useModal();
+
+  const searchInput = useInput('');
 
   // 목록 태그 상태
   const [tagType, setTagType] = useState<string>('drinking-capacity');
@@ -68,7 +69,10 @@ const TagPage = () => {
 
           <FormWrap>
             <Dropdown options={TagTypes} onSelect={handleSelectType} placeholder="주량" />
-            <Input placeholder="검색어를 입력해주세요..." onChange={searchInput.onChange} />
+            <Input
+              placeholder="검색어를 입력해주세요... ( 태그명 검색 )"
+              onChange={searchInput.onChange}
+            />
           </FormWrap>
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
@@ -85,7 +89,6 @@ const TagPage = () => {
         {/* 태그 수정 폼 */}
         <Box gridColumn="3">
           <TagEdit tagType={tagType} selectedTag={selectedTag} />
-          {/* <TagAdd tagName={tagAddName.value} onChangeTagName={tagAddName.onChange} /> */}
         </Box>
       </RowContainer>
     </>

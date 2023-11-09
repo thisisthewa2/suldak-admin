@@ -7,6 +7,7 @@ import Button from '@components/core/Button';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
+import { useDeleteAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
 import useModal from '@hooks/useModal';
 
 // apis
@@ -22,20 +23,38 @@ interface IProps {
 
 /** 어드민 목록 컴포넌트 */
 const AdminList = ({ searchKeyword = '', selectAdmin }: IProps) => {
+  const { openModal } = useModal();
   const { data: adminList } = useQuery(['adminList'], () => AuthApi.getAdmins(), {
     suspense: true,
     useErrorBoundary: true,
     retry: false,
     refetchOnWindowFocus: false,
   });
-  const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, 'name');
+  const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, 'adminNm');
+
+  const { mutate: deleteAdmin } = useDeleteAdminMutation();
+
+  // 어드민 삭제 확인 모달 열기
+  const handleOpenDeleteModal = (priKey: number) => {
+    openModal({
+      content: <div>어드민을 삭제하시겠습니까?</div>,
+      onConfirm: () => handleDeleteAdmin(priKey),
+    });
+  };
+
+  // 어드민 삭제 함수
+  const handleDeleteAdmin = (priKey: number) => {
+    deleteAdmin({
+      priKey: priKey,
+    });
+  };
 
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
       Header: '아이디',
-      accessor: 'id',
-      width: '10%',
+      accessor: 'adminId',
+      width: '20%',
     },
     {
       Header: '관리자명',
@@ -52,10 +71,12 @@ const AdminList = ({ searchKeyword = '', selectAdmin }: IProps) => {
       accessor: (row: any) => (
         <ButtonWrap>
           <Button onClick={() => selectAdmin(row)}>수정</Button>
-          <Button buttonType="cancel">삭제</Button>
+          <Button buttonType="cancel" onClick={() => handleOpenDeleteModal(row.id)}>
+            삭제
+          </Button>
         </ButtonWrap>
       ),
-      width: '40%',
+      width: '30%',
       align: 'right',
     },
   ];
