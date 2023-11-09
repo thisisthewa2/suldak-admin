@@ -15,7 +15,6 @@ const useInput = (initialValue: string): IUseInput => {
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    console.log(value)
   }
 
   const reset = () => {

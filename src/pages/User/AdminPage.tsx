@@ -49,7 +49,7 @@ const AdminPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 어드민 목록 테이블 */}
-        <Box gridColumn="9">
+        <Box gridColumn={selectedAdmin ? '9' : '12'}>
           <TitleWrap>
             <Title>어드민 목록</Title>
             <Button onClick={handleOpenAddModal}>어드민 추가 +</Button>
@@ -70,9 +70,11 @@ const AdminPage = () => {
         </Box>
 
         {/* 어드민 수정 폼 */}
-        <Box gridColumn="3">
-          <AdminEdit selectedAdmin={selectedAdmin} />
-        </Box>
+        {selectedAdmin && (
+          <Box gridColumn="3">
+            <AdminEdit selectedAdmin={selectedAdmin} />
+          </Box>
+        )}
       </RowContainer>
     </>
   );

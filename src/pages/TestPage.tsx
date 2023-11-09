@@ -13,6 +13,7 @@ import Tag from '@components/core/Tag';
 import Status from '@components/core/Status';
 import CircleProgressBar from '@components/core/CircleProgressBar';
 import Breadcrumbs from '@components/core/Breadcrumbs';
+import SuldakLogo from '@components/core/SuldakLogo';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -108,6 +109,16 @@ const TestPage = () => {
           <Breadcrumbs />
         </Box>
       </RowContainer>
+
+      <RowContainer isTablet={isTablet} isMobile={isMobile}>
+        <Box gridColumn="3">
+          <Title>로고 컴포넌트</Title>
+          <LogoWrap>
+            <SuldakLogo />
+            <SuldakLogo color="#1e222d" />
+          </LogoWrap>
+        </Box>
+      </RowContainer>
     </>
   );
 };
@@ -145,6 +156,13 @@ const TagWrap = styled.div`
 
 // progress
 const ProgressWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+// 술닥 로고
+const LogoWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;

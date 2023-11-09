@@ -61,7 +61,7 @@ const TagPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 태그 목록 테이블 */}
-        <Box gridColumn="9">
+        <Box gridColumn={selectedTag ? '9' : '12'}>
           <TitleWrap>
             <Title>태그 목록</Title>
             <Button onClick={handleOpenAddModal}>태그 추가 +</Button>
@@ -87,9 +87,11 @@ const TagPage = () => {
         </Box>
 
         {/* 태그 수정 폼 */}
-        <Box gridColumn="3">
-          <TagEdit tagType={tagType} selectedTag={selectedTag} />
-        </Box>
+        {selectedTag && (
+          <Box gridColumn="3">
+            <TagEdit tagType={tagType} selectedTag={selectedTag} />
+          </Box>
+        )}
       </RowContainer>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { BsFillTriangleFill } from 'react-icons/bs';
@@ -18,19 +18,36 @@ interface DropdownProps {
 const Dropdown = ({ options, onSelect, placeholder = 'Select...' }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // 드롭다운 on/off
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  // 드롭다운 메뉴 선택
   const handleSelect = (option: Option) => {
     setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);
   };
 
+  // 이벤트 리스너 등록
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <DropdownWrapper>
+    <DropdownWrapper ref={wrapperRef}>
       <DropdownHeader onClick={handleToggle}>
         {selectedOption ? selectedOption.label : placeholder}
         <Arrow $isOpen={isOpen} /> {/* This is a down arrow unicode character */}

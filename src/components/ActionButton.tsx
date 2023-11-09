@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 // components
 import ThemeToggle from '@components/ThemeToggle';
 
+// hooks
+import useToastify from '@hooks/useToastify';
+
 // atoms
 import { userAtom } from '@atoms/userAtoms';
 
@@ -20,8 +23,8 @@ import { FaSignOutAlt } from 'react-icons/fa';
 /** 화면 우측 하단 액션 버튼 */
 const ActionButton = () => {
   const navigate = useNavigate();
-  const [, setUser] = useAtom(userAtom);
   const [isOpen, setIsOpen] = useState(false);
+  const { showInfoToastMessage } = useToastify();
   const [animation, setAnimation] = useState<'openAnimation' | 'closeAnimation'>('openAnimation');
 
   // 메뉴 on/off
@@ -38,10 +41,18 @@ const ActionButton = () => {
   };
 
   // 로그아웃
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    const response = await AuthApi.logout();
+    if (response.data === true) {
+      navigate('/login');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      showInfoToastMessage('로그아웃 되었습니다.');
+      return;
+    }
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    AuthApi.logout();
   };
 
   return (
