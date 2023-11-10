@@ -25,7 +25,8 @@ const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 /** 라우터 컴포넌트 */
 const RouterComponent = () => {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    // <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Suspense fallback={<Loader />}>
         <Routes>
           {/* <Routes> */}
@@ -98,8 +99,8 @@ const Container = styled.div`
 
   .row-flex {
     display: flex;
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
   }
 `;
 
@@ -113,5 +114,7 @@ const ContentsContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 3rem 2rem;
+  padding: 102px 2rem 2rem 2rem;
+  margin-left: 250px;
+  overflow: scroll;
 `;

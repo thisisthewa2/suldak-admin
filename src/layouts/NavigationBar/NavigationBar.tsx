@@ -81,12 +81,14 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 const NavigationWrapper = styled.div<{ $isOpen: boolean }>`
-  width: ${(props) => (props.$isOpen ? '250px' : '80px')};
+  min-width: ${(props) => (props.$isOpen ? '250px' : '80px')};
   height: 100%;
   background-color: ${(props) => props.theme.nav.bgColor};
   box-shadow: ${(props) => props.theme.boxShadow};
   transition: width 0.2s ease-in;
   font-size: 1.1rem;
+  position: fixed;
+  top: 70px;
 `;
 
 const MenuWrap = styled.div`

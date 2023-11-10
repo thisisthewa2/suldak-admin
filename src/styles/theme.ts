@@ -10,6 +10,17 @@ export const Color = {
   gray: '#6C757D',
   grayHover: '#5c636a',
 
+  chart: {
+    red: '#ff3d60',
+    gray: '#dddddd',
+    blue: '#5cd4de',
+    green: '#60d083',
+    yellow: '#fee569',
+    orange: '#fb9800',
+    textWhite: '#EFF2F7',
+    textBlack: '#343A40'
+  },
+
   alcohol: {
     gray: '#dddddd', // 0% ~ 15%
     blue: '#5cd4de', // 15.1% ~ 30%

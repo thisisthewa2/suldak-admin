@@ -14,10 +14,11 @@ import Status from '@components/core/Status';
 import CircleProgressBar from '@components/core/CircleProgressBar';
 import Breadcrumbs from '@components/core/Breadcrumbs';
 import SuldakLogo from '@components/core/SuldakLogo';
+import ColumnChart from '@components/Charts/ColumnChart';
 
 // hooks
-import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
+import useResponsive from '@hooks/useResponsive';
 
 /** 테스트 페이지 */
 const TestPage = () => {
@@ -112,11 +113,27 @@ const TestPage = () => {
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         <Box gridColumn="3">
-          <Title>로고</Title>
+          <Title>로고 - 라이트</Title>
           <LogoWrap>
             <SuldakLogo mode="LIGHT" />
+          </LogoWrap>
+        </Box>
+        <Box gridColumn="3">
+          <Title>로고 - 다크</Title>
+          <LogoWrap>
             <SuldakLogo mode="DARK" />
           </LogoWrap>
+        </Box>
+      </RowContainer>
+
+      <RowContainer isTablet={isTablet} isMobile={isMobile}>
+        <Box gridColumn="6">
+          <Title>컬럼 차트</Title>
+          <ColumnChart />
+        </Box>
+        <Box gridColumn="6">
+          <Title>원 차트</Title>
+          <ColumnChart />
         </Box>
       </RowContainer>
     </>
@@ -158,6 +175,7 @@ const TagWrap = styled.div`
 const ProgressWrap = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 `;
 
@@ -165,5 +183,6 @@ const ProgressWrap = styled.div`
 const LogoWrap = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 `;

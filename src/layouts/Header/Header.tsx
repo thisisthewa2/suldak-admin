@@ -2,16 +2,25 @@ import styled from 'styled-components';
 import { useAtom } from 'jotai';
 import { FaUserCircle } from 'react-icons/fa';
 
+// components
+import SuldakLogo from '@components/core/SuldakLogo';
+
 // atoms
 import { userAtom } from '@atoms/userAtoms';
+
+// hooks
+import useTheme from '@hooks/useTheme';
 
 /** 헤더 컴포넌트 */
 const Header = () => {
   const [user] = useAtom(userAtom);
+  const { currentTheme } = useTheme();
 
   return (
     <Container>
-      <LeftArea></LeftArea>
+      <LeftArea>
+        {currentTheme === 'LIGHT' ? <SuldakLogo mode="DARK" /> : <SuldakLogo mode="LIGHT" />}
+      </LeftArea>
       <UserBox>
         <div className="user-icon">
           <FaUserCircle />
@@ -32,12 +41,18 @@ const Container = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0 2rem 0 0;
+  position: fixed;
+  z-index: 999;
 `;
 
 const LeftArea = styled.div`
   width: 250px;
   height: 100%;
   background-color: ${(props) => props.theme.nav.bgColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 `;
 
 const UserBox = styled.div`
