@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // components
 import Input from '@components/core/Input';
-import Dropdown from '@components/core/Dropdown';
 import Button from '@components/core/Button';
 
 // hooks
 import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
+import useToastify from '@hooks/useToastify';
 import { useAddAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
 
 /** 어드민 추가 컴포넌트 */
 const AdminAdd = () => {
   const { closeModal } = useModal();
   const { mutate: addAdmin } = useAddAdminMutation();
+  const { showWarningToastMessage } = useToastify();
 
   const adminName = useInput('');
   const adminId = useInput('');
@@ -22,6 +22,10 @@ const AdminAdd = () => {
 
   // 어드민 추가
   const handleAddAdmin = () => {
+    if (adminName.value === '' || adminId.value === '' || adminPw.value === '') {
+      showWarningToastMessage('데이터를 모두 입력해주세요.');
+      return;
+    }
     addAdmin({
       adminNm: adminName.value,
       adminId: adminId.value,

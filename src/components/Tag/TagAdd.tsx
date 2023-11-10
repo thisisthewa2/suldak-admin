@@ -12,6 +12,7 @@ import { TagTypes } from '@libs/getTagType';
 // hooks
 import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
+import useToastify from '@hooks/useToastify';
 import { useAddTagMutation } from '@hooks/apis/Tag/useTagMutation';
 
 interface IProps {}
@@ -21,6 +22,7 @@ const TagAdd = ({}: IProps) => {
   const tagName = useInput('');
   const { closeModal } = useModal();
   const { mutate: addTag } = useAddTagMutation();
+  const { showWarningToastMessage } = useToastify();
 
   const [tagType, setTagType] = useState<string>('drinking-capacity');
 
@@ -31,6 +33,10 @@ const TagAdd = ({}: IProps) => {
 
   // 태그 추가
   const handleAddTag = () => {
+    if (tagName.value === '') {
+      showWarningToastMessage('태그명을 입력해주세요.');
+      return;
+    }
     addTag({
       tagType: tagType,
       name: tagName.value,
