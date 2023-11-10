@@ -33,11 +33,11 @@ const DashboardPage = () => {
         </Box>
       </RowContainer>
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="9">
+        <Box gridColumn="6">
           <Title>컬럼 차트</Title>
           <ColumnChart />
         </Box>
-        <Box gridColumn="3">
+        <Box gridColumn="6">
           <Title>원 그래프</Title>
         </Box>
       </RowContainer>

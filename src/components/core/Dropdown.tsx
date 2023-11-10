@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BsFillTriangleFill } from 'react-icons/bs';
 
 interface Option {
-  value: string;
+  value: any;
   label: string;
 }
 

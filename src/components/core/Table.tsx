@@ -113,4 +113,8 @@ const Tr = styled.tr`
 const Td = styled.td<{ $align?: 'left' | 'right' | 'center' }>`
   text-align: ${({ $align }) => $align || 'left'};
   padding: 12px 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
 `;

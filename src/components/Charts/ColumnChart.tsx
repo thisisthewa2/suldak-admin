@@ -36,6 +36,7 @@ const ColumnChart = () => {
     plotOptions: {
       bar: {
         columnWidth: '60%', // 막대의 너비를 조절하여 간격 조절
+        
       },
     },
   };

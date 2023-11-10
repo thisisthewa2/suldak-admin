@@ -18,6 +18,7 @@ const TestPage = lazy(() => import('@pages/TestPage'));
 
 const TagPage = lazy(() => import('@pages/Tag/TagPage'));
 const AdminPage = lazy(() => import('@pages/User/AdminPage'));
+const ConsentPage = lazy(() => import('@pages/Consent/ConsentPage'));
 
 // 에러페이지
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
@@ -39,6 +40,9 @@ const RouterComponent = () => {
 
             {/* 유저 & 어드민 페이지 */}
             <Route path="/admin" element={<AdminPage />} />
+
+            {/* 동의 항목 페이지 */}
+            <Route path="/consent" element={<ConsentPage />} />
 
             <Route path="/test" element={<TestPage />} />
           </Route>
@@ -116,5 +120,4 @@ const ContentsContainer = styled.div`
   height: 100%;
   padding: 102px 2rem 2rem 2rem;
   margin-left: 250px;
-  overflow: scroll;
 `;

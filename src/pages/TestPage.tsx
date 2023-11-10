@@ -15,6 +15,7 @@ import CircleProgressBar from '@components/core/CircleProgressBar';
 import Breadcrumbs from '@components/core/Breadcrumbs';
 import SuldakLogo from '@components/core/SuldakLogo';
 import ColumnChart from '@components/Charts/ColumnChart';
+import TextEditor from '@components/core/TextEditor';
 
 // hooks
 import useInput from '@hooks/useInput';
@@ -133,7 +134,13 @@ const TestPage = () => {
         </Box>
         <Box gridColumn="6">
           <Title>원 차트</Title>
-          <ColumnChart />
+        </Box>
+      </RowContainer>
+
+      <RowContainer isTablet={isTablet} isMobile={isMobile}>
+        <Box gridColumn="6">
+          <Title>텍스트 에디터</Title>
+          <TextEditor />
         </Box>
       </RowContainer>
     </>

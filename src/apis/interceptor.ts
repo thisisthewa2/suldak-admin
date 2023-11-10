@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use((response) => {
 
   if (response.data.errorCode === 9999 || response.data.errorCode === 406) {
     localStorage.removeItem('token');
-    window.location.assign('/suldak-admin/login')
+    window.location.assign('/login')
     window.alert('인증이 만료되었습니다.');
   }
 
