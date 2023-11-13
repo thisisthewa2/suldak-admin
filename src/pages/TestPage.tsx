@@ -28,6 +28,8 @@ const TestPage = () => {
   const testLabelInput = useInput('');
   const disabledInput = useInput('');
 
+  const editorInput = useInput('Test Input');
+
   return (
     <>
       <Breadcrumbs />
@@ -138,9 +140,9 @@ const TestPage = () => {
       </RowContainer>
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="6">
+        <Box gridColumn="12">
           <Title>텍스트 에디터</Title>
-          <TextEditor />
+          <TextEditor initialValue={editorInput.value} />
         </Box>
       </RowContainer>
     </>
