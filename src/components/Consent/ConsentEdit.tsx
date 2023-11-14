@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useEffect } from 'react';
 
 // components
 import TextEditor from '@components/core/TextEditor';
-import Button from '@components/core/Button';
 
 // hooks
-import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
-import useToastify from '@hooks/useToastify';
 import { useEditConsentMutation } from '@hooks/apis/Consent/useConsentMutation';
 
 interface IProps {

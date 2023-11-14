@@ -88,6 +88,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-width: 960px;
 `;
 
 const ButtonWrap = styled.div`

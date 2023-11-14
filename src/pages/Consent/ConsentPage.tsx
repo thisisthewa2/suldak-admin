@@ -20,6 +20,7 @@ import ConsentList from '@components/Consent/ConsentList';
 import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
+import ConsentAdd from '@components/Consent/ConsentAdd';
 
 // utils
 import { ConsentTypes } from '@libs/getConsentType';
@@ -49,6 +50,14 @@ const ConsentPage = () => {
     setSelectedConsent(consent);
   };
 
+  // 동의 항목 추가 모달 열기
+  const handleOpenAddModal = () => {
+    openModal({
+      title: '동의 항목 추가',
+      content: <ConsentAdd />,
+    });
+  };
+
   useEffect(() => {
     console.log(consentType);
   }, [consentType]);
@@ -60,7 +69,7 @@ const ConsentPage = () => {
         <Box gridColumn="12">
           <TitleWrap>
             <Title>동의 항목 목록</Title>
-            <Button>항목 추가 +</Button>
+            <Button onClick={handleOpenAddModal}>항목 추가 +</Button>
           </TitleWrap>
 
           <FormWrap>
