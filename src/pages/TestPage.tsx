@@ -15,6 +15,7 @@ import CircleProgressBar from '@components/core/CircleProgressBar';
 import Breadcrumbs from '@components/core/Breadcrumbs';
 import SuldakLogo from '@components/core/SuldakLogo';
 import ColumnChart from '@components/Charts/ColumnChart';
+import BarChart from '@components/Charts/BarChart';
 import TextEditor from '@components/core/TextEditor';
 
 // hooks
@@ -135,7 +136,8 @@ const TestPage = () => {
           <ColumnChart />
         </Box>
         <Box gridColumn="6">
-          <Title>원 차트</Title>
+          <Title>바 차트</Title>
+          <BarChart />
         </Box>
       </RowContainer>
 
