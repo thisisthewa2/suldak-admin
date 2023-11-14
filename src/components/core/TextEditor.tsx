@@ -15,14 +15,26 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 // components
 import Button from '@components/core/Button';
 
+// hooks
+import useTheme from '@hooks/useTheme';
+
 interface IProps {
-  theme?: 'dark' | 'light';
   initialValue?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  confirmBtnText?: string;
+  onConfirm?: (data?: any) => void;
+  cancelBtnText?: string;
+  onCancel?: (data?: any) => void;
 }
 
 /** 텍스트 에디터 컴포넌트 */
-const TextEditor = ({ theme = 'dark', initialValue }: IProps) => {
+const TextEditor = ({
+  initialValue,
+  confirmBtnText = '저장',
+  onConfirm,
+  cancelBtnText,
+  onCancel,
+}: IProps) => {
+  const { currentTheme } = useTheme();
   const editorRef = useRef<Editor>(null);
   const toolbarItems = [
     ['heading', 'bold', 'italic', 'strike'],
@@ -36,7 +48,10 @@ const TextEditor = ({ theme = 'dark', initialValue }: IProps) => {
 
   // 입력된 데이터 html로 추출
   const handleRegister = () => {
-    console.log(editorRef.current?.getInstance().getHTML());
+    if (onConfirm) {
+      onConfirm(editorRef.current?.getInstance().getHTML());
+      console.log(editorRef.current?.getInstance());
+    }
   };
 
   return (
@@ -48,14 +63,20 @@ const TextEditor = ({ theme = 'dark', initialValue }: IProps) => {
         toolbarItems={toolbarItems}
         hideModeSwitch // markdown/wysiwyg 스위칭 버튼 비활성화
         language="ko-KR"
-        theme={theme}
+        theme={currentTheme === 'DARK' ? 'dark' : 'light'}
         placeholder="텍스트를 입력해주세요..."
         usageStatistics={false} // 구글 분석 통계 수집 거부
         initialValue={initialValue}
+        autofocus
       />
 
       <ButtonWrap>
-        <Button onClick={handleRegister}>저장</Button>
+        {cancelBtnText && (
+          <Button onClick={onCancel} buttonType="reset">
+            {cancelBtnText}
+          </Button>
+        )}
+        <Button onClick={handleRegister}>{confirmBtnText}</Button>
       </ButtonWrap>
     </Wrapper>
   );
@@ -72,4 +93,6 @@ const Wrapper = styled.div`
 const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 `;

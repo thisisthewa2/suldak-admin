@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 // components
 import Table from '@components/core/Table';
 import Button from '@components/core/Button';
+import ConsentEdit from './ConsentEdit';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
@@ -37,6 +38,18 @@ const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProp
   );
   const filteredData = useSearchFilter(consentList?.data || [], searchKeyword, 'itemText');
 
+  // 동의 항목 수정 모달 열기
+  const handleOpenEditModal = (row: any) => {
+    openModal({
+      title: '동의 항목 수정',
+      content: <ConsentEdit selectedConsent={row} />,
+    });
+  };
+
+  const stripHtml = (html: string) => {
+    return html.replace(/<[^>]*>?/gm, '');
+  };
+
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
@@ -51,18 +64,21 @@ const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProp
     },
     {
       Header: '내용',
-      accessor: 'itemText',
+      accessor: (row: any) => <>{stripHtml(row.itemText)}</>,
       width: '60%',
     },
+    // {
+    //   Header: '내용',
+    //   accessor: 'itemText',
+    //   width: '60%',
+    // },
     {
       Header: '',
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
-          <Button onClick={() => selectedConsent(row)}>수정</Button>
-          {/* <Button onClick={() => handleOpenDeleteModal(row.id)} buttonType="cancel">
-            삭제
-          </Button> */}
+          <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
+          <Button buttonType="cancel">삭제</Button>
         </ButtonWrap>
       ),
       width: '40%',

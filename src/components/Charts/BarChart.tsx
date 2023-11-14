@@ -39,6 +39,7 @@ const BarChart = () => {
     },
   };
 
+  // 차트 데이터
   const series: ApexAxisChartSeries = [
     {
       data: [

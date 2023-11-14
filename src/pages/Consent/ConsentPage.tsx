@@ -57,7 +57,7 @@ const ConsentPage = () => {
     <>
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="9">
+        <Box gridColumn="12">
           <TitleWrap>
             <Title>동의 항목 목록</Title>
             <Button>항목 추가 +</Button>

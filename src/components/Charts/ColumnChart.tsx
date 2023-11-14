@@ -39,7 +39,7 @@ const ColumnChart = () => {
     },
   };
 
-  // 시리즈 데이터
+  // 차트 데이터
   const series: ApexAxisChartSeries = [
     {
       name: '테스트 데이터',
