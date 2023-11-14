@@ -9,6 +9,7 @@ import ConsentEdit from './ConsentEdit';
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import useModal from '@hooks/useModal';
+import { useDeleteConsentMutation } from '@hooks/apis/Consent/useConsentMutation';
 
 // apis
 import ConsentApi from '@apis/services/ConsentApi';
@@ -38,6 +39,9 @@ const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProp
   );
   const filteredData = useSearchFilter(consentList?.data || [], searchKeyword, 'itemText');
 
+  // 동의 항목 삭제
+  const { mutate: deleteConsent } = useDeleteConsentMutation();
+
   // 동의 항목 수정 모달 열기
   const handleOpenEditModal = (row: any) => {
     openModal({
@@ -46,6 +50,22 @@ const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProp
     });
   };
 
+  // 동의 항목 삭제 모달 열기
+  const handleOpenDeleteModal = (priKey: number) => {
+    openModal({
+      content: <div>동의 항목을 삭제하시겠습니까?</div>,
+      onConfirm: () => handleDeleteConsent(priKey),
+    });
+  };
+
+  // 동의 항목 삭제 함수
+  const handleDeleteConsent = (priKey: number) => {
+    deleteConsent({
+      priKey: priKey,
+    });
+  };
+
+  // 테이블에 표기할 텍스트 태그 제거
   const stripHtml = (html: string) => {
     return html.replace(/<[^>]*>?/gm, '');
   };
@@ -67,18 +87,15 @@ const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProp
       accessor: (row: any) => <>{stripHtml(row.itemText)}</>,
       width: '60%',
     },
-    // {
-    //   Header: '내용',
-    //   accessor: 'itemText',
-    //   width: '60%',
-    // },
     {
       Header: '',
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
           <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
-          <Button buttonType="cancel">삭제</Button>
+          <Button buttonType="cancel" onClick={() => handleOpenDeleteModal(row.id)}>
+            삭제
+          </Button>
         </ButtonWrap>
       ),
       width: '40%',
