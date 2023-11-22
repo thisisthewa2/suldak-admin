@@ -83,6 +83,7 @@ const ConsentPage = () => {
               onChange={searchInput.onChange}
             />
           </FormWrap>
+
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
               <ConsentList

@@ -30,7 +30,6 @@ const RouterComponent = () => {
     <Router>
       <Suspense fallback={<Loader />}>
         <Routes>
-          {/* <Routes> */}
           {/* 로그인 상태에서 접근 가능한 페이지 */}
           <Route path="/" element={<PrivateLayout />}>
             <Route path="/" element={<DashboardPage />} />

@@ -31,12 +31,12 @@ const Wrapper = styled.div<IWrapperProps>`
   ${(props) =>
     props.$isTablet &&
     `
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
   `}
 
   ${(props) =>
     props.$isMobile &&
     `
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   `}
 `;
