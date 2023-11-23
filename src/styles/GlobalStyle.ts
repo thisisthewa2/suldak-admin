@@ -14,6 +14,17 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
 
     background-color: ${props => props.theme.bgColor};
+
+
+    /* 반응형 폰트 사이즈 */
+    @media (max-width: 1440px) {
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+    }
+
   }
 
   h1 {

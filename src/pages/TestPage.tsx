@@ -36,17 +36,17 @@ const TestPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 로딩 애니메이션 */}
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>로딩 애니메이션</Title>
           <Loader />
         </Box>
         {/* 404 애니메이션 */}
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>404 에러 애니메이션</Title>
           <NotFound width={200} height={200} />
         </Box>
         {/* 버튼 컴포넌트 */}
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>버튼</Title>
           <ButtonWrap>
             <div className="btn-flex">
@@ -72,7 +72,7 @@ const TestPage = () => {
           </ButtonWrap>
         </Box>
         {/* 인풋 컴포넌트 */}
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>인풋</Title>
           <InputWrap>
             <Input placeholder="None label input" onChange={testInput.onChange} />
@@ -83,7 +83,7 @@ const TestPage = () => {
       </RowContainer>
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>태그</Title>
           <TagWrap>
             <Tag color={Color.alcohol.gray}>0 ~ 15%</Tag>
@@ -95,13 +95,13 @@ const TestPage = () => {
             <Tag color={Color.alcohol.orange}>80.1 ~ 99.9%</Tag>
           </TagWrap>
         </Box>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>상태</Title>
           <Status label="Complete" type="complete" />
           <Status label="Pending" type="pending" />
           <Status label="Cancel" type="cancel" />
         </Box>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>원형 바</Title>
           <ProgressWrap>
             <CircleProgressBar />
@@ -109,20 +109,20 @@ const TestPage = () => {
             <CircleProgressBar percentage={65} />
           </ProgressWrap>
         </Box>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>경로</Title>
           <Breadcrumbs />
         </Box>
       </RowContainer>
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>로고 - 라이트</Title>
           <LogoWrap>
             <SuldakLogo mode="LIGHT" />
           </LogoWrap>
         </Box>
-        <Box gridColumn="3">
+        <Box gridColumn="3" gridColumnSpanTablet="4">
           <Title>로고 - 다크</Title>
           <LogoWrap>
             <SuldakLogo mode="DARK" />
@@ -131,18 +131,18 @@ const TestPage = () => {
       </RowContainer>
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="6">
+        <Box gridColumn="6" gridColumnSpanTablet="8">
           <Title>컬럼 차트</Title>
           <ColumnChart />
         </Box>
-        <Box gridColumn="6">
+        <Box gridColumn="6" gridColumnSpanTablet="8">
           <Title>바 차트</Title>
           <BarChart />
         </Box>
       </RowContainer>
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn="12">
+        <Box gridColumn="12" gridColumnSpanTablet="8">
           <Title>텍스트 에디터</Title>
           <TextEditor initialValue={editorInput.value} />
         </Box>

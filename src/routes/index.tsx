@@ -98,12 +98,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  min-width: 1290px;
 
   .row-flex {
     display: flex;
-    /* width: 100%;
-    height: 100%; */
   }
 `;
 
@@ -118,5 +115,5 @@ const ContentsContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 102px 2rem 2rem 2rem;
-  margin-left: 250px;
+  margin-left: 200px;
 `;

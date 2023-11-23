@@ -81,7 +81,7 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 const NavigationWrapper = styled.div<{ $isOpen: boolean }>`
-  min-width: ${(props) => (props.$isOpen ? '250px' : '80px')};
+  min-width: ${(props) => (props.$isOpen ? '200px' : '80px')};
   height: 100%;
   background-color: ${(props) => props.theme.nav.bgColor};
   box-shadow: ${(props) => props.theme.boxShadow};

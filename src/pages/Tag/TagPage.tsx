@@ -61,7 +61,7 @@ const TagPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 태그 목록 테이블 */}
-        <Box gridColumn={selectedTag ? '9' : '12'}>
+        <Box gridColumn={selectedTag ? '9' : '12'} gridColumnSpanTablet={selectedTag ? '5' : '8'}>
           <TitleWrap>
             <Title>태그 목록</Title>
             <Button onClick={handleOpenAddModal}>태그 추가 +</Button>

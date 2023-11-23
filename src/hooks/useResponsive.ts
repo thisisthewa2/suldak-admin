@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 const sizes = {
   mobile: 480,
-  tablet: 768,
-  desktop: 1280, // 이 값은 주로 디자인에 따라 다를 수 있습니다.
+  tablet: 1440,
+  desktop: 1441, // 이 값은 주로 디자인에 따라 다를 수 있습니다.
 };
 
 /** 반응형 커스텀훅 */

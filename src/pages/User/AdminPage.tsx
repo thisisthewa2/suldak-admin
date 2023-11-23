@@ -49,7 +49,10 @@ const AdminPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 어드민 목록 테이블 */}
-        <Box gridColumn={selectedAdmin ? '9' : '12'}>
+        <Box
+          gridColumn={selectedAdmin ? '9' : '12'}
+          gridColumnSpanTablet={selectedAdmin ? '5' : '8'}
+        >
           <TitleWrap>
             <Title>어드민 목록</Title>
             <Button onClick={handleOpenAddModal}>어드민 추가 +</Button>
