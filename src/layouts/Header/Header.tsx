@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <Container>
       <LeftArea>
-        {currentTheme === 'LIGHT' ? <SuldakLogo mode="DARK" /> : <SuldakLogo mode="LIGHT" />}
+        {/* {currentTheme === 'LIGHT' ? <SuldakLogo mode="DARK" /> : <SuldakLogo mode="LIGHT" />} */}
       </LeftArea>
       <UserBox>
         <div className="user-icon">

@@ -17,7 +17,10 @@ const DashboardPage = lazy(() => import('@pages/DashboardPage'));
 const TestPage = lazy(() => import('@pages/TestPage'));
 
 const TagPage = lazy(() => import('@pages/Tag/TagPage'));
+
 const AdminPage = lazy(() => import('@pages/User/AdminPage'));
+const UserPage = lazy(() => import('@pages/User/UserPage'));
+
 const ConsentPage = lazy(() => import('@pages/Consent/ConsentPage'));
 
 // 에러페이지
@@ -39,6 +42,7 @@ const RouterComponent = () => {
 
             {/* 유저 & 어드민 페이지 */}
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/user" element={<UserPage />} />
 
             {/* 동의 항목 페이지 */}
             <Route path="/consent" element={<ConsentPage />} />
