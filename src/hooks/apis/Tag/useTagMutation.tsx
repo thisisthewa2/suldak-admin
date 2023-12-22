@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
+import { queryClient } from '@utils/QueryClient';
 
 import useToastify from '@hooks/useToastify';
 
@@ -6,7 +7,6 @@ import TagApi from '@apis/services/TagApi';
 
 /** 태그 추가 */
 export const useAddTagMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(TagApi.add, {
@@ -22,7 +22,6 @@ export const useAddTagMutation = () => {
 
 /** 태그 수정 */
 export const useEditTagMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(TagApi.add, {
@@ -39,7 +38,6 @@ export const useEditTagMutation = () => {
 
 /** 태그 삭제 */
 export const useDeleteTagMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(TagApi.delete, {

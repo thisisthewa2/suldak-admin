@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
+import { queryClient } from '@utils/QueryClient';
 
 import useToastify from '@hooks/useToastify';
 
@@ -6,7 +7,6 @@ import ConsentApi from '@apis/services/ConsentApi';
 
 /** 동의 항목 추가 */
 export const useAddConsentMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(ConsentApi.add, {
@@ -22,7 +22,6 @@ export const useAddConsentMutation = () => {
 
 /** 동의 항목 수정 */
 export const useEditConsentMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(ConsentApi.edit, {
@@ -38,7 +37,6 @@ export const useEditConsentMutation = () => {
 
 /** 동의 항목 삭제 */
 export const useDeleteConsentMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(ConsentApi.delete, {

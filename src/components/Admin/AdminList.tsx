@@ -8,6 +8,7 @@ import Button from '@components/core/Button';
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import { useDeleteAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
+import { useGetAdminQuery } from '@hooks/apis/Admin/useAdminQuery';
 import useModal from '@hooks/useModal';
 
 // apis
@@ -24,12 +25,7 @@ interface IProps {
 /** 어드민 목록 컴포넌트 */
 const AdminList = ({ searchKeyword = '', selectAdmin }: IProps) => {
   const { openModal } = useModal();
-  const { data: adminList } = useQuery(['adminList'], () => AuthApi.getAdmins(), {
-    suspense: true,
-    useErrorBoundary: true,
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
+  const { data: adminList } = useGetAdminQuery();
   const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, 'adminNm');
 
   const { mutate: deleteAdmin } = useDeleteAdminMutation();

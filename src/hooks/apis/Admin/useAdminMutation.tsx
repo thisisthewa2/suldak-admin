@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
+import { queryClient } from '@utils/QueryClient';
 
 import useToastify from '@hooks/useToastify';
 
@@ -6,7 +7,6 @@ import AuthApi from '@apis/services/AuthApi';
 
 /** 관리자 추가 */
 export const useAddAdminMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(AuthApi.addAdmin, {
@@ -22,7 +22,6 @@ export const useAddAdminMutation = () => {
 
 /** 관리자 수정 */
 export const useEditAdminMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(AuthApi.addAdmin, {
@@ -38,7 +37,6 @@ export const useEditAdminMutation = () => {
 
 /** 관리자 삭제 */
 export const useDeleteAdminMutation = () => {
-  const queryClient = useQueryClient();
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(AuthApi.deleteAdmin, {
