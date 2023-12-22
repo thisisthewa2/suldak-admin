@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
 
 // components
 import Table from '@components/core/Table';
@@ -8,10 +7,8 @@ import Button from '@components/core/Button';
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import { useDeleteTagMutation } from '@hooks/apis/Tag/useTagMutation';
+import { useGetTagQuery } from '@hooks/apis/Tag/useTagQuery';
 import useModal from '@hooks/useModal';
-
-// apis
-import TagApi from '@apis/services/TagApi';
 
 // types
 import { IColumn } from '@components/core/Table';
@@ -25,12 +22,8 @@ interface IProps {
 /** 태그 목록 컴포넌트 */
 const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
   const { openModal } = useModal();
-  const { data: tagList } = useQuery(['tagList', tagType], () => TagApi.get({ tagType }), {
-    suspense: true,
-    useErrorBoundary: true,
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
+  const { data: tagList } = useGetTagQuery(tagType);
+
   const filteredData = useSearchFilter(tagList?.data || [], searchKeyword, 'name');
 
   // 태그 삭제

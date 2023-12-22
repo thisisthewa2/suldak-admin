@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
 
 // components
 import Table from '@components/core/Table';
@@ -8,11 +7,9 @@ import ConsentEdit from './ConsentEdit';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
-import useModal from '@hooks/useModal';
 import { useDeleteConsentMutation } from '@hooks/apis/Consent/useConsentMutation';
-
-// apis
-import ConsentApi from '@apis/services/ConsentApi';
+import { useGetConsentQuery } from '@hooks/apis/Consent/useConsentQuery';
+import useModal from '@hooks/useModal';
 
 // types
 import { itemType } from '@apis/services/ConsentApi';
@@ -27,16 +24,7 @@ interface IProps {
 /** 동의 항목 목록 컴포넌트 */
 const ConsentList = ({ consentType, searchKeyword = '', selectedConsent }: IProps) => {
   const { openModal } = useModal();
-  const { data: consentList } = useQuery(
-    ['consentList', consentType],
-    () => ConsentApi.get({ itemType: consentType }),
-    {
-      suspense: true,
-      useErrorBoundary: true,
-      retry: false,
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { data: consentList } = useGetConsentQuery(consentType);
   const filteredData = useSearchFilter(consentList?.data || [], searchKeyword, 'itemText');
 
   // 동의 항목 삭제

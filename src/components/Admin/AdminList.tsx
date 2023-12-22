@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
 
 // components
 import Table from '@components/core/Table';
@@ -10,9 +9,6 @@ import { useSearchFilter } from '@hooks/useSearchFilter';
 import { useDeleteAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
 import { useGetAdminQuery } from '@hooks/apis/Admin/useAdminQuery';
 import useModal from '@hooks/useModal';
-
-// apis
-import AuthApi from '@apis/services/AuthApi';
 
 // types
 import { IColumn } from '@components/core/Table';
