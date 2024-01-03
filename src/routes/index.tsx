@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'rea
 import NavigationBar from '@layouts/NavigationBar/NavigationBar';
 import Header from '@layouts/Header/Header';
 import Loader from '@components/core/Loader';
-import ActionButton from '@components/ActionButton';
+import FloatingButton from '@components/FloatingButton';
 import MakaLoader from '@components/core/MakaLoader';
 
 // pages - 로그인 하지 않아도 접근 가능
@@ -79,7 +79,7 @@ const PrivateLayout = () => {
     <>
       {localStorage.getItem('token') && (
         <>
-          <ActionButton />
+          <FloatingButton />
           <Container>
             <Header />
             <div className="row-flex">

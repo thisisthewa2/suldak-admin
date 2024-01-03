@@ -7,18 +7,18 @@ import { axiosInstance } from "@apis/interceptor";
 class UserApi {
 
   // 유저 목록 조회
-  getUsers = async () => {
+  get = async () => {
     const { data } = await axiosInstance.post(`/api/user/view/user`, {
-      // birthdayYear: 0,
-      // endYear: 0,
+      birthdayYear: 0,
+      endYear: 0,
       // gender: 'M',
-      // isActive: false,
-      // levelList: [0],
+      isActive: true,
+      levelList: [0],
       // nickname: '',
       // registration: 'APPLE',
-      // startYear: 0,
-      // userEmail: '',
-      // warningCntList: []
+      startYear: 0,
+      userEmail: '',
+      warningCntList: []
     })
 
     return data

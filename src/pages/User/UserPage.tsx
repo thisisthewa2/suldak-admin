@@ -12,6 +12,7 @@ import Button from '@components/core/Button';
 import Box from '@components/core/Box';
 import Title from '@components/core/Title';
 import Input from '@components/core/Input';
+import UserList from '@components/User/UserList';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -39,6 +40,12 @@ const UserPage = () => {
               onChange={searchInput.onChange}
             />
           </FormWrap>
+
+          <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
+            <Suspense fallback={<Loader />}>
+              <UserList />
+            </Suspense>
+          </ErrorBoundary>
         </Box>
       </RowContainer>
     </>

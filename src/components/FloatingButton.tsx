@@ -21,7 +21,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { FaSignOutAlt } from 'react-icons/fa';
 
 /** 화면 우측 하단 액션 버튼 */
-const ActionButton = () => {
+const FloatingButton = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { showInfoToastMessage } = useToastify();
@@ -80,7 +80,7 @@ const ActionButton = () => {
   );
 };
 
-export default ActionButton;
+export default FloatingButton;
 
 // 애니메이션
 const slideIn = keyframes`
@@ -140,6 +140,7 @@ const ActionMenuItem = styled.button<{ $animation: string; $delay: number }>`
   border-radius: 50%;
   background-color: ${(props) => props.theme.componentBgColor};
   border: none;
+  /* border: 0.5px solid ${(props) => props.theme.primary}; */
   color: ${(props) => props.theme.text.primary};
   font-size: 20px;
   padding: 0;
