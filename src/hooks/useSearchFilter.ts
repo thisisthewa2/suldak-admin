@@ -16,7 +16,7 @@ export const useSearchFilter = <T extends Searchable>(
     if (!searchKeyword.trim()) {
       setFilteredItems(items);
     } else {
-      const keyword = searchKeyword.toLowerCase();
+      const keyword = searchKeyword.toLowerCase().toString;
       const filtered = items.filter((item) =>
         searchFields.some(
           (field) =>
