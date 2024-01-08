@@ -7,8 +7,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import GlobalStyle from '@styles/GlobalStyle';
 import ThemeProvider from '@utils/ThemeProvider';
 
-import { ErrorBoundary } from 'react-error-boundary';
-
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 // react-query

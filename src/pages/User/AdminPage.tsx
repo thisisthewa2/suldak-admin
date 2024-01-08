@@ -1,26 +1,26 @@
-import React, { useState, Suspense } from 'react';
-import styled from 'styled-components';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from 'react-query';
+import React, { useState, Suspense } from "react";
+import styled from "styled-components";
+import { ErrorBoundary } from "react-error-boundary";
+import { useQueryErrorResetBoundary } from "react-query";
 
 // components
-import ErrorFallback from '@components/core/ErrorFallback';
-import RowContainer from '@components/RowContainer';
-import Breadcrumbs from '@components/core/Breadcrumbs';
-import Loader from '@components/core/Loader';
-import Button from '@components/core/Button';
-import Box from '@components/core/Box';
-import Title from '@components/core/Title';
-import Input from '@components/core/Input';
+import ErrorFallback from "@components/core/ErrorFallback";
+import RowContainer from "@components/RowContainer";
+import Breadcrumbs from "@components/core/Breadcrumbs";
+import Loader from "@components/core/Loader";
+import Button from "@components/core/Button";
+import Box from "@components/core/Box";
+import Title from "@components/core/Title";
+import Input from "@components/core/Input";
 
-import AdminList from '@components/Admin/AdminList';
-import AdminEdit from '@components/Admin/AdminEdit';
-import AdminAdd from '@components/Admin/AdminAdd';
+import AdminList from "@components/Admin/AdminList";
+import AdminEdit from "@components/Admin/AdminEdit";
+import AdminAdd from "@components/Admin/AdminAdd";
 
 // hooks
-import useResponsive from '@hooks/useResponsive';
-import useModal from '@hooks/useModal';
-import useInput from '@hooks/useInput';
+import useResponsive from "@hooks/useResponsive";
+import useModal from "@hooks/useModal";
+import useInput from "@hooks/useInput";
 
 /** 어드민 관리 페이지 */
 const AdminPage = () => {
@@ -28,7 +28,7 @@ const AdminPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { openModal } = useModal();
 
-  const searchInput = useInput('');
+  const searchInput = useInput("");
 
   // 어드민 상태
   const [selectedAdmin, setSelectedAdmin] = useState<any>();
@@ -39,7 +39,7 @@ const AdminPage = () => {
   // 어드민 추가 모달 열기
   const handleOpenAddModal = () => {
     openModal({
-      title: '어드민 추가',
+      title: "어드민 추가",
       content: <AdminAdd />,
     });
   };
@@ -50,8 +50,8 @@ const AdminPage = () => {
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 어드민 목록 테이블 */}
         <Box
-          gridColumn={selectedAdmin ? '9' : '12'}
-          gridColumnSpanTablet={selectedAdmin ? '5' : '8'}
+          gridColumn={selectedAdmin ? "9" : "12"}
+          gridColumnSpanTablet={selectedAdmin ? "5" : "8"}
         >
           <TitleWrap>
             <Title>어드민 목록</Title>
@@ -60,14 +60,17 @@ const AdminPage = () => {
 
           <FormWrap>
             <Input
-              placeholder="검색어를 입력해주세요... ( 관리자명 검색 )"
+              placeholder="검색어를 입력해주세요..."
               onChange={searchInput.onChange}
             />
           </FormWrap>
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              <AdminList searchKeyword={searchInput.value} selectAdmin={handleSelectAdmin} />
+              <AdminList
+                searchKeyword={searchInput.value}
+                selectAdmin={handleSelectAdmin}
+              />
             </Suspense>
           </ErrorBoundary>
         </Box>

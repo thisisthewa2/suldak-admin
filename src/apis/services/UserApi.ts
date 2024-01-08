@@ -2,10 +2,8 @@ import { axiosInstance } from "@apis/interceptor";
 
 // 유저 정보 조회
 
-
 /** 유저 정보 API */
 class UserApi {
-
   // 유저 목록 조회
   get = async () => {
     const { data } = await axiosInstance.post(`/api/user/view/user`, {
@@ -17,12 +15,12 @@ class UserApi {
       // nickname: '',
       // registration: 'APPLE',
       startYear: 0,
-      userEmail: '',
-      warningCntList: []
-    })
+      userEmail: "",
+      warningCntList: [],
+    });
 
-    return data
-  }
+    return data;
+  };
 }
 
-export default new UserApi()
+export default new UserApi();

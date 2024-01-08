@@ -1,16 +1,14 @@
 /** 검색 필터 커스텀훅 */
-// useSearchFilter.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface Searchable {
   [key: string]: any;
 }
 
-// 검색 가능한 아이템의 배열과 검색 키워드, 검색을 수행할 필드 이름을 인자로 받는 훅입니다.
 export const useSearchFilter = <T extends Searchable>(
   items: T[],
   searchKeyword: string,
-  searchField: keyof T
+  searchFields: (keyof T)[]
 ) => {
   const [filteredItems, setFilteredItems] = useState<T[]>([]);
 
@@ -19,10 +17,32 @@ export const useSearchFilter = <T extends Searchable>(
       setFilteredItems(items);
     } else {
       const keyword = searchKeyword.toLowerCase();
-      const filtered = items.filter(item => item[searchField].toLowerCase().includes(keyword));
-      setFilteredItems(filtered);
+      const filtered = items.filter((item) =>
+        searchFields.some(
+          (field) =>
+            item[field] &&
+            item[field].toString().toLowerCase().includes(keyword)
+        )
+      );
+
+      // 최적화: 현재 상태와 동일하면 업데이트하지 않음
+      if (!arraysAreEqual(filtered, filteredItems)) {
+        setFilteredItems(filtered);
+      }
     }
-  }, [items, searchKeyword, searchField]);
+  }, [items, searchKeyword, searchFields, filteredItems]);
+
+  // 배열이 같은지 확인하는 함수
+  const arraysAreEqual = (arr1: any[], arr2: any[]) => {
+    return (
+      arr1.length === arr2.length &&
+      arr1.every((value, index) => value === arr2[index])
+    );
+  };
+
+  useEffect(() => {
+    console.log(searchKeyword);
+  }, [searchKeyword]);
 
   return filteredItems;
 };

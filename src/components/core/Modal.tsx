@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import styled, { keyframes } from 'styled-components';
-import { useAtom } from 'jotai';
-import { modalStateAtom } from '@atoms/modalAtoms';
+import React from "react";
+import ReactDOM from "react-dom";
+import styled, { keyframes } from "styled-components";
+import { useAtom } from "jotai";
+import { modalStateAtom } from "@atoms/modalAtoms";
 
 // components
-import Button from './Button';
+import Button from "./Button";
 
 const Modal = () => {
   const [modalState, setModalState] = useAtom(modalStateAtom);
@@ -31,22 +31,29 @@ const Modal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  return (
-    <Overlay>
-      <Wrapper>
-        <Header>{modalState.title}</Header>
-        {modalState.content}
-        {modalState.onConfirm && (
-          <Footer>
-            <Button onClick={handleCancel} buttonType="reset">
-              취소
-            </Button>
-            <Button onClick={handleConfirm}>{modalState.confirmText}</Button>
-          </Footer>
-        )}
-      </Wrapper>
-    </Overlay>
-  );
+  const portalRoot = document.getElementById("modal-portal");
+
+  return portalRoot
+    ? ReactDOM.createPortal(
+        <Overlay>
+          <Wrapper>
+            <Header>{modalState.title}</Header>
+            {modalState.content}
+            {modalState.onConfirm && (
+              <Footer>
+                <Button onClick={handleCancel} buttonType="reset">
+                  취소
+                </Button>
+                <Button onClick={handleConfirm}>
+                  {modalState.confirmText}
+                </Button>
+              </Footer>
+            )}
+          </Wrapper>
+        </Overlay>,
+        portalRoot
+      )
+    : null;
 };
 
 export default Modal;
@@ -99,11 +106,6 @@ const Wrapper = styled.div`
   gap: 1rem;
 
   animation: ${slideIn} 0.3s ease-out forwards;
-`;
-
-const Content = styled.div`
-  width: 100%;
-  height: 100%;
 `;
 
 const Header = styled.div`
