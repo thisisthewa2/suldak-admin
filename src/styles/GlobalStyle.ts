@@ -1,19 +1,26 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
+import InterFont from '@assets/fonts/Inter-VariableFont_slnt,wght.ttf';
+
 const GlobalStyle = createGlobalStyle`
   ${reset}
+
+  @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        src: url(${InterFont}) format('truetype');
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
   body {
-    font-family: "Helvetica", "Arial", sans-serif;
+    font-family: "Inter", "Arial", sans-serif;
     line-height: 1.5; 
-    /* width: 100vw;
-    height: 100vh; */
 
-    background-color: ${props => props.theme.bgColor};
+    background-color: ${(props) => props.theme.bgColor};
 
 
     /* 반응형 폰트 사이즈 */
