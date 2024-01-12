@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <Container>
       <LeftArea>
-        {/* {currentTheme === 'LIGHT' ? <SuldakLogo mode="DARK" /> : <SuldakLogo mode="LIGHT" />} */}
+        {currentTheme === 'LIGHT' ? <SuldakLogo mode="DARK" /> : <SuldakLogo mode="LIGHT" />}
       </LeftArea>
       <UserBox>
         <div className="user-icon">
@@ -46,7 +46,7 @@ const Container = styled.header`
 `;
 
 const LeftArea = styled.div`
-  width: 250px;
+  width: 200px;
   height: 100%;
   background-color: ${(props) => props.theme.nav.bgColor};
   display: flex;

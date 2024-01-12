@@ -58,9 +58,9 @@ const StyledButton = styled.button<IStyledProps>`
   }
 `;
 
-const Button = ({ children, buttonType, width, ...props }: IProps) => {
+const Button = ({ children, buttonType, width, ...rest }: IProps) => {
   return (
-    <StyledButton {...props} $buttonType={buttonType} $width={width}>
+    <StyledButton {...rest} $buttonType={buttonType} $width={width}>
       {children}
     </StyledButton>
   );
