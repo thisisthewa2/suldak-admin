@@ -1,23 +1,23 @@
-import React, { useState, Suspense } from "react";
-import styled from "styled-components";
-import { ErrorBoundary } from "react-error-boundary";
-import { useQueryErrorResetBoundary } from "react-query";
+import React, { useState, Suspense } from 'react';
+import styled from 'styled-components';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useQueryErrorResetBoundary } from 'react-query';
 
 // components
-import ErrorFallback from "@components/core/ErrorFallback";
-import RowContainer from "@components/RowContainer";
-import Breadcrumbs from "@components/core/Breadcrumbs";
-import Loader from "@components/core/Loader";
-import Button from "@components/core/Button";
-import Box from "@components/core/Box";
-import Title from "@components/core/Title";
-import Input from "@components/core/Input";
-import UserList from "@components/User/UserList";
+import ErrorFallback from '@components/core/ErrorFallback';
+import RowContainer from '@components/RowContainer';
+import Breadcrumbs from '@components/core/Breadcrumbs';
+import Loader from '@components/core/Loader';
+import Button from '@components/core/Button';
+import Box from '@components/core/Box';
+import Title from '@components/core/Title';
+import Input from '@components/core/Input';
+import UserList from '@components/User/UserList';
 
 // hooks
-import useResponsive from "@hooks/useResponsive";
-import useModal from "@hooks/useModal";
-import useInput from "@hooks/useInput";
+import useResponsive from '@hooks/useResponsive';
+import useModal from '@hooks/useModal';
+import useInput from '@hooks/useInput';
 
 /** 유저 관리 페이지 */
 const UserPage = () => {
@@ -25,7 +25,7 @@ const UserPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { openModal } = useModal();
 
-  const searchInput = useInput("");
+  const searchInput = useInput('');
 
   // 유저 상태
   const [selectedAdmin, setSelectedAdmin] = useState<any>();

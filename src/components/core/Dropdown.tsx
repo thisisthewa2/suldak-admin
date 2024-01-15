@@ -15,7 +15,11 @@ interface DropdownProps {
 }
 
 /** 드롭다운 컴포넌트 */
-const Dropdown = ({ options, onSelect, placeholder = 'Select...' }: DropdownProps) => {
+const Dropdown = ({
+  options,
+  onSelect,
+  placeholder = 'Select...',
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -35,7 +39,10 @@ const Dropdown = ({ options, onSelect, placeholder = 'Select...' }: DropdownProp
   // 이벤트 리스너 등록
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -50,12 +57,16 @@ const Dropdown = ({ options, onSelect, placeholder = 'Select...' }: DropdownProp
     <DropdownWrapper ref={wrapperRef}>
       <DropdownHeader onClick={handleToggle}>
         {selectedOption ? selectedOption.label : placeholder}
-        <Arrow $isOpen={isOpen} /> {/* This is a down arrow unicode character */}
+        <Arrow $isOpen={isOpen} />{' '}
+        {/* This is a down arrow unicode character */}
       </DropdownHeader>
       {isOpen && (
         <DropdownList>
           {options.map((option) => (
-            <DropdownListItem key={option.value} onClick={() => handleSelect(option)}>
+            <DropdownListItem
+              key={option.value}
+              onClick={() => handleSelect(option)}
+            >
               {option.label}
             </DropdownListItem>
           ))}

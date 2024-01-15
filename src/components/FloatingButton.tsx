@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
@@ -23,9 +23,12 @@ import { FaSignOutAlt } from 'react-icons/fa';
 /** 화면 우측 하단 액션 버튼 */
 const FloatingButton = () => {
   const navigate = useNavigate();
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { showInfoToastMessage } = useToastify();
-  const [animation, setAnimation] = useState<'openAnimation' | 'closeAnimation'>('openAnimation');
+  const [animation, setAnimation] = useState<
+    'openAnimation' | 'closeAnimation'
+  >('openAnimation');
 
   // 메뉴 on/off
   const toggleMenu = () => {
@@ -55,11 +58,35 @@ const FloatingButton = () => {
     localStorage.removeItem('user');
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setAnimation('closeAnimation');
+        setTimeout(() => {
+          setIsOpen(false);
+          setAnimation('openAnimation');
+        }, 300);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <ActionButtonContainer>
+    <ActionButtonContainer ref={wrapperRef}>
       {isOpen ? (
         <>
-          <ActionMenuItem $delay={0.3} $animation={animation} onClick={handleLogOut}>
+          <ActionMenuItem
+            $delay={0.3}
+            $animation={animation}
+            onClick={handleLogOut}
+          >
             <FaSignOutAlt />
           </ActionMenuItem>
           <ActionMenuItem $delay={0.2} $animation={animation}>
@@ -152,11 +179,14 @@ const ActionMenuItem = styled.button<{ $animation: string; $delay: number }>`
   box-shadow: ${(props) => props.theme.boxShadow};
 
   opacity: ${({ $animation }) => ($animation === 'openAnimation' ? '0' : '1')};
-  animation-name: ${({ $animation }) => ($animation === 'openAnimation' ? slideIn : slideOut)};
+  animation-name: ${({ $animation }) =>
+    $animation === 'openAnimation' ? slideIn : slideOut};
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
   animation-delay: ${(props) =>
-    props.$animation === 'closeAnimation' ? 0.3 - props.$delay + 's' : props.$delay + 's'};
+    props.$animation === 'closeAnimation'
+      ? 0.3 - props.$delay + 's'
+      : props.$delay + 's'};
 
   &:hover {
     background-color: ${(props) => props.theme.hoverColor};

@@ -6,7 +6,7 @@ interface IUseInput {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   reset: () => void;
   setData: (data: string) => void;
-  setValue: React.Dispatch<SetStateAction<string>>
+  setValue: React.Dispatch<SetStateAction<string>>;
 }
 
 /** 인풋 커스텀훅 */
@@ -15,17 +15,17 @@ const useInput = (initialValue: string): IUseInput => {
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-  }
+  };
 
   const reset = () => {
     setValue('');
-  }
+  };
 
   const setData = (data: string) => {
-    setValue(data)
-  }
+    setValue(data);
+  };
 
   return { value, onChange, reset, setData, setValue };
-}
+};
 
-export default useInput
+export default useInput;

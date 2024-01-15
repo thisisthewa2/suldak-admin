@@ -2,27 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
+
+import { queryClient } from '@utils/QueryClient';
 
 import GlobalStyle from '@styles/GlobalStyle';
 import ThemeProvider from '@utils/ThemeProvider';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-
-// react-query
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-      useErrorBoundary: true,
-      retry: 0,
-    },
-    mutations: {
-      useErrorBoundary: false,
-      retry: 0,
-    },
-  },
-});
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
 root.render(
   <React.Fragment>

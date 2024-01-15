@@ -1,5 +1,5 @@
 /** 검색 필터 커스텀훅 */
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 interface Searchable {
   [key: string]: any;
@@ -16,7 +16,7 @@ export const useSearchFilter = <T extends Searchable>(
     if (!searchKeyword.trim()) {
       setFilteredItems(items);
     } else {
-      const keyword = searchKeyword.toLowerCase().toString;
+      const keyword = searchKeyword.toLowerCase(); // 수정된 부분
       const filtered = items.filter((item) =>
         searchFields.some(
           (field) =>
