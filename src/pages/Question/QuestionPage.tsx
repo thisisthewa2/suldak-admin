@@ -45,7 +45,6 @@ const QuestionPage = () => {
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              {/* 프로필 목록 */}
               <QuestionList searchKeyword={searchInput.value} />
             </Suspense>
           </ErrorBoundary>

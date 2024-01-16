@@ -16,10 +16,6 @@ const ConsentEdit = ({ selectedConsent }: IProps) => {
   const { closeModal } = useModal();
   const { mutate: editConsent } = useEditConsentMutation();
 
-  useEffect(() => {
-    console.log(selectedConsent);
-  }, []);
-
   // 동의 항목 수정
   const handleEditConsent = (data: any) => {
     editConsent({

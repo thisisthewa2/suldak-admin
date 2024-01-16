@@ -2,10 +2,11 @@ import { axiosInstance } from '@apis/interceptor';
 
 interface IEdit {
   priKey: number;
+  qindex: number;
   qtext: string; // 질문 텍스트
 }
 
-interface IDelete extends Omit<IEdit, 'qtext'> {}
+interface IDelete extends Pick<IEdit, 'priKey'> {}
 
 /** 프로필 질문 API */
 class ProfileQuestionApi {
@@ -21,12 +22,13 @@ class ProfileQuestionApi {
     return data;
   };
 
-  edit = async ({ priKey, qtext }: IEdit) => {
+  edit = async ({ priKey, qtext, qindex }: IEdit) => {
     const { data } = await axiosInstance.post(
       `/api/admin/liquor/question/liquor-question`,
       {
         priKey,
         qtext,
+        qindex,
       }
     );
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // components
 import Table, { IColumn } from '@components/core/Table';
 import Button from '@components/core/Button';
+import QuestionEdit from '@components/Question/QuestionEdit';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
@@ -24,6 +25,14 @@ const QuestionList = ({ searchKeyword = '' }: IProps) => {
     ['qtext']
   );
 
+  // 프로필 질문 수정 모달 열기
+  const handleOpenEditModal = (row: any) => {
+    openModal({
+      title: '프로필 질문 수정',
+      content: <QuestionEdit selectedQuestion={row} />,
+    });
+  };
+
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
@@ -35,7 +44,7 @@ const QuestionList = ({ searchKeyword = '' }: IProps) => {
       Header: '',
       accessor: (row: any) => (
         <ButtonWrap>
-          <Button>수정</Button>
+          <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
           <Button buttonType="cancel">삭제</Button>
         </ButtonWrap>
       ),
