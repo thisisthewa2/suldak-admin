@@ -19,7 +19,11 @@ export const menuList = [
     submenu: [
       { id: 'add-info', title: '술 정보 추가', path: '/liquor/add-info' },
       { id: 'delete-info', title: '술 정보 삭제', path: '/liquor/delete-info' },
-      { id: 'research-info', title: '술 정보 조회', path: '/liquor/research-info' },
+      {
+        id: 'research-info',
+        title: '술 정보 조회',
+        path: '/liquor/research-info',
+      },
       { id: 'manage-tag', title: '술 태그 관리', path: '/liquor/manage-tag' },
     ],
   },

@@ -1,17 +1,17 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // components
-import Table from "@components/core/Table";
-import Button from "@components/core/Button";
+import Table from '@components/core/Table';
+import Button from '@components/core/Button';
 
 // hooks
-import { useSearchFilter } from "@hooks/useSearchFilter";
-import { useDeleteTagMutation } from "@hooks/apis/Tag/useTagMutation";
-import { useGetTagQuery } from "@hooks/apis/Tag/useTagQuery";
-import useModal from "@hooks/useModal";
+import { useSearchFilter } from '@hooks/useSearchFilter';
+import { useDeleteTagMutation } from '@hooks/apis/Tag/useTagMutation';
+import { useGetTagQuery } from '@hooks/apis/Tag/useTagQuery';
+import useModal from '@hooks/useModal';
 
 // types
-import { IColumn } from "@components/core/Table";
+import { IColumn } from '@components/core/Table';
 
 interface IProps {
   tagType: string;
@@ -20,13 +20,13 @@ interface IProps {
 }
 
 /** 태그 목록 컴포넌트 */
-const TagList = ({ tagType, searchKeyword = "", selecteTag }: IProps) => {
+const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
   const { openModal } = useModal();
   const { data: tagList } = useGetTagQuery(tagType);
 
   const filteredData = useSearchFilter(tagList?.data || [], searchKeyword, [
-    "name",
-    "id",
+    'name',
+    'id',
   ]);
 
   // 태그 삭제
@@ -51,17 +51,17 @@ const TagList = ({ tagType, searchKeyword = "", selecteTag }: IProps) => {
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
-      Header: "아이디",
-      accessor: "id",
-      width: "20%",
+      Header: '아이디',
+      accessor: 'id',
+      width: '20%',
     },
     {
-      Header: "태그명",
-      accessor: "name",
-      width: "40%",
+      Header: '태그명',
+      accessor: 'name',
+      width: '40%',
     },
     {
-      Header: "",
+      Header: '',
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
@@ -74,8 +74,8 @@ const TagList = ({ tagType, searchKeyword = "", selecteTag }: IProps) => {
           </Button>
         </ButtonWrap>
       ),
-      width: "40%",
-      align: "right",
+      width: '40%',
+      align: 'right',
     },
   ];
 

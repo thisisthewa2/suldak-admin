@@ -61,16 +61,23 @@ const TagPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 태그 목록 테이블 */}
-        <Box gridColumn={selectedTag ? '9' : '12'} gridColumnSpanTablet={selectedTag ? '5' : '8'}>
+        <Box
+          gridColumn={selectedTag ? '9' : '12'}
+          gridColumnSpanTablet={selectedTag ? '5' : '8'}
+        >
           <TitleWrap>
             <Title>태그 목록</Title>
             <Button onClick={handleOpenAddModal}>태그 추가 +</Button>
           </TitleWrap>
 
           <FormWrap>
-            <Dropdown options={TagTypes} onSelect={handleSelectType} placeholder="주량" />
+            <Dropdown
+              options={TagTypes}
+              onSelect={handleSelectType}
+              placeholder="주량"
+            />
             <Input
-              placeholder="검색어를 입력해주세요... ( 태그명 검색 )"
+              placeholder="검색어를 입력해주세요..."
               onChange={searchInput.onChange}
             />
           </FormWrap>
