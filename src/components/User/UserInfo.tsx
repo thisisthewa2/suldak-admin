@@ -1,12 +1,14 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+
+import { BASE_URL } from '@apis/interceptor';
 
 // components
-import Input from "@components/core/Input";
-import Button from "@components/core/Button";
+import Input from '@components/core/Input';
+import Button from '@components/core/Button';
 
 // hooks
-import useModal from "@hooks/useModal";
+import useModal from '@hooks/useModal';
 
 interface IProps {
   selectedUserData?: any;
@@ -21,24 +23,31 @@ const UserInfo = ({ selectedUserData }: IProps) => {
     <Wrapper>
       <FormWrapper>
         <InfoDivider>
-          <InfoImg className="info-img" />
+          <InfoImg
+            className="info-img"
+            src={
+              selectedUserData.pictureUrl
+                ? `${BASE_URL}${selectedUserData.pictureUrl}`
+                : 'https://i.namu.wiki/i/kaaN8gvIGQkip-KfwUCHPD9G_Ls2rurrMJsvzIXVs_h0gr-w3y2YeBfEbFgtiQ3_egAtZYnwU3IqaYPjaVM1Zw7SL-9v7pqq_qHyN8QPKh45mU4QC449P6rVBaq_96_QLi9zhSvw8wsuCGR34fVuZ5Ds_9nYO4QRjouK3-ApGAY.webp'
+            }
+          />
           <ContentWrapper>
             <div className="info-wrap">
               <span className="info-label">닉네임 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.nickname || ""}
+                {selectedUserData.nickname || ''}
               </span>
             </div>
             <div className="info-wrap">
               <span className="info-label">이메일 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.userEmail || ""}
+                {selectedUserData.userEmail || ''}
               </span>
             </div>
             <div className="info-wrap">
               <span className="info-label">레벨 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.level.toString() || "none"}
+                {selectedUserData.level.toString() || 'none'}
               </span>
             </div>
             <div className="info-wrap">
@@ -54,19 +63,19 @@ const UserInfo = ({ selectedUserData }: IProps) => {
             <div className="info-wrap">
               <span className="info-label">성별 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.gender || ""}
+                {selectedUserData.gender || ''}
               </span>
             </div>
             <div className="info-wrap">
               <span className="info-label">경고 횟수 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.warningCnt.toString() || ""}
+                {selectedUserData.warningCnt.toString() || ''}
               </span>
             </div>
             <div className="info-wrap">
               <span className="info-label">가입 일시 :&nbsp;</span>
               <span className="info-label">
-                {selectedUserData.modifiedAt || "none"}
+                {selectedUserData.modifiedAt || 'none'}
               </span>
             </div>
             <div className="info-wrap">
@@ -106,7 +115,7 @@ const FormWrapper = styled.div`
   gap: 1rem;
 `;
 
-const InfoImg = styled.div`
+const InfoImg = styled.img`
   width: 100px;
   height: 100px;
   background-color: ${(props) => props.theme.gray};
