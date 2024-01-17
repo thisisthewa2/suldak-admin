@@ -22,8 +22,9 @@ const QuestionEdit = ({ selectedQuestion }: IProps) => {
 
   // 프로필 질문 수정
   const handleEditQuestion = () => {
+    console.log(selectedQuestion);
     editQuestion({
-      priKey: selectedQuestion.prikey,
+      priKey: selectedQuestion.questionPriKey,
       qindex: selectedQuestion.qindex,
       qtext: questionText.value,
     });
@@ -31,11 +32,7 @@ const QuestionEdit = ({ selectedQuestion }: IProps) => {
 
   return (
     <>
-      <Input
-        label="프로필 질문"
-        value={questionText.value}
-        onChange={questionText.onChange}
-      />
+      <Input label="프로필 질문" value={questionText.value} onChange={questionText.onChange} />
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">
