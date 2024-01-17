@@ -30,7 +30,6 @@ const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
     'id',
   ]);
 
-  // 태그 삭제
   const { mutate: deleteTag } = useDeleteTagMutation();
 
   // 태그 삭제 확인 모달 열기

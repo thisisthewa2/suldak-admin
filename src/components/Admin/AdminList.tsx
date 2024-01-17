@@ -1,17 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // components
-import Table from "@components/core/Table";
-import Button from "@components/core/Button";
+import Table from '@components/core/Table';
+import Button from '@components/core/Button';
+import AdminEdit from '@components/Admin/AdminEdit';
 
 // hooks
-import { useSearchFilter } from "@hooks/useSearchFilter";
-import { useDeleteAdminMutation } from "@hooks/apis/Admin/useAdminMutation";
-import { useGetAdminQuery } from "@hooks/apis/Admin/useAdminQuery";
-import useModal from "@hooks/useModal";
+import { useSearchFilter } from '@hooks/useSearchFilter';
+import { useDeleteAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
+import { useGetAdminQuery } from '@hooks/apis/Admin/useAdminQuery';
+import useModal from '@hooks/useModal';
 
 // types
-import { IColumn } from "@components/core/Table";
+import { IColumn } from '@components/core/Table';
 
 interface IProps {
   searchKeyword?: string;
@@ -19,12 +20,12 @@ interface IProps {
 }
 
 /** 어드민 목록 컴포넌트 */
-const AdminList = ({ searchKeyword = "", selectAdmin }: IProps) => {
+const AdminList = ({ searchKeyword = '', selectAdmin }: IProps) => {
   const { openModal } = useModal();
   const { data: adminList } = useGetAdminQuery();
   const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, [
-    "adminNm",
-    "adminId",
+    'adminNm',
+    'adminId',
   ]);
 
   const { mutate: deleteAdmin } = useDeleteAdminMutation();
@@ -44,28 +45,36 @@ const AdminList = ({ searchKeyword = "", selectAdmin }: IProps) => {
     });
   };
 
+  // 어드민 수정 모달 열기
+  const handleOpenEditModal = (row: any) => {
+    openModal({
+      title: '어드민 수정',
+      content: <AdminEdit selectedAdmin={row} />,
+    });
+  };
+
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
-      Header: "아이디",
-      accessor: "adminId",
-      width: "20%",
+      Header: '아이디',
+      accessor: 'adminId',
+      width: '20%',
     },
     {
-      Header: "관리자명",
-      accessor: "adminNm",
-      width: "20%",
+      Header: '관리자명',
+      accessor: 'adminNm',
+      width: '20%',
     },
     {
-      Header: "생성일자",
-      accessor: "createdAt",
-      width: "40%",
+      Header: '생성일자',
+      accessor: 'createdAt',
+      width: '40%',
     },
     {
-      Header: "",
+      Header: '',
       accessor: (row: any) => (
         <ButtonWrap>
-          <Button onClick={() => selectAdmin(row)}>수정</Button>
+          <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
           <Button
             buttonType="cancel"
             onClick={() => handleOpenDeleteModal(row.id)}
@@ -74,8 +83,8 @@ const AdminList = ({ searchKeyword = "", selectAdmin }: IProps) => {
           </Button>
         </ButtonWrap>
       ),
-      width: "30%",
-      align: "right",
+      width: '30%',
+      align: 'right',
     },
   ];
 

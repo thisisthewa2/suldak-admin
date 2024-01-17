@@ -1,92 +1,61 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 // components
-import Input from "@components/core/Input";
-import Button from "@components/core/Button";
+import Input from '@components/core/Input';
+import Button from '@components/core/Button';
 
 // hooks
-import useModal from "@hooks/useModal";
-import useInput from "@hooks/useInput";
-import { useEditAdminMutation } from "@hooks/apis/Admin/useAdminMutation";
+import { useEditAdminMutation } from '@hooks/apis/Admin/useAdminMutation';
+import useModal from '@hooks/useModal';
+import useInput from '@hooks/useInput';
 
 interface IProps {
   selectedAdmin?: any;
 }
 
-/** 어드민 수정 컴포넌트 */
 const AdminEdit = ({ selectedAdmin }: IProps) => {
-  const { openModal } = useModal();
-  const { mutate: adminEdit } = useEditAdminMutation();
+  const { closeModal } = useModal();
+  const { mutate: editAdmin } = useEditAdminMutation();
 
-  const adminName = useInput("");
-  const adminId = useInput("");
+  const adminName = useInput(selectedAdmin.adminNm);
+  const adminId = useInput(selectedAdmin.adminId);
 
-  // 선택된 어드민이 변경될시 초기 인풋 설정
-  useEffect(() => {
-    adminName.setData(selectedAdmin?.adminNm || "");
-    adminId.setData(selectedAdmin?.adminId || "");
-  }, [selectedAdmin]);
-
-  // 어드민 수정 확인 모달 열기
-  const handleOpenEditModal = () => {
-    console.log(selectedAdmin.id);
-    openModal({
-      content: <div>관리자 정보를 수정하시겠습니까?</div>,
-      onConfirm: handleEditAdmin,
-    });
-  };
-
-  // 어드민 수정
+  // 어드민 정보 수정
   const handleEditAdmin = () => {
-    adminEdit({
+    editAdmin({
       adminId: adminId.value,
       adminNm: adminName.value,
-      adminPw: "",
       priKey: selectedAdmin.id,
+      adminPw: '',
     });
+    closeModal();
   };
 
   return (
-    <Wrapper>
-      <InputWrapper>
-        <Input
-          value={adminName.value}
-          onChange={adminName.onChange}
-          label="이름"
-        />
-        <Input
-          value={adminId.value}
-          onChange={adminId.onChange}
-          label="아이디"
-        />
-      </InputWrapper>
-      <ButtonWrapper>
-        {selectedAdmin && <Button onClick={handleOpenEditModal}>수정</Button>}
-      </ButtonWrapper>
-    </Wrapper>
+    <>
+      <Input
+        label="이름"
+        value={adminName.value}
+        onChange={adminName.onChange}
+      />
+      <Input label="아이디" value={adminId.value} onChange={adminId.onChange} />
+      <ButtonWrap>
+        <Button onClick={closeModal} buttonType="reset">
+          닫기
+        </Button>
+        <Button onClick={handleEditAdmin}>수정</Button>
+      </ButtonWrap>
+    </>
   );
 };
 
 export default AdminEdit;
 
-const Wrapper = styled.div`
+const ButtonWrap = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
-`;
-
-const ButtonWrapper = styled.div`
-  text-align: right;
-  width: 100%;
-  margin-top: 1rem;
 `;
