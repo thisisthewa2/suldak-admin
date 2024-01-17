@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // components
@@ -6,73 +6,51 @@ import Input from '@components/core/Input';
 import Button from '@components/core/Button';
 
 // hooks
+import { useEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
-import { useEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
 
 interface IProps {
-  tagType: string;
   selectedTag?: any;
+  tagType: string;
 }
 
-/** 태그 수정 컴포넌트 */
-const TagEdit = ({ tagType, selectedTag }: IProps) => {
-  const tagName = useInput('');
-  const { openModal } = useModal();
-  const { mutate: tagEdit } = useEditTagMutation();
+const TagEdit = ({ selectedTag, tagType }: IProps) => {
+  const { closeModal } = useModal();
+  const { mutate: editTag } = useEditTagMutation();
 
-  // 태그 수정 확인 모달 열기
-  const handleOpenEditModal = () => {
-    openModal({
-      content: <div>태그를 수정하시겠습니까?</div>,
-      onConfirm: handleAddEditTag,
-    });
-  };
+  const tagText = useInput(selectedTag.name);
 
-  // 폼 추가 및 수정
-  const handleAddEditTag = () => {
-    tagEdit({
+  // 태그명 수정
+  const handleEditTag = () => {
+    editTag({
+      id: selectedTag.id,
+      name: tagText.value,
       tagType: tagType,
-      name: tagName.value,
-      id: selectedTag.id ? selectedTag.id : null,
     });
+    closeModal();
   };
-
-  // 선택된 태그가 변경될시 초기 인풋 설정
-  useEffect(() => {
-    tagName.setData(selectedTag?.name || '');
-  }, [selectedTag]);
 
   return (
-    <Wrapper>
-      <InputWrapper>
-        <Input value={tagName.value} onChange={tagName.onChange} label="태그명" />
-      </InputWrapper>
-      <ButtonWrapper>
-        {selectedTag && <Button onClick={handleOpenEditModal}>수정</Button>}
-      </ButtonWrapper>
-    </Wrapper>
+    <>
+      <Input label="태그명" value={tagText.value} onChange={tagText.onChange} />
+
+      <ButtonWrap>
+        <Button onClick={closeModal} buttonType="reset">
+          닫기
+        </Button>
+        <Button onClick={handleEditTag}>수정</Button>
+      </ButtonWrap>
+    </>
   );
 };
 
 export default TagEdit;
 
-const Wrapper = styled.div`
+const ButtonWrap = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
-`;
-
-const ButtonWrapper = styled.div`
-  text-align: right;
-  width: 100%;
 `;

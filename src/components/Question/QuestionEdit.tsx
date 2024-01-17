@@ -22,7 +22,6 @@ const QuestionEdit = ({ selectedQuestion }: IProps) => {
 
   // 프로필 질문 수정
   const handleEditQuestion = () => {
-    console.log(questionText.value);
     editQuestion({
       priKey: selectedQuestion.prikey,
       qindex: selectedQuestion.qindex,

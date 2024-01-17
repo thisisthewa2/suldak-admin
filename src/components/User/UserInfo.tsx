@@ -119,6 +119,7 @@ const InfoImg = styled.img`
   width: 100px;
   height: 100px;
   background-color: ${(props) => props.theme.gray};
+  border-radius: 4px;
 `;
 
 const InfoDivider = styled.div`

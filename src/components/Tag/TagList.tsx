@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // components
 import Table from '@components/core/Table';
 import Button from '@components/core/Button';
+import TagEdit from '@components/Tag/TagEdit';
 
 // hooks
 import { useSearchFilter } from '@hooks/useSearchFilter';
@@ -48,6 +49,14 @@ const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
     });
   };
 
+  // 태그 수정 모달 열기
+  const handleOpenEditModal = (row: any) => {
+    openModal({
+      title: '태그 수정',
+      content: <TagEdit tagType={tagType} selectedTag={row} />,
+    });
+  };
+
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
@@ -65,7 +74,7 @@ const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
-          <Button onClick={() => selecteTag(row)}>수정</Button>
+          <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
           <Button
             onClick={() => handleOpenDeleteModal(row.id)}
             buttonType="cancel"
