@@ -7,7 +7,6 @@ import { useQueryErrorResetBoundary } from 'react-query';
 import ErrorFallback from '@components/core/ErrorFallback';
 import RowContainer from '@components/RowContainer';
 import TagList from '@components/Tag/TagList';
-import TagEdit from '@components/Tag/TagEdit';
 import TagAdd from '@components/Tag/TagAdd';
 import Button from '@components/core/Button';
 import Box from '@components/core/Box';
@@ -35,17 +34,10 @@ const TagPage = () => {
 
   // 목록 태그 상태
   const [tagType, setTagType] = useState<string>('drinking-capacity');
-  const [selectedTag, setSelectedTag] = useState<any>();
 
   // 태그 목록 타입 선택 함수
   const handleSelectType = (selected: { value: string; label: string }) => {
     setTagType(selected.value);
-    setSelectedTag(null);
-  };
-
-  // 태그 목록 선택 함수
-  const handleSelectTag = (tag: any) => {
-    setSelectedTag(tag);
   };
 
   // 태그 추가 모달 열기
@@ -61,10 +53,7 @@ const TagPage = () => {
       <Breadcrumbs />
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         {/* 태그 목록 테이블 */}
-        <Box
-          gridColumn={selectedTag ? '9' : '12'}
-          gridColumnSpanTablet={selectedTag ? '5' : '8'}
-        >
+        <Box gridColumn="12">
           <TitleWrap>
             <Title>태그 목록</Title>
             <Button onClick={handleOpenAddModal}>태그 추가 +</Button>
@@ -84,21 +73,10 @@ const TagPage = () => {
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              <TagList
-                tagType={tagType}
-                searchKeyword={searchInput.value}
-                selecteTag={handleSelectTag}
-              />
+              <TagList tagType={tagType} searchKeyword={searchInput.value} />
             </Suspense>
           </ErrorBoundary>
         </Box>
-
-        {/* 태그 수정 폼 */}
-        {selectedTag && (
-          <Box gridColumn="3">
-            <TagEdit tagType={tagType} selectedTag={selectedTag} />
-          </Box>
-        )}
       </RowContainer>
     </>
   );

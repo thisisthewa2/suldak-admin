@@ -16,11 +16,10 @@ import { IColumn } from '@components/core/Table';
 
 interface IProps {
   searchKeyword?: string;
-  selectAdmin: (row: any) => void;
 }
 
 /** 어드민 목록 컴포넌트 */
-const AdminList = ({ searchKeyword = '', selectAdmin }: IProps) => {
+const AdminList = ({ searchKeyword = '' }: IProps) => {
   const { openModal } = useModal();
   const { data: adminList } = useGetAdminQuery();
   const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, [

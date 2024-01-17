@@ -17,11 +17,10 @@ import { IColumn } from '@components/core/Table';
 interface IProps {
   tagType: string;
   searchKeyword?: string;
-  selecteTag: (row: any) => void;
 }
 
 /** 태그 목록 컴포넌트 */
-const TagList = ({ tagType, searchKeyword = '', selecteTag }: IProps) => {
+const TagList = ({ tagType, searchKeyword = '' }: IProps) => {
   const { openModal } = useModal();
   const { data: tagList } = useGetTagQuery(tagType);
 
