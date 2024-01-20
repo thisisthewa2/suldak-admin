@@ -47,9 +47,6 @@ const QuestionEdit = ({ selectedQuestion }: IProps) => {
       />
 
       <ButtonWrap>
-        <Button onClick={closeModal} buttonType="reset">
-          닫기
-        </Button>
         <Button onClick={handleEditQuestion}>수정</Button>
       </ButtonWrap>
 
@@ -73,4 +70,5 @@ const ButtonWrap = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+  margin-bottom: 0.5rem;
 `;

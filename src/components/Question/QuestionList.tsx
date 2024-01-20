@@ -30,6 +30,7 @@ const QuestionList = ({ searchKeyword = '' }: IProps) => {
     openModal({
       title: '프로필 질문 수정',
       content: <QuestionEdit selectedQuestion={row} />,
+      isCloseBtn: true,
     });
   };
 

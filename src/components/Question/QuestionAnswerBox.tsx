@@ -11,10 +11,10 @@ import Input from '@components/core/Input';
 
 // hooks
 import useInput from '@hooks/useInput';
-import { useAnswerEditMutation } from '@hooks/apis/Question/useAnswerMutation';
-
-// types
-import { AnswerType } from './QuestionAnswerList';
+import {
+  useAnswerEditMutation,
+  useAnswerDeleteMutation,
+} from '@hooks/apis/Question/useAnswerMutation';
 
 type BoxType = 'none' | 'edit' | 'delete';
 
@@ -35,6 +35,7 @@ const QuestionAnswerBox = ({
   const [type, setType] = useState<BoxType>('none');
 
   const { mutate: edit } = useAnswerEditMutation();
+  const { mutate: deleteAnswer } = useAnswerDeleteMutation();
 
   const answerInput = useInput(atext);
 
@@ -52,6 +53,13 @@ const QuestionAnswerBox = ({
       atext: answerInput.value,
     });
     setType('none');
+  };
+
+  // 질문 삭제 함수
+  const handleDeleteAnswer = () => {
+    deleteAnswer({
+      liquorAPriKey: priKey,
+    });
   };
 
   const returnComponent = () => {
@@ -77,7 +85,7 @@ const QuestionAnswerBox = ({
                 삭제하시겠습니까?
               </DeleteConfirmText>
               <DeleteConfirmIconWrap>
-                <CheckIcon />
+                <CheckIcon onClick={handleDeleteAnswer} />
                 <CloseIcon onClick={() => changeType('none')} />
               </DeleteConfirmIconWrap>
             </DeleteConfirmBox>

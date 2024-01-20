@@ -1,14 +1,38 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import styled, { keyframes } from "styled-components";
-import { useAtom } from "jotai";
-import { modalStateAtom } from "@atoms/modalAtoms";
+import React, { useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import styled, { keyframes } from 'styled-components';
+import { useAtom } from 'jotai';
+import { modalStateAtom } from '@atoms/modalAtoms';
+
+// icons
+import { IoClose } from 'react-icons/io5';
 
 // components
-import Button from "./Button";
+import Button from './Button';
 
 const Modal = () => {
   const [modalState, setModalState] = useAtom(modalStateAtom);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const portalRoot = document.getElementById('modal-portal');
+
+  // 이벤트 리스너 등록
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setModalState((prev) => ({ ...prev, isOpen: false }));
+        console.log('ts');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // 모달이 닫혀 있는 상태
   if (!modalState.isOpen) {
@@ -31,13 +55,14 @@ const Modal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  const portalRoot = document.getElementById("modal-portal");
-
   return portalRoot
     ? ReactDOM.createPortal(
-        <Overlay>
+        <Overlay ref={wrapperRef}>
           <Wrapper>
-            <Header>{modalState.title}</Header>
+            <Header>
+              {modalState.title}
+              {modalState.isCloseBtn && <CloseIcon onClick={handleCancel} />}
+            </Header>
             {modalState.content}
             {modalState.onConfirm && (
               <Footer>
@@ -109,11 +134,23 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   text-align: left;
   color: ${(props) => props.theme.text.primary};
   font-size: 1.2rem;
   font-weight: 500;
+`;
+
+const CloseIcon = styled(IoClose)`
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: ${(props) => props.theme.gray};
+  }
 `;
 const Footer = styled.div`
   width: 100%;

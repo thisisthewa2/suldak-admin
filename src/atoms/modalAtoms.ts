@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom } from 'jotai';
 
 export interface IModal {
   title?: string;
@@ -6,6 +6,7 @@ export interface IModal {
   content: JSX.Element | React.ReactNode | null;
   confirmText?: string;
   onConfirm?: () => void;
+  isCloseBtn: boolean;
 }
 
 export const modalStateAtom = atom<IModal>({
@@ -13,5 +14,6 @@ export const modalStateAtom = atom<IModal>({
   isOpen: false,
   content: null,
   confirmText: '확인',
-  onConfirm: undefined
-})
+  onConfirm: undefined,
+  isCloseBtn: false,
+});

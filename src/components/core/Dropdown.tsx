@@ -57,7 +57,7 @@ const Dropdown = ({
     <DropdownWrapper ref={wrapperRef}>
       <DropdownHeader onClick={handleToggle}>
         {selectedOption ? selectedOption.label : placeholder}
-        <Arrow $isOpen={isOpen} />{' '}
+        <Arrow $isOpen={isOpen} />
         {/* This is a down arrow unicode character */}
       </DropdownHeader>
       {isOpen && (
