@@ -40,9 +40,5 @@ export const useSearchFilter = <T extends Searchable>(
     );
   };
 
-  useEffect(() => {
-    console.log(searchKeyword);
-  }, [searchKeyword]);
-
   return filteredItems;
 };

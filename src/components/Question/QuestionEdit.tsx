@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useQueryErrorResetBoundary } from 'react-query';
 
 // components
 import Input from '@components/core/Input';
 import Button from '@components/core/Button';
+import Loader from '@components/core/Loader';
+import ErrorFallback from '@components/core/ErrorFallback';
+
+import QuestionAnswerList from '@components/Question/QuestionAnswerList';
 
 // hooks
 import { useEditQuesitonMutation } from '@hooks/apis/Question/useQuestionMutation';
@@ -16,23 +22,29 @@ interface IProps {
 
 const QuestionEdit = ({ selectedQuestion }: IProps) => {
   const { closeModal } = useModal();
+  const { reset } = useQueryErrorResetBoundary();
   const { mutate: editQuestion } = useEditQuesitonMutation();
 
   const questionText = useInput(selectedQuestion.qtext);
 
   // 프로필 질문 수정
   const handleEditQuestion = () => {
-    console.log(selectedQuestion);
     editQuestion({
       priKey: selectedQuestion.questionPriKey,
       qindex: selectedQuestion.qindex,
       qtext: questionText.value,
     });
+    closeModal();
   };
 
   return (
     <>
-      <Input label="프로필 질문" value={questionText.value} onChange={questionText.onChange} />
+      {/* 프로필 질문 영역 */}
+      <Input
+        label="프로필 질문"
+        value={questionText.value}
+        onChange={questionText.onChange}
+      />
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">
@@ -40,6 +52,15 @@ const QuestionEdit = ({ selectedQuestion }: IProps) => {
         </Button>
         <Button onClick={handleEditQuestion}>수정</Button>
       </ButtonWrap>
+
+      {/* 프로필 답변 영역 */}
+      <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
+        <Suspense fallback={<Loader />}>
+          <QuestionAnswerList
+            questionPriKey={selectedQuestion.questionPriKey}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 };

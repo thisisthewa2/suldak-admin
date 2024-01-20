@@ -20,7 +20,9 @@ interface IProps {
 /** 테이블 컴포넌트 */
 const Table = ({ data, columns, rowsPerPage = 5 }: IProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(Math.ceil(data.length / rowsPerPage));
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(data.length / rowsPerPage)
+  );
 
   // 페이지 변경시 실행
   const handleChangePage = (page: number) => {
@@ -28,7 +30,10 @@ const Table = ({ data, columns, rowsPerPage = 5 }: IProps) => {
   };
 
   // 현재 페이지의 데이터를 계산
-  const currentTableData = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const currentTableData = data.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   useEffect(() => {
     // 데이터가 변경되면 페이지 수를 다시 계산합니다.
@@ -105,7 +110,6 @@ const Tr = styled.tr`
   border-bottom: 1px solid ${(props) => props.theme.form.border};
 
   &:hover {
-    /* cursor: pointer; */
     background-color: ${(props) => props.theme.hoverColor};
   }
 `;
