@@ -9,6 +9,7 @@ interface IProps {
   onEnterKeyDown?: () => void;
   disabled?: boolean;
   type?: string;
+  name?: string;
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   defaultValue,
   disabled = false,
   type = 'text',
+  name,
   ...props
 }: IProps) => {
   // 엔터키 입력시 실행할 함수
@@ -32,6 +34,7 @@ const Input = ({
       {label && <Label>{label}</Label>}
       <StyledInput
         {...props}
+        name={name}
         value={value}
         defaultValue={defaultValue}
         onKeyDown={handleKeyDown}

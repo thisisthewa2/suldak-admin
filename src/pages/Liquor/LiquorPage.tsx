@@ -12,6 +12,7 @@ import Title from '@components/core/Title';
 import Input from '@components/core/Input';
 import Loader from '@components/core/Loader';
 import Button from '@components/core/Button';
+import LiquorAdd from '@components/Liquor/LiquorAdd';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -30,7 +31,8 @@ const LiquorPage = () => {
   const handleOpenAddModal = () => {
     openModal({
       title: '술 추가',
-      content: <></>,
+      content: <LiquorAdd />,
+      isCloseBtn: true,
     });
   };
 
@@ -42,7 +44,7 @@ const LiquorPage = () => {
         <Box gridColumn={'12'} gridColumnSpanMobile={'8'}>
           <TitleWrap>
             <Title>술 관리</Title>
-            <Button onClick={handleOpenAddModal}>태그 추가 +</Button>
+            <Button onClick={handleOpenAddModal}>술 추가 +</Button>
           </TitleWrap>
 
           <FormWrap>

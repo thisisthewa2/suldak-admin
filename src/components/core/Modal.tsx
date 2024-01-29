@@ -16,29 +16,6 @@ const Modal = () => {
 
   const portalRoot = document.getElementById('modal-portal');
 
-  // 이벤트 리스너 등록
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setModalState((prev) => ({ ...prev, isOpen: false }));
-        console.log('ts');
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  // 모달이 닫혀 있는 상태
-  if (!modalState.isOpen) {
-    return null;
-  }
-
   // 확인 버튼 클릭시 실행할 함수
   const handleConfirm = () => {
     modalState.onConfirm?.();
@@ -55,10 +32,32 @@ const Modal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
+  // 이벤트 리스너 등록
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setModalState((prev) => ({ ...prev, isOpen: false }));
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // 모달이 닫혀 있는 상태
+  if (!modalState.isOpen) {
+    return null;
+  }
+
   return portalRoot
     ? ReactDOM.createPortal(
-        <Overlay ref={wrapperRef}>
-          <Wrapper>
+        <Overlay>
+          <Wrapper ref={wrapperRef}>
             <Header>
               {modalState.title}
               {modalState.isCloseBtn && <CloseIcon onClick={handleCancel} />}
@@ -119,7 +118,7 @@ const Overlay = styled.div`
 
 const Wrapper = styled.div`
   min-width: 400px;
-  min-height: 200px;
+  //min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,6 +151,7 @@ const CloseIcon = styled(IoClose)`
     color: ${(props) => props.theme.gray};
   }
 `;
+
 const Footer = styled.div`
   width: 100%;
   display: flex;
