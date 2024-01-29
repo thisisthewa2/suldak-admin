@@ -1,5 +1,4 @@
-import { atomWithStorage } from 'jotai/utils'
-
+import { atomWithStorage } from 'jotai/utils';
 
 export interface IUser {
   adminId: string;
@@ -16,9 +15,8 @@ const defaultUser: IUser = {
   createAt: '',
   id: 0,
   modifiedAt: '',
-  refreshToken: ''
-}
+  refreshToken: '',
+};
 
 // 유저 데이터
-export const userAtom = atomWithStorage<IUser | null>('user', defaultUser)
-
+export const userAtom = atomWithStorage<IUser | null>('user', defaultUser);

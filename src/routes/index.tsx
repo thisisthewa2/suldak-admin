@@ -22,6 +22,7 @@ const LoginPage = lazy(() => import('@pages/LoginPage'));
 const DashboardPage = lazy(() => import('@pages/DashboardPage'));
 const TestPage = lazy(() => import('@pages/TestPage'));
 
+const LiquorPage = lazy(() => import('@pages/Liquor/LiquorPage'));
 const TagPage = lazy(() => import('@pages/Tag/TagPage'));
 
 const AdminPage = lazy(() => import('@pages/User/AdminPage'));
@@ -43,6 +44,9 @@ const RouterComponent = () => {
           {/* 로그인 상태에서 접근 가능한 페이지 */}
           <Route path="/" element={<PrivateLayout />}>
             <Route path="/" element={<DashboardPage />} />
+
+            {/* 술 관리 페이지 */}
+            <Route path="/liquor" element={<LiquorPage />} />
 
             {/* 태그 페이지 */}
             <Route path="/tag" element={<TagPage />} />
