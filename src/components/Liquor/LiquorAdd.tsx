@@ -18,6 +18,9 @@ import useModal from '@hooks/useModal';
 import useToastify from '@hooks/useToastify';
 import Loader from '@components/core/Loader';
 
+// types
+import { tagType } from '@components/core/DropSelector';
+
 /** 술 추가 컴포넌트 */
 const LiquorAdd = () => {
   const { closeModal } = useModal();
@@ -30,6 +33,11 @@ const LiquorAdd = () => {
     searchTag: '', // 술 검색을 위한 문구
     detailAbv: '', // 술의 정확한 도수
   });
+
+  const [liquorName, setLiquorName] = useState<tagType[]>([]);
+
+  const handleChangeTags = () => {};
+
   return (
     <Wrapper>
       <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>

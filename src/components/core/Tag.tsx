@@ -41,6 +41,7 @@ const StyledTag = styled.div<{ $color?: string }>`
   padding: 0 0.5rem;
   background-color: ${(props) =>
     props.$color ? props.$color : props.theme.green};
+  cursor: pointer;
 `;
 
 const CloseIcon = styled(IoClose)``;

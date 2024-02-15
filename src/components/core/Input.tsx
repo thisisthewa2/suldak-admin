@@ -72,4 +72,8 @@ const StyledInput = styled.input`
     box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
     outline: none;
   }
+
+  &::placeholder {
+    color: ${(props) => props.theme.text.secondary};
+  }
 `;

@@ -10,7 +10,7 @@ import Tag from '@components/core/Tag';
 import { useGetTagQuery } from '@hooks/apis/Tag/useTagQuery';
 import { useGetLiquorTagListQuery } from '@hooks/apis/Liquor/useLiquorQuery';
 
-type tagType = {
+export type tagType = {
   id: number;
   name: string;
 };
@@ -38,7 +38,11 @@ const DropdownSelector = ({
   return (
     <DropdownWrapper>
       <DropdownHeader onClick={handleToggle}>
-        {placeholder}
+        {selectedTagList
+          ? selectedTagList.map((tag: tagType) => (
+              <Tag key={tag.id} pk={tag.id} />
+            ))
+          : placeholder}
         <Arrow $isOpen={isOpen} />
       </DropdownHeader>
       {isOpen && (
@@ -58,6 +62,7 @@ export default DropdownSelector;
 
 const DropdownWrapper = styled.div`
   position: relative;
+  color: ${(props) => props.theme.text.secondary};
 `;
 
 const DropdownHeader = styled.div`
@@ -70,7 +75,6 @@ const DropdownHeader = styled.div`
   background-color: ${(props) => props.theme.componentBgColor};
   border: 1px solid ${(props) => props.theme.form.border};
   border-radius: 0.25rem;
-  color: ${(props) => props.theme.text.secondary};
   cursor: pointer;
 `;
 
@@ -91,6 +95,7 @@ const DropdownListWrapper = styled.div`
   top: 120%;
   left: 0;
   width: 100%;
+  color: ${(props) => props.theme.text.primary};
   background-color: ${(props) => props.theme.componentBgColor};
   border: 1px solid ${(props) => props.theme.form.border};
   border-radius: 0.25rem;
