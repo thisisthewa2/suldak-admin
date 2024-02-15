@@ -16,6 +16,16 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll {
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+
   body {
     font-family: "Inter", "Arial", sans-serif;
     line-height: 1.5; 
