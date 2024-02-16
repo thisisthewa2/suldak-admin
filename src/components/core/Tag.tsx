@@ -12,11 +12,19 @@ interface IProps {
   pk?: number;
   name?: string;
   onClick?: (tag: tagType) => void;
-  onClickDelete?: () => void;
+  onClickDelete?: (tag: tagType) => void | undefined;
 }
 
 /** 태그 컴포넌트 */
 const Tag = ({ children, color, pk = 1, name = '', onClick, onClickDelete }: IProps) => {
+  const handleDeleteClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+    // 이벤트 버블링을 막음
+    e.stopPropagation();
+
+    if (onClickDelete) {
+      onClickDelete({ id: pk, name: name });
+    }
+  };
   return (
     <StyledTag
       $color={color}
@@ -27,7 +35,11 @@ const Tag = ({ children, color, pk = 1, name = '', onClick, onClickDelete }: IPr
       }}
     >
       {children}
-      {onClickDelete && <CloseIcon />}
+      {onClickDelete && (
+        <CloseIcon
+          onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) => handleDeleteClick(e)}
+        />
+      )}
     </StyledTag>
   );
 };

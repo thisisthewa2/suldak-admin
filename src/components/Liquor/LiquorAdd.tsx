@@ -34,23 +34,82 @@ const LiquorAdd = () => {
     detailAbv: '', // 술의 정확한 도수
   });
 
+  // 태그
   const [liquorName, setLiquorName] = useState<tagType[]>([]); // 1차 분류
   const [liquorDetail, setLiquorDetail] = useState<tagType[]>([]); // 2차 분류
   const [liquorAbv, setLiquorAbv] = useState<tagType[]>([]); // 술의 도수
+  const [liquorCapacity, setLiquorCapacity] = useState<tagType[]>([]); // 주량(숙련도)
 
-  // 1차 분류
-  const handleChangeNameTags = (tag: tagType) => {
-    setLiquorName([tag]);
+  const [liquorTaste, setLiquorTaste] = useState<tagType[]>([]); // 술의 맛
+  const [liquorState, setLiquorState] = useState<tagType[]>([]); // 상태(기분)
+  const [liquorSell, setLiquorSell] = useState<tagType[]>([]); // 판매처
+
+  // 태그 중복 체크
+  const isExistTags = (arr: tagType[], id: number): boolean => {
+    return arr.some((item) => item.id === id);
   };
 
-  // 2차 분류
-  const handleChangeDetailTags = (tag: tagType) => {
-    setLiquorDetail([tag]);
+  // 태그 선택
+  const handleChangeTags = (tag: tagType, type: string) => {
+    switch (type) {
+      case 'liquor-name':
+        setLiquorName([tag]);
+        break;
+      case 'liquor-detail':
+        setLiquorDetail([tag]);
+        break;
+      case 'liquor-abv':
+        setLiquorAbv([tag]);
+        break;
+      case 'drinking-capacity':
+        setLiquorCapacity([tag]);
+        break;
+      case 'taste-type':
+        if (isExistTags(liquorTaste, tag.id) === false) {
+          setLiquorTaste((prev) => [...prev, tag]);
+        }
+        break;
+      case 'state-type':
+        if (isExistTags(liquorState, tag.id) === false) {
+          setLiquorState((prev) => [...prev, tag]);
+        }
+        break;
+      case 'liquor-sell':
+        if (isExistTags(liquorSell, tag.id) === false) {
+          setLiquorSell((prev) => [...prev, tag]);
+        }
+        break;
+    }
   };
 
-  // 도수
-  const handleChangeAbvTags = (tag: tagType) => {
-    setLiquorAbv([tag]);
+  // 태그 삭제
+  const handleDeleteTags = (tag: tagType, type: string) => {
+    switch (type) {
+      case 'liquor-name':
+        setLiquorName([]);
+        break;
+      case 'liquor-detail':
+        setLiquorDetail([]);
+        break;
+      case 'liquor-abv':
+        setLiquorAbv([]);
+        break;
+      case 'drinking-capacity':
+        setLiquorCapacity([]);
+        break;
+      case 'taste-type':
+        const newTasteList = liquorTaste.filter((item) => item.id !== tag.id);
+        setLiquorTaste(newTasteList);
+        break;
+      case 'state-type':
+        const newStateList = liquorState.filter((item) => item.id !== tag.id);
+        setLiquorState(newStateList);
+        break;
+      case 'liquor-sell':
+        const newSellList = liquorSell.filter((item) => item.id !== tag.id);
+        setLiquorSell(newSellList);
+        break;
+    }
   };
 
   return (
@@ -70,14 +129,16 @@ const LiquorAdd = () => {
             placeholder="태그를 선택해주세요"
             tagType="liquor-name"
             selectedTagList={liquorName}
-            onClickTag={handleChangeNameTags}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
           />
           <span>2차분류</span>
           <DropdownSelector
             placeholder="태그를 선택해주세요"
             tagType="liquor-detail"
             selectedTagList={liquorDetail}
-            onClickTag={handleChangeDetailTags}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
           />
           <Input
             name="summaryExplanation"
@@ -100,7 +161,7 @@ const LiquorAdd = () => {
           />
           <Input
             name="searchTag"
-            value={inputValue.liquorRecipe}
+            value={inputValue.searchTag}
             onChange={setInputValue}
             placeholder="검색을 위한 문구를 입력해주세요"
             label="술 검색을 위한 문구"
@@ -117,13 +178,42 @@ const LiquorAdd = () => {
             placeholder="도수를 선택해주세요"
             tagType="liquor-abv"
             selectedTagList={liquorAbv}
-            onClickTag={handleChangeAbvTags}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
           />
 
           <span>숙련도 (좋아하는 정도)</span>
+          <DropdownSelector
+            placeholder="숙련도를 선택해주세요"
+            tagType="drinking-capacity"
+            selectedTagList={liquorCapacity}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
           <span>맛</span>
+          <DropdownSelector
+            placeholder="맛을 선택해주세요"
+            tagType="taste-type"
+            selectedTagList={liquorTaste}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
           <span>상태</span>
+          <DropdownSelector
+            placeholder="상태(기분)를 선택해주세요"
+            tagType="state-type"
+            selectedTagList={liquorState}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
           <span>판매처</span>
+          <DropdownSelector
+            placeholder="판매처를 선택해주세요"
+            tagType="liquor-sell"
+            selectedTagList={liquorSell}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
 
           <ButtonWrap>
             <Button onClick={closeModal} buttonType="reset">

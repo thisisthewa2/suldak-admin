@@ -18,7 +18,8 @@ interface IProps {
   placeholder?: string;
   selectedTagList: tagType[];
   tagType: string;
-  onClickTag?: (tag: tagType) => void;
+  onClickTags?: (tag: tagType, type: string) => void;
+  onDeleteTags?: (tag: tagType, type: string) => void;
 }
 
 /** 드롭다운 선택시 아이템 렌더링 하는 컴포넌트 */
@@ -26,7 +27,8 @@ const DropdownSelector = ({
   placeholder = '선택해주세요',
   selectedTagList,
   tagType,
-  onClickTag,
+  onClickTags,
+  onDeleteTags,
 }: IProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -38,11 +40,16 @@ const DropdownSelector = ({
   };
 
   const handleSelectTag = (tag: tagType) => {
-    if (onClickTag) {
-      onClickTag(tag);
-    } else {
-      // 멀티 태그 선택
+    if (onClickTags) {
+      onClickTags(tag, tagType);
     }
+  };
+
+  const handleDeleteTag = (tag: tagType) => {
+    if (onDeleteTags) {
+      onDeleteTags(tag, tagType);
+    }
+    return;
   };
 
   useEffect(() => {
@@ -63,7 +70,7 @@ const DropdownSelector = ({
       <DropdownHeader onClick={handleToggle}>
         {selectedTagList?.length > 0
           ? selectedTagList.map((tag: tagType) => (
-              <Tag key={tag.id} pk={tag.id} name={tag.name}>
+              <Tag key={tag.id} pk={tag.id} name={tag.name} onClickDelete={handleDeleteTag}>
                 {tag.name}
               </Tag>
             ))
@@ -88,12 +95,14 @@ export default DropdownSelector;
 const DropdownWrapper = styled.div`
   position: relative;
   color: ${(props) => props.theme.text.secondary};
+  font-size: 0.8rem;
 `;
 
 const DropdownHeader = styled.div`
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem;
   align-items: center;
   height: 2.5rem;
   padding: 0.5rem 0.75rem;

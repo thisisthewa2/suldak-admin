@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
@@ -45,7 +46,7 @@ const Input = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);
 
 const InputWrapper = styled.div`
   width: 100%;
@@ -75,5 +76,6 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.text.secondary};
+    font-size: 0.8rem;
   }
 `;

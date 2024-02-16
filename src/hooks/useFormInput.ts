@@ -2,11 +2,7 @@ import { useState, ChangeEventHandler } from 'react';
 
 function useFormInput<T>(
   initialValues: T
-): [
-  T,
-  ChangeEventHandler<HTMLInputElement>,
-  React.Dispatch<React.SetStateAction<T>>
-] {
+): [T, ChangeEventHandler<HTMLInputElement>, React.Dispatch<React.SetStateAction<T>>] {
   const [values, setValues] = useState<T>(initialValues);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
