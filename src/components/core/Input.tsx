@@ -76,6 +76,6 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.text.secondary};
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 `;

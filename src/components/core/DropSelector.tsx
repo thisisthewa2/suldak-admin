@@ -95,7 +95,7 @@ export default DropdownSelector;
 const DropdownWrapper = styled.div`
   position: relative;
   color: ${(props) => props.theme.text.secondary};
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 `;
 
 const DropdownHeader = styled.div`
