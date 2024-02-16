@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -34,9 +34,24 @@ const LiquorAdd = () => {
     detailAbv: '', // 술의 정확한 도수
   });
 
-  const [liquorName, setLiquorName] = useState<tagType[]>([]);
+  const [liquorName, setLiquorName] = useState<tagType[]>([]); // 1차 분류
+  const [liquorDetail, setLiquorDetail] = useState<tagType[]>([]); // 2차 분류
+  const [liquorAbv, setLiquorAbv] = useState<tagType[]>([]); // 술의 도수
 
-  const handleChangeTags = () => {};
+  // 1차 분류
+  const handleChangeNameTags = (tag: tagType) => {
+    setLiquorName([tag]);
+  };
+
+  // 2차 분류
+  const handleChangeDetailTags = (tag: tagType) => {
+    setLiquorDetail([tag]);
+  };
+
+  // 도수
+  const handleChangeAbvTags = (tag: tagType) => {
+    setLiquorAbv([tag]);
+  };
 
   return (
     <Wrapper>
@@ -54,8 +69,16 @@ const LiquorAdd = () => {
           <DropdownSelector
             placeholder="태그를 선택해주세요"
             tagType="liquor-name"
+            selectedTagList={liquorName}
+            onClickTag={handleChangeNameTags}
           />
           <span>2차분류</span>
+          <DropdownSelector
+            placeholder="태그를 선택해주세요"
+            tagType="liquor-detail"
+            selectedTagList={liquorDetail}
+            onClickTag={handleChangeDetailTags}
+          />
           <Input
             name="summaryExplanation"
             value={inputValue.summaryExplanation}
@@ -90,6 +113,12 @@ const LiquorAdd = () => {
             label="술의 정확한 도수"
           />
           <span>술의도수</span>
+          <DropdownSelector
+            placeholder="도수를 선택해주세요"
+            tagType="liquor-abv"
+            selectedTagList={liquorAbv}
+            onClickTag={handleChangeAbvTags}
+          />
 
           <span>숙련도 (좋아하는 정도)</span>
           <span>맛</span>

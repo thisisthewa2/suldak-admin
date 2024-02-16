@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { BsFillTriangleFill } from 'react-icons/bs';
@@ -8,7 +8,6 @@ import Tag from '@components/core/Tag';
 
 // hooks
 import { useGetTagQuery } from '@hooks/apis/Tag/useTagQuery';
-import { useGetLiquorTagListQuery } from '@hooks/apis/Liquor/useLiquorQuery';
 
 export type tagType = {
   id: number;
@@ -17,8 +16,9 @@ export type tagType = {
 
 interface IProps {
   placeholder?: string;
-  selectedTagList?: tagType[];
+  selectedTagList: tagType[];
   tagType: string;
+  onClickTag?: (tag: tagType) => void;
 }
 
 /** 드롭다운 선택시 아이템 렌더링 하는 컴포넌트 */
@@ -26,7 +26,9 @@ const DropdownSelector = ({
   placeholder = '선택해주세요',
   selectedTagList,
   tagType,
+  onClickTag,
 }: IProps) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: tagList } = useGetTagQuery(tagType);
 
@@ -35,12 +37,35 @@ const DropdownSelector = ({
     setIsOpen(!isOpen);
   };
 
+  const handleSelectTag = (tag: tagType) => {
+    if (onClickTag) {
+      onClickTag(tag);
+    } else {
+      // 멀티 태그 선택
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <DropdownWrapper>
+    <DropdownWrapper ref={wrapperRef}>
       <DropdownHeader onClick={handleToggle}>
-        {selectedTagList
+        {selectedTagList?.length > 0
           ? selectedTagList.map((tag: tagType) => (
-              <Tag key={tag.id} pk={tag.id} />
+              <Tag key={tag.id} pk={tag.id} name={tag.name}>
+                {tag.name}
+              </Tag>
             ))
           : placeholder}
         <Arrow $isOpen={isOpen} />
@@ -48,7 +73,7 @@ const DropdownSelector = ({
       {isOpen && (
         <DropdownListWrapper>
           {tagList.data.map((tag: tagType) => (
-            <Tag key={tag.id} pk={tag.id}>
+            <Tag key={tag.id} pk={tag.id} name={tag.name} onClick={handleSelectTag}>
               {tag.name}
             </Tag>
           ))}
