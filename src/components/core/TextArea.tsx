@@ -1,20 +1,23 @@
+import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
   label?: string;
   placeholder?: string;
-  // onChange?: (e: React.ChangeEventHandler<HTMLTextAreaElement>) => void;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   name?: string;
 }
 
-const TextArea = ({ label, placeholder, name }: IProps) => {
+const TextArea = ({ label, placeholder, name, value, onChange }: IProps) => {
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
       <StyledTextArea
         placeholder={placeholder}
         name={name}
-        // onChange={onChange}
+        onChange={onChange}
+        value={value}
       />
     </Wrapper>
   );

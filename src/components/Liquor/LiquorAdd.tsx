@@ -9,14 +9,18 @@ import Input from '@components/core/Input';
 import Dropdown from '@components/core/Dropdown';
 import Button from '@components/core/Button';
 import TextArea from '@components/core/TextArea';
+import ImageUploader from '@components/core/ImageUploader';
 import DropdownSelector from '@components/core/DropSelector';
 
 // hooks
-import useInput from '@hooks/useInput';
 import useFormInput from '@hooks/useFormInput';
+import useTextarea from '@hooks/useTextarea';
 import useModal from '@hooks/useModal';
 import useToastify from '@hooks/useToastify';
 import Loader from '@components/core/Loader';
+import { useAddLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
+
+import LiquorApi from '@apis/services/LiquorApi';
 
 // types
 import { tagType } from '@components/core/DropSelector';
@@ -25,14 +29,17 @@ import { tagType } from '@components/core/DropSelector';
 const LiquorAdd = () => {
   const { closeModal } = useModal();
   const { reset } = useQueryErrorResetBoundary();
+  const { mutate: addLiquor } = useAddLiquorMutation();
   const [inputValue, setInputValue] = useFormInput({
     name: '', // 술 이름
     summaryExplanation: '', // 술의 요약 설명
-    detailExplanation: '', // 술의 자세한 설명
     liquorRecipe: '', // 술의 레시피
     searchTag: '', // 술 검색을 위한 문구
     detailAbv: '', // 술의 정확한 도수
   });
+
+  const [detailExplanation, handleDetailExplanation] = useTextarea<string>('');
+  const [liquorRecipe, handleLiquorRecipe] = useTextarea<string>('');
 
   // 태그
   const [liquorName, setLiquorName] = useState<tagType[]>([]); // 1차 분류
@@ -43,6 +50,50 @@ const LiquorAdd = () => {
   const [liquorTaste, setLiquorTaste] = useState<tagType[]>([]); // 술의 맛
   const [liquorState, setLiquorState] = useState<tagType[]>([]); // 상태(기분)
   const [liquorSell, setLiquorSell] = useState<tagType[]>([]); // 판매처
+  const [liquorSnack, setLiquorSnack] = useState<tagType[]>([]); // 추천안주
+  const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>([]); // 재료
+
+  const [imgFile, setImgFile] = useState<File | null>(null);
+
+  // 술 추가 함수
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    if (imgFile) {
+      formData.append('file', imgFile);
+    }
+
+    const snackId = liquorSnack.map((item) => item.id);
+    const sellId = liquorSell.map((item) => item.id);
+    const materialId = liquorMaterial.map((item) => item.id);
+    const stateId = liquorState.map((item) => item.id);
+    const tasteId = liquorTaste.map((item) => item.id);
+
+    const liquorReq = {
+      name: inputValue.name,
+      summaryExplanation: inputValue.summaryExplanation,
+      searchTag: inputValue.searchTag,
+      liquorRecipe: liquorRecipe,
+      detailAbv: inputValue.detailAbv,
+      detailExplanation: detailExplanation,
+      liquorAbvId: liquorAbv[0].id.toString(),
+      liquorDetailId: liquorDetail[0].id.toString(),
+      drinkingCapacityId: liquorCapacity[0].id.toString(),
+      liquorNameId: liquorName[0].id.toString(),
+      snackPriKeys: snackId,
+      sellPriKeys: sellId,
+      materialPriKeys: materialId,
+      statePriKeys: stateId,
+      tastePriKeys: tasteId,
+    };
+    formData.append('liquorReq', JSON.stringify(liquorReq));
+
+    addLiquor(formData);
+  };
+
+  // 이미지 변경 함수
+  const handleFileChange = (selectedFile: File | null) => {
+    setImgFile(selectedFile);
+  };
 
   // 태그 중복 체크
   const isExistTags = (arr: tagType[], id: number): boolean => {
@@ -79,6 +130,16 @@ const LiquorAdd = () => {
           setLiquorSell((prev) => [...prev, tag]);
         }
         break;
+      case 'liquor-snack':
+        if (isExistTags(liquorSnack, tag.id) === false) {
+          setLiquorSnack((prev) => [...prev, tag]);
+        }
+        break;
+      case 'liquor-material':
+        if (isExistTags(liquorMaterial, tag.id) === false) {
+          setLiquorMaterial((prev) => [...prev, tag]);
+        }
+        break;
     }
   };
 
@@ -109,6 +170,15 @@ const LiquorAdd = () => {
         const newSellList = liquorSell.filter((item) => item.id !== tag.id);
         setLiquorSell(newSellList);
         break;
+      case 'liquor-snack':
+        const newSnackList = liquorSnack.filter((item) => item.id !== tag.id);
+        setLiquorSnack(newSnackList);
+        break;
+      case 'liquor-material':
+        const newMaterialList = liquorMaterial.filter(
+          (item) => item.id !== tag.id
+        );
+        setLiquorMaterial(newMaterialList);
     }
   };
 
@@ -124,6 +194,7 @@ const LiquorAdd = () => {
             label="술 이름"
           />
           <span>이미지</span>
+          <ImageUploader onChange={handleFileChange} file={imgFile} />
           <span>1차분류</span>
           <DropdownSelector
             placeholder="태그를 선택해주세요"
@@ -151,11 +222,13 @@ const LiquorAdd = () => {
             name="detailExplanation"
             placeholder="술의 자세한 설명을 입력해주세요"
             label="술의 자세한 설명"
+            value={detailExplanation}
+            onChange={handleDetailExplanation}
           />
-          <Input
+          <TextArea
             name="liquorRecipe"
-            value={inputValue.liquorRecipe}
-            onChange={setInputValue}
+            value={liquorRecipe}
+            onChange={handleLiquorRecipe}
             placeholder="술의 레시피를 입력해주세요"
             label="술의 레시피"
           />
@@ -178,6 +251,24 @@ const LiquorAdd = () => {
             placeholder="도수를 선택해주세요"
             tagType="liquor-abv"
             selectedTagList={liquorAbv}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
+
+          <span>추천안주</span>
+          <DropdownSelector
+            placeholder="추천안주를 선택해주세요"
+            tagType="liquor-snack"
+            selectedTagList={liquorSnack}
+            onClickTags={handleChangeTags}
+            onDeleteTags={handleDeleteTags}
+          />
+
+          <span>재료</span>
+          <DropdownSelector
+            placeholder="재료를 선택해주세요"
+            tagType="liquor-material"
+            selectedTagList={liquorMaterial}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
@@ -219,7 +310,7 @@ const LiquorAdd = () => {
             <Button onClick={closeModal} buttonType="reset">
               취소
             </Button>
-            <Button>추가</Button>
+            <Button onClick={handleSubmit}>추가</Button>
           </ButtonWrap>
         </Suspense>
       </ErrorBoundary>
@@ -239,7 +330,7 @@ const Wrapper = styled.div`
   gap: 1rem;
 
   overflow-y: scroll;
-  padding-bottom: 1rem;
+  padding-bottom: 6rem;
 `;
 
 const ButtonWrap = styled.div`
