@@ -2,7 +2,7 @@ import { AiFillHome, AiFillTag } from 'react-icons/ai';
 import { MdLiquor, MdQuestionAnswer } from 'react-icons/md';
 import { FaUserCog } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
-import { PiTestTubeFill } from 'react-icons/pi';
+import { PiTestTubeFill, PiUsersThreeFill } from 'react-icons/pi';
 
 export const menuList = [
   {
@@ -22,6 +22,20 @@ export const menuList = [
     title: '태그',
     path: '/tag',
     icon: <AiFillTag />,
+  },
+  {
+    id: 'party',
+    title: '모임',
+    path: '/party',
+    icon: <PiUsersThreeFill />,
+    submenu: [
+      { id: 'party-tag', title: '모임 태그', path: '/party-tag' },
+      {
+        id: 'party-feedback',
+        title: '모임 피드백',
+        path: 'party-feedback',
+      },
+    ],
   },
   {
     id: 'user',

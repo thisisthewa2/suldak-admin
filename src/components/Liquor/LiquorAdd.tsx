@@ -322,9 +322,9 @@ export default LiquorAdd;
 
 const Wrapper = styled.div`
   position: relative;
-  min-width: 800px;
+  min-width: 700px;
   width: 1000px;
-  max-height: 800px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   gap: 1rem;

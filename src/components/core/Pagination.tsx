@@ -34,11 +34,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: IProps) => {
     <Wrapper>
       {/* 처음 페이지로 이동 */}
 
-      <PaginationButton onClick={() => onPageChange(1)}>&lt;&lt;</PaginationButton>
+      <PaginationButton onClick={() => onPageChange(1)}>
+        &lt;&lt;
+      </PaginationButton>
 
       {/* 이전 페이지로 이동 */}
       {currentPage > 1 && (
-        <PaginationButton onClick={() => onPageChange(currentPage - 1)}>&lt;</PaginationButton>
+        <PaginationButton onClick={() => onPageChange(currentPage - 1)}>
+          &lt;
+        </PaginationButton>
       )}
 
       {/* 페이지 번호 버튼 */}
@@ -54,11 +58,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: IProps) => {
 
       {/* 다음 페이지로 이동 */}
       {currentPage < totalPages && (
-        <PaginationButton onClick={() => onPageChange(currentPage + 1)}>&gt;</PaginationButton>
+        <PaginationButton onClick={() => onPageChange(currentPage + 1)}>
+          &gt;
+        </PaginationButton>
       )}
 
       {/* 마지막 페이지로 이동 */}
-      <PaginationButton onClick={() => onPageChange(totalPages)}>&gt;&gt;</PaginationButton>
+      <PaginationButton onClick={() => onPageChange(totalPages)}>
+        &gt;&gt;
+      </PaginationButton>
     </Wrapper>
   );
 };
@@ -80,7 +88,9 @@ const PaginationButton = styled.button<{ $active?: boolean }>`
   align-items: center;
   justify-content: center;
   border-radius: 0.25rem;
-  border: 1px solid ${(props) => (props.$active ? props.theme.form.point : props.theme.form.border)};
+  border: 1px solid
+    ${(props) =>
+      props.$active ? props.theme.form.point : props.theme.form.border};
   background-color: transparent;
   color: ${(props) => (props.$active ? '#FFFFFF' : props.theme.text.secondary)};
   padding: 0.5rem;
