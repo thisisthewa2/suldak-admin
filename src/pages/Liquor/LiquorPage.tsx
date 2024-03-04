@@ -41,7 +41,7 @@ const LiquorPage = () => {
       <Breadcrumbs />
 
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
-        <Box gridColumn={'12'} gridColumnSpanMobile={'8'}>
+        <Box gridColumn={'8'} gridColumnSpanMobile={'8'}>
           <TitleWrap>
             <Title>술 관리</Title>
             <Button onClick={handleOpenAddModal}>술 추가 +</Button>
@@ -53,6 +53,11 @@ const LiquorPage = () => {
               onChange={searchInput.onChange}
             />
           </FormWrap>
+        </Box>
+        <Box gridColumn="4">
+          <TitleWrap>
+            <Title>필터</Title>
+          </TitleWrap>
         </Box>
 
         <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
