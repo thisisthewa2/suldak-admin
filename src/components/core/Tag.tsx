@@ -13,6 +13,7 @@ interface IProps {
   name?: string;
   onClick?: (tag: tagType) => void;
   onClickDelete?: (tag: tagType) => void | undefined;
+  isActived?: boolean;
 }
 
 /** 태그 컴포넌트 */
@@ -23,6 +24,7 @@ const Tag = ({
   name = '',
   onClick,
   onClickDelete,
+  isActived,
 }: IProps) => {
   const handleDeleteClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     // 이벤트 버블링을 막음
@@ -35,6 +37,7 @@ const Tag = ({
   return (
     <StyledTag
       $color={color}
+      $isActived={isActived}
       onClick={() => {
         if (onClick) {
           onClick({ id: pk, name: name });
@@ -55,7 +58,7 @@ const Tag = ({
 
 export default Tag;
 
-const StyledTag = styled.div<{ $color?: string }>`
+const StyledTag = styled.div<{ $color?: string; $isActived?: boolean }>`
   width: fit-content;
   color: white;
   display: flex;
@@ -67,6 +70,8 @@ const StyledTag = styled.div<{ $color?: string }>`
     props.$color ? props.$color : props.theme.green};
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+
+  opacity: ${(props) => (props.$isActived ? '0.8' : '1')};
 
   &:hover {
     opacity: 0.8;

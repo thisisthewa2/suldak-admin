@@ -34,7 +34,10 @@ const LiquorPage = () => {
     recordSize: 10, // 페이지 사이즈
 
     // 필터링
+    liquorNamePriKeys: [],
+    liquorDetailPriKyes: [],
     liquorAbvPriKeys: [],
+    tastePriKeys: [],
   });
 
   const searchInput = useInput('');
@@ -49,8 +52,29 @@ const LiquorPage = () => {
 
   const handleChangeFilter = (filterType: string, filterId: number) => {
     setSearchParams((prev) => {
-      if (filterType === 'liquorAbvPriKeys') {
-        // liquorAbvPriKeys에 filterId가 이미 존재하는지 확인
+      if (filterType === 'liquorNamePriKeys') {
+        const updatedLiquorNamePriKeys = prev.liquorNamePriKeys.includes(
+          filterId
+        )
+          ? prev.liquorNamePriKeys.filter((id) => id !== filterId)
+          : [...prev.liquorNamePriKeys, filterId];
+
+        return {
+          ...prev,
+          liquorNamePriKeys: updatedLiquorNamePriKeys,
+        };
+      } else if (filterType === 'liquorDetailPriKeys') {
+        const updatedLiquorDetailPriKeys = prev.liquorDetailPriKyes.includes(
+          filterId
+        )
+          ? prev.liquorDetailPriKyes.filter((id) => id !== filterId)
+          : [...prev.liquorDetailPriKyes, filterId];
+
+        return {
+          ...prev,
+          liquorDetailPriKyes: updatedLiquorDetailPriKeys,
+        };
+      } else if (filterType === 'liquorAbvPriKeys') {
         const updatedLiquorAbvPriKeys = prev.liquorAbvPriKeys.includes(filterId)
           ? prev.liquorAbvPriKeys.filter((id) => id !== filterId) // 이미 존재하면 제거
           : [...prev.liquorAbvPriKeys, filterId]; // 존재하지 않으면 추가
@@ -58,6 +82,15 @@ const LiquorPage = () => {
         return {
           ...prev,
           liquorAbvPriKeys: updatedLiquorAbvPriKeys,
+        };
+      } else if (filterType === 'tastePriKeys') {
+        const updatedTastePriKeys = prev.tastePriKeys.includes(filterId)
+          ? prev.tastePriKeys.filter((id) => id !== filterId)
+          : [...prev.tastePriKeys, filterId];
+
+        return {
+          ...prev,
+          tastePriKeys: updatedTastePriKeys,
         };
       }
 
@@ -114,7 +147,10 @@ const LiquorPage = () => {
             <Title>필터</Title>
             <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
               <Suspense fallback={<Loader />}>
-                <LiquorFilter onChangeFilter={handleChangeFilter} />
+                <LiquorFilter
+                  onChangeFilter={handleChangeFilter}
+                  filterList={searchParams}
+                />
               </Suspense>
             </ErrorBoundary>
           </FilterWrap>

@@ -5,19 +5,32 @@ export interface SearchParams {
   pageNum: number;
   recordSize: number;
 
+  liquorNamePriKeys: number[]; // 1차 분류
+  liquorDetailPriKyes: number[]; // 2차 분류
   liquorAbvPriKeys: number[];
+  tastePriKeys: number[];
 }
 
 /** 술 API */
 class LiquorApi {
   // 필터링 검색
-  get = async ({ pageNum, recordSize, liquorAbvPriKeys }: SearchParams) => {
+  get = async ({
+    pageNum,
+    recordSize,
+    liquorNamePriKeys,
+    liquorDetailPriKyes,
+    liquorAbvPriKeys,
+    tastePriKeys,
+  }: SearchParams) => {
     const { data } = await axiosInstance.get(`/api/liquor/view/liquor-search`, {
       params: {
         pageNum,
         recordSize,
 
+        liquorNamePriKeys: liquorNamePriKeys.join(','),
+        liquorDetailPriKyes: liquorDetailPriKyes.join(','),
         liquorAbvPriKeys: liquorAbvPriKeys.join(','),
+        tastePriKeys: tastePriKeys.join(','),
       },
     });
 
