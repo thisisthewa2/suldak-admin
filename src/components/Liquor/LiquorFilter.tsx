@@ -41,7 +41,7 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
             <Tag
               key={abv.id}
               isActived={
-                filterList.liquorDetailPriKyes.includes(abv.id) ? true : false
+                filterList.liquorDetailPriKeys.includes(abv.id) ? true : false
               }
             >
               {abv.name}

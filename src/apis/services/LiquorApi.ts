@@ -6,7 +6,7 @@ export interface SearchParams {
   recordSize: number;
 
   liquorNamePriKeys: number[]; // 1차 분류
-  liquorDetailPriKyes: number[]; // 2차 분류
+  liquorDetailPriKeys: number[]; // 2차 분류
   liquorAbvPriKeys: number[];
   tastePriKeys: number[];
 }
@@ -18,17 +18,18 @@ class LiquorApi {
     pageNum,
     recordSize,
     liquorNamePriKeys,
-    liquorDetailPriKyes,
+    liquorDetailPriKeys,
     liquorAbvPriKeys,
     tastePriKeys,
   }: SearchParams) => {
     const { data } = await axiosInstance.get(`/api/liquor/view/liquor-search`, {
       params: {
+        andBool: true,
         pageNum,
         recordSize,
 
         liquorNamePriKeys: liquorNamePriKeys.join(','),
-        liquorDetailPriKyes: liquorDetailPriKyes.join(','),
+        liquorDetailPriKeys: liquorDetailPriKeys.join(','),
         liquorAbvPriKeys: liquorAbvPriKeys.join(','),
         tastePriKeys: tastePriKeys.join(','),
       },

@@ -46,8 +46,8 @@ const LiquorList = ({ params, onChangePage }: IProps) => {
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
-          <Button>수정</Button>
-          <Button buttonType="cancel">삭제</Button>
+          {/* <Button>수정</Button> */}
+          {/* <Button buttonType="cancel">삭제</Button> */}
         </ButtonWrap>
       ),
       width: '40%',

@@ -35,7 +35,7 @@ const LiquorPage = () => {
 
     // 필터링
     liquorNamePriKeys: [],
-    liquorDetailPriKyes: [],
+    liquorDetailPriKeys: [],
     liquorAbvPriKeys: [],
     tastePriKeys: [],
   });
@@ -64,15 +64,15 @@ const LiquorPage = () => {
           liquorNamePriKeys: updatedLiquorNamePriKeys,
         };
       } else if (filterType === 'liquorDetailPriKeys') {
-        const updatedLiquorDetailPriKeys = prev.liquorDetailPriKyes.includes(
+        const updatedLiquorDetailPriKeys = prev.liquorDetailPriKeys.includes(
           filterId
         )
-          ? prev.liquorDetailPriKyes.filter((id) => id !== filterId)
-          : [...prev.liquorDetailPriKyes, filterId];
+          ? prev.liquorDetailPriKeys.filter((id) => id !== filterId)
+          : [...prev.liquorDetailPriKeys, filterId];
 
         return {
           ...prev,
-          liquorDetailPriKyes: updatedLiquorDetailPriKeys,
+          liquorDetailPriKeys: updatedLiquorDetailPriKeys,
         };
       } else if (filterType === 'liquorAbvPriKeys') {
         const updatedLiquorAbvPriKeys = prev.liquorAbvPriKeys.includes(filterId)
@@ -126,12 +126,12 @@ const LiquorPage = () => {
             <Button onClick={handleOpenAddModal}>술 추가 +</Button>
           </TitleWrap>
 
-          <FormWrap>
+          {/* <FormWrap>
             <Input
               placeholder="검색어를 입력해주세요..."
               onChange={searchInput.onChange}
             />
-          </FormWrap>
+          </FormWrap> */}
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
