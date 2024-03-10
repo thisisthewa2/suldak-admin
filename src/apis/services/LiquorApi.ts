@@ -4,6 +4,13 @@ import { axiosInstance } from '@apis/interceptor';
 
 /** 술 API */
 class LiquorApi {
+  // 필터링 검색
+  get = async () => {
+    const { data } = await axiosInstance.get(`/api/liquor/view/liquor-search`);
+
+    return data;
+  };
+
   // 기간 별 인기 술 목록 조회
   getPopularity = async () => {};
 

@@ -13,6 +13,7 @@ import Input from '@components/core/Input';
 import Loader from '@components/core/Loader';
 import Button from '@components/core/Button';
 import LiquorAdd from '@components/Liquor/LiquorAdd';
+import LiquorList from '@components/Liquor/LiquorList';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
@@ -53,16 +54,18 @@ const LiquorPage = () => {
               onChange={searchInput.onChange}
             />
           </FormWrap>
+
+          <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
+            <Suspense fallback={<Loader />}>
+              <LiquorList />
+            </Suspense>
+          </ErrorBoundary>
         </Box>
         <Box gridColumn="4">
           <TitleWrap>
             <Title>필터</Title>
           </TitleWrap>
         </Box>
-
-        <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
-          <Suspense fallback={<Loader />}></Suspense>
-        </ErrorBoundary>
       </RowContainer>
     </>
   );
