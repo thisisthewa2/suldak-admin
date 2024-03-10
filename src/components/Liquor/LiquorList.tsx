@@ -10,14 +10,10 @@ import TableWithPagination from '@components/core/TableWithPagination';
 import { useGetLiquorQuery } from '@hooks/apis/Liquor/useLiquorQuery';
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import useModal from '@hooks/useModal';
-
-interface SearchProps {
-  pageNum: number;
-  recordSize: number;
-}
+import { SearchParams } from '@apis/services/LiquorApi';
 
 interface IProps {
-  params: SearchProps;
+  params: SearchParams;
   onChangePage: (page: number) => void;
 }
 

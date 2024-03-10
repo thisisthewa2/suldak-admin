@@ -16,7 +16,14 @@ interface IProps {
 }
 
 /** 태그 컴포넌트 */
-const Tag = ({ children, color, pk = 1, name = '', onClick, onClickDelete }: IProps) => {
+const Tag = ({
+  children,
+  color,
+  pk = 1,
+  name = '',
+  onClick,
+  onClickDelete,
+}: IProps) => {
   const handleDeleteClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     // 이벤트 버블링을 막음
     e.stopPropagation();
@@ -37,7 +44,9 @@ const Tag = ({ children, color, pk = 1, name = '', onClick, onClickDelete }: IPr
       {children}
       {onClickDelete && (
         <CloseIcon
-          onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) => handleDeleteClick(e)}
+          onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) =>
+            handleDeleteClick(e)
+          }
         />
       )}
     </StyledTag>
@@ -54,8 +63,14 @@ const StyledTag = styled.div<{ $color?: string }>`
   align-items: center;
   border-radius: 0.25rem;
   padding: 0 0.5rem;
-  background-color: ${(props) => (props.$color ? props.$color : props.theme.green)};
+  background-color: ${(props) =>
+    props.$color ? props.$color : props.theme.green};
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const CloseIcon = styled(IoClose)``;

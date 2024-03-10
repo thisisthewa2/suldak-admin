@@ -1,19 +1,23 @@
 import { BASE_URL } from '@apis/interceptor';
 import { axiosInstance } from '@apis/interceptor';
 
-export interface GetProps {
+export interface SearchParams {
   pageNum: number;
   recordSize: number;
+
+  liquorAbvPriKeys: number[];
 }
 
 /** 술 API */
 class LiquorApi {
   // 필터링 검색
-  get = async ({ pageNum, recordSize }: GetProps) => {
+  get = async ({ pageNum, recordSize, liquorAbvPriKeys }: SearchParams) => {
     const { data } = await axiosInstance.get(`/api/liquor/view/liquor-search`, {
       params: {
         pageNum,
         recordSize,
+
+        liquorAbvPriKeys: liquorAbvPriKeys.join(','),
       },
     });
 

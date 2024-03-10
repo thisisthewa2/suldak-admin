@@ -19,6 +19,9 @@ import LiquorList from '@components/Liquor/LiquorList';
 import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
 import useModal from '@hooks/useModal';
+import LiquorFilter from '@components/Liquor/LiquorFilter';
+
+import { SearchParams } from '@apis/services/LiquorApi';
 
 /** 술 관리 페이지 */
 const LiquorPage = () => {
@@ -26,9 +29,12 @@ const LiquorPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { openModal } = useModal();
 
-  const [searchParams, setSearchParams] = useState({
+  const [searchParams, setSearchParams] = useState<SearchParams>({
     pageNum: 0,
-    recordSize: 1, // 페이지 사이즈
+    recordSize: 10, // 페이지 사이즈
+
+    // 필터링
+    liquorAbvPriKeys: [],
   });
 
   const searchInput = useInput('');
@@ -41,6 +47,28 @@ const LiquorPage = () => {
     }));
   };
 
+  const handleChangeFilter = (filterType: string, filterId: number) => {
+    setSearchParams((prev) => {
+      if (filterType === 'liquorAbvPriKeys') {
+        // liquorAbvPriKeys에 filterId가 이미 존재하는지 확인
+        const updatedLiquorAbvPriKeys = prev.liquorAbvPriKeys.includes(filterId)
+          ? prev.liquorAbvPriKeys.filter((id) => id !== filterId) // 이미 존재하면 제거
+          : [...prev.liquorAbvPriKeys, filterId]; // 존재하지 않으면 추가
+
+        return {
+          ...prev,
+          liquorAbvPriKeys: updatedLiquorAbvPriKeys,
+        };
+      }
+
+      // 다른 filterType에 대한 처리
+      // 여기에 필터링 로직 추가
+
+      // filterType이 존재하지 않는 경우 이전 상태를 그대로 반환
+      return prev;
+    });
+  };
+
   // 술 추가 모달 열기
   const handleOpenAddModal = () => {
     openModal({
@@ -51,7 +79,7 @@ const LiquorPage = () => {
   };
 
   useEffect(() => {
-    console.log(searchParams.pageNum);
+    console.log(searchParams);
   }, [searchParams]);
 
   return (
@@ -82,9 +110,14 @@ const LiquorPage = () => {
           </ErrorBoundary>
         </Box>
         <Box gridColumn="4">
-          <TitleWrap>
+          <FilterWrap>
             <Title>필터</Title>
-          </TitleWrap>
+            <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
+              <Suspense fallback={<Loader />}>
+                <LiquorFilter onChangeFilter={handleChangeFilter} />
+              </Suspense>
+            </ErrorBoundary>
+          </FilterWrap>
         </Box>
       </RowContainer>
     </>
@@ -106,4 +139,12 @@ const FormWrap = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+`;
+
+const FilterWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 1rem;
 `;
