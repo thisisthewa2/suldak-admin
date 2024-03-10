@@ -1,9 +1,43 @@
-import axios from 'axios';
 import { BASE_URL } from '@apis/interceptor';
 import { axiosInstance } from '@apis/interceptor';
 
+export interface SearchParams {
+  pageNum: number;
+  recordSize: number;
+
+  liquorNamePriKeys: number[]; // 1차 분류
+  liquorDetailPriKeys: number[]; // 2차 분류
+  liquorAbvPriKeys: number[];
+  tastePriKeys: number[];
+}
+
 /** 술 API */
 class LiquorApi {
+  // 필터링 검색
+  get = async ({
+    pageNum,
+    recordSize,
+    liquorNamePriKeys,
+    liquorDetailPriKeys,
+    liquorAbvPriKeys,
+    tastePriKeys,
+  }: SearchParams) => {
+    const { data } = await axiosInstance.get(`/api/liquor/view/liquor-search`, {
+      params: {
+        andBool: true,
+        pageNum,
+        recordSize,
+
+        liquorNamePriKeys: liquorNamePriKeys.join(','),
+        liquorDetailPriKeys: liquorDetailPriKeys.join(','),
+        liquorAbvPriKeys: liquorAbvPriKeys.join(','),
+        tastePriKeys: tastePriKeys.join(','),
+      },
+    });
+
+    return data;
+  };
+
   // 기간 별 인기 술 목록 조회
   getPopularity = async () => {};
 
