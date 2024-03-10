@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import PaginationWithAPI from './PaginationWithAPI';
 
 export interface IColumn {
   Header: string;
@@ -11,19 +12,19 @@ export interface IColumn {
 interface Props {
   data: any;
   columns: IColumn[];
-  // totalPage: number;
-  // currentPage: number;
+  totalPage: number;
+  currentPage: number;
   // itemsPerPage: number;
-  // onPageChange: (page: number) => void;
+  onPageChange: (page: number) => void;
 }
 
 const TableWithPagination = ({
   data,
   columns,
-}: // totalPage,
-// currentPage,
-// itemsPerPage,
-// onPageChange,
+  totalPage,
+  currentPage,
+  onPageChange,
+}: // itemsPerPage,
 Props): ReactElement => {
   return (
     <>
@@ -55,6 +56,11 @@ Props): ReactElement => {
           ))}
         </Tbody>
       </StyledTable>
+      <PaginationWithAPI
+        currentPage={currentPage}
+        totalPages={totalPage}
+        onPageChange={onPageChange}
+      />
     </>
   );
 };

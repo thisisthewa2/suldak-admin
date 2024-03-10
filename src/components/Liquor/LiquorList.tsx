@@ -11,13 +11,19 @@ import { useGetLiquorQuery } from '@hooks/apis/Liquor/useLiquorQuery';
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import useModal from '@hooks/useModal';
 
+interface SearchProps {
+  pageNum: number;
+  recordSize: number;
+}
+
 interface IProps {
-  searchKeyword?: string;
+  params: SearchProps;
+  onChangePage: (page: number) => void;
 }
 
 /** 술 목록 컴포넌트 */
-const LiquorList = ({ searchKeyword = '' }: IProps) => {
-  const { data: liquorList } = useGetLiquorQuery();
+const LiquorList = ({ params, onChangePage }: IProps) => {
+  const { data: liquorList } = useGetLiquorQuery(params);
   const columns: IColumn[] = [
     {
       Header: '',
@@ -57,7 +63,9 @@ const LiquorList = ({ searchKeyword = '' }: IProps) => {
       <TableWithPagination
         data={liquorList.data.content}
         columns={columns}
-        // totalPage={liquorList.content.totalPages}
+        totalPage={liquorList.data.totalPages}
+        currentPage={liquorList.data.pageable.pageNumber}
+        onPageChange={onChangePage}
       />
     </>
   );

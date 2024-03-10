@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from 'react-query';
@@ -26,7 +26,20 @@ const LiquorPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   const { openModal } = useModal();
 
+  const [searchParams, setSearchParams] = useState({
+    pageNum: 0,
+    recordSize: 1, // 페이지 사이즈
+  });
+
   const searchInput = useInput('');
+
+  // 페이지 변경
+  const handleChangePage = (page: number) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      pageNum: page,
+    }));
+  };
 
   // 술 추가 모달 열기
   const handleOpenAddModal = () => {
@@ -36,6 +49,10 @@ const LiquorPage = () => {
       isCloseBtn: true,
     });
   };
+
+  useEffect(() => {
+    console.log(searchParams.pageNum);
+  }, [searchParams]);
 
   return (
     <>
@@ -57,7 +74,10 @@ const LiquorPage = () => {
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              <LiquorList />
+              <LiquorList
+                params={searchParams}
+                onChangePage={handleChangePage}
+              />
             </Suspense>
           </ErrorBoundary>
         </Box>
