@@ -126,18 +126,19 @@ const LiquorPage = () => {
             <Button onClick={handleOpenAddModal}>술 추가 +</Button>
           </TitleWrap>
 
-          {/* <FormWrap>
+          <FormWrap>
             <Input
               placeholder="검색어를 입력해주세요..."
               onChange={searchInput.onChange}
             />
-          </FormWrap> */}
+          </FormWrap>
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
               <LiquorList
                 params={searchParams}
                 onChangePage={handleChangePage}
+                searchKeyword={searchInput.value}
               />
             </Suspense>
           </ErrorBoundary>
