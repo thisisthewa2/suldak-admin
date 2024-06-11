@@ -57,6 +57,7 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
   const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorMaterialDtos)); // 재료
 
   const [imgFile, setImgFile] = useState<File | null>(null);
+  const existImgFile = selectedLiquor?.liquorPictureUrl;
 
   // 술 수정 함수
   const handleEditLiquor = async (priKey: number) => {
@@ -199,18 +200,17 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             placeholder="술 이름을 입력해주세요"
             label="술 이름"
           />
-          <span>이미지</span>
-          <ImageUploader onChange={handleFileChange} file={imgFile} />
-          <span>1차분류</span>
+          <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />
           <DropdownSelector
+            label="1차분류"
             placeholder="태그를 선택해주세요"
             tagType="liquor-name"
             selectedTagList={liquorName}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
-          <span>2차분류</span>
           <DropdownSelector
+            label="2차분류"
             placeholder="태그를 선택해주세요"
             tagType="liquor-detail"
             selectedTagList={liquorDetail}
@@ -252,8 +252,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             placeholder="정확한 도수를 입력해주세요"
             label="술의 정확한 도수"
           />
-          <span>술의도수</span>
           <DropdownSelector
+            label="술의도수"
             placeholder="도수를 선택해주세요"
             tagType="liquor-abv"
             selectedTagList={liquorAbv}
@@ -261,8 +261,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             onDeleteTags={handleDeleteTags}
           />
 
-          <span>추천안주</span>
           <DropdownSelector
+            label="추천안주"
             placeholder="추천안주를 선택해주세요"
             tagType="liquor-snack"
             selectedTagList={liquorSnack}
@@ -270,8 +270,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             onDeleteTags={handleDeleteTags}
           />
 
-          <span>재료</span>
           <DropdownSelector
+            label="재료"
             placeholder="재료를 선택해주세요"
             tagType="liquor-material"
             selectedTagList={liquorMaterial}
@@ -279,32 +279,32 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             onDeleteTags={handleDeleteTags}
           />
 
-          <span>숙련도 (좋아하는 정도)</span>
           <DropdownSelector
+            label="숙련도 (좋아하는 정도)"
             placeholder="숙련도를 선택해주세요"
             tagType="drinking-capacity"
             selectedTagList={liquorCapacity}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
-          <span>맛</span>
           <DropdownSelector
+            label="맛"
             placeholder="맛을 선택해주세요"
             tagType="taste-type"
             selectedTagList={liquorTaste}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
-          <span>상태</span>
           <DropdownSelector
+            label="상태"
             placeholder="상태(기분)를 선택해주세요"
             tagType="state-type"
             selectedTagList={liquorState}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
-          <span>판매처</span>
           <DropdownSelector
+            label="판매처"
             placeholder="판매처를 선택해주세요"
             tagType="liquor-sell"
             selectedTagList={liquorSell}
@@ -330,7 +330,7 @@ const Wrapper = styled.div`
   position: relative;
   min-width: 700px;
   width: 1000px;
-  max-height: 700px;
+  max-height: 600px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -340,10 +340,8 @@ const Wrapper = styled.div`
 `;
 
 const ButtonWrap = styled.div`
-  position: fixed;
   display: flex;
-  gap: 1rem;
   align-items: center;
-  bottom: 1rem;
-  right: 1rem;
+  justify-content: center;
+  gap: 1rem;
 `;

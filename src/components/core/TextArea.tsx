@@ -27,12 +27,17 @@ export default TextArea;
 
 const Wrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Label = styled.label`
   display: block;
   color: ${(props) => props.theme.text.primary};
   margin-bottom: 0.25rem;
+  min-width: 100px;
+  width: 200px;
 `;
 
 const StyledTextArea = styled.textarea`
