@@ -5,21 +5,56 @@ import { BASE_URL } from '@apis/interceptor';
 import Table, { IColumn } from '@components/core/Table';
 import Button from '@components/core/Button';
 import TableWithPagination from '@components/core/TableWithPagination';
+import LiquorEdit from '@components/Liquor/LiquorEdit';
 
 // hooks
 import { useGetLiquorQuery } from '@hooks/apis/Liquor/useLiquorQuery';
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import useModal from '@hooks/useModal';
 import { SearchParams } from '@apis/services/LiquorApi';
+import { useDeleteLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
 
 interface IProps {
   params: SearchParams;
   onChangePage: (page: number) => void;
+  searchKeyword?: string;
 }
 
 /** 술 목록 컴포넌트 */
-const LiquorList = ({ params, onChangePage }: IProps) => {
+const LiquorList = ({ params, onChangePage, searchKeyword = '' }: IProps) => {
+  const { openModal } = useModal(); 
   const { data: liquorList } = useGetLiquorQuery(params);
+  
+  const filteredData = useSearchFilter(liquorList?.data.content || [], searchKeyword, [
+    'name',
+  ]);
+
+  const { mutate: deleteLiquor } = useDeleteLiquorMutation();
+
+  // 술 수정 모달 열기
+  const handleOpenEditModal = (row: any) => {
+    openModal({
+      title: '술 수정',
+      content: <LiquorEdit selectedLiquor={row} />,
+      isCloseBtn: true,
+    });
+  };
+
+  // 술 삭제 모달 열기
+  const handleOpenDeleteModal = (priKey: number) => {
+    openModal({
+      content: <div>술을 삭제하시겠습니까?</div>,
+      onConfirm: () => handleDeleteLiquor(priKey),
+    });
+  };
+
+  // 술 삭제 함수
+  const handleDeleteLiquor = (priKey: number) => {
+    deleteLiquor({
+      priKey: priKey,
+    });
+  };
+
   const columns: IColumn[] = [
     {
       Header: '',
@@ -46,8 +81,13 @@ const LiquorList = ({ params, onChangePage }: IProps) => {
       accessor: (row: any) => (
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
-          {/* <Button>수정</Button> */}
-          {/* <Button buttonType="cancel">삭제</Button> */}
+          <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
+          <Button 
+            buttonType="cancel"
+            onClick={() => handleOpenDeleteModal(row.id)} 
+          >
+            삭제
+          </Button>
         </ButtonWrap>
       ),
       width: '40%',
@@ -57,7 +97,7 @@ const LiquorList = ({ params, onChangePage }: IProps) => {
   return (
     <>
       <TableWithPagination
-        data={liquorList.data.content}
+        data={filteredData}
         columns={columns}
         totalPage={liquorList.data.totalPages}
         currentPage={liquorList.data.pageable.pageNumber}

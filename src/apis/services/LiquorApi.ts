@@ -11,6 +11,15 @@ export interface SearchParams {
   tastePriKeys: number[];
 }
 
+interface IEdit {
+  eFormD: any; // Edit 데이터
+  priKey: number;
+};
+
+interface IDelete {
+  priKey: number;
+};
+
 /** 술 API */
 class LiquorApi {
   // 필터링 검색
@@ -62,6 +71,23 @@ class LiquorApi {
 
     return data;
   };
+
+  edit = async ({eFormD, priKey}: IEdit) => {
+    const { data } = await axiosInstance.put(
+      `${BASE_URL}/api/admin/liquor/add/liquor/${priKey}`,
+      eFormD,
+    );
+
+    return data;
+  };
+
+  delete = async ({priKey}: IDelete) => {
+    const response = await axiosInstance.delete(
+      `${BASE_URL}/api/admin/liquor/del/${priKey}`
+    );
+
+    return response.data;
+  }
 }
 
 export default new LiquorApi();
