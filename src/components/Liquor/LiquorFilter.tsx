@@ -16,6 +16,8 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
   const { data: detailData } = useGetTagQuery('liquor-detail');
   const { data: abvData } = useGetTagQuery('liquor-abv');
   const { data: tasteData } = useGetTagQuery('taste-type');
+
+  console.log("filterList.taste:", filterList.tastePriKeys);
   return (
     <>
       <Title>1차 분류</Title>

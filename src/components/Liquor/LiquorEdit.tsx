@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -6,7 +6,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from 'react-query';
 import ErrorFallback from '@components/core/ErrorFallback';
 import Input from '@components/core/Input';
-import Dropdown from '@components/core/Dropdown';
 import Button from '@components/core/Button';
 import TextArea from '@components/core/TextArea';
 import ImageUploader from '@components/core/ImageUploader';
@@ -16,50 +15,55 @@ import DropdownSelector from '@components/core/DropSelector';
 import useFormInput from '@hooks/useFormInput';
 import useTextarea from '@hooks/useTextarea';
 import useModal from '@hooks/useModal';
-import useToastify from '@hooks/useToastify';
 import Loader from '@components/core/Loader';
-import { useAddLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
-
-import LiquorApi from '@apis/services/LiquorApi';
+import { useEditLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
 
 // types
 import { tagType } from '@components/core/DropSelector';
 
-/** 술 추가 컴포넌트 */
-const LiquorAdd = () => {
+interface IProps {
+  selectedLiquor?: any
+}
+
+/** 술 수정 컴포넌트 */
+const LiquorEdit = ({selectedLiquor}: IProps) => {
   const { closeModal } = useModal();
   const { reset } = useQueryErrorResetBoundary();
-  const { mutate: addLiquor } = useAddLiquorMutation();
+  const { mutate: editLiquor } = useEditLiquorMutation();
+
   const [inputValue, setInputValue] = useFormInput({
-    name: '', // 술 이름
-    summaryExplanation: '', // 술의 요약 설명
-    liquorRecipe: '', // 술의 레시피
-    searchTag: '', // 술 검색을 위한 문구
-    detailAbv: '', // 술의 정확한 도수
+    name: selectedLiquor.name, // 술 이름
+    summaryExplanation: selectedLiquor.summaryExplanation, // 술의 요약 설명
+    liquorRecipe: selectedLiquor.liquorRecipe, // 술의 레시피
+    searchTag: selectedLiquor.searchTag, // 술 검색을 위한 문구
+    detailAbv: selectedLiquor.detailAbv, // 술의 정확한 도수
   });
 
-  const [detailExplanation, handleDetailExplanation] = useTextarea<string>('');
-  const [liquorRecipe, handleLiquorRecipe] = useTextarea<string>('');
+  const [detailExplanation, handleDetailExplanation] = useTextarea<string>(selectedLiquor?.detailExplanation);
+  const [liquorRecipe, handleLiquorRecipe] = useTextarea<string>(selectedLiquor?.liquorRecipe);
 
-  // 태그
-  const [liquorName, setLiquorName] = useState<tagType[]>([]); // 1차 분류
-  const [liquorDetail, setLiquorDetail] = useState<tagType[]>([]); // 2차 분류
-  const [liquorAbv, setLiquorAbv] = useState<tagType[]>([]); // 술의 도수
-  const [liquorCapacity, setLiquorCapacity] = useState<tagType[]>([]); // 주량(숙련도)
+  const [liquorName, setLiquorName] = useState<tagType[]>([selectedLiquor?.liquorNameDto]); // 1차 분류
+  const [liquorDetail, setLiquorDetail] = useState<tagType[]>([selectedLiquor?.liquorDetailDto]); // 2차 분류
+  const [liquorAbv, setLiquorAbv] = useState<tagType[]>([selectedLiquor?.liquorAbvDto]); // 술의 도수
+  const [liquorCapacity, setLiquorCapacity] = useState<tagType[]>([selectedLiquor?.drinkingCapacityDto]); // 주량(숙련도)
 
-  const [liquorTaste, setLiquorTaste] = useState<tagType[]>([]); // 술의 맛
-  const [liquorState, setLiquorState] = useState<tagType[]>([]); // 상태(기분)
-  const [liquorSell, setLiquorSell] = useState<tagType[]>([]); // 판매처
-  const [liquorSnack, setLiquorSnack] = useState<tagType[]>([]); // 추천안주
-  const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>([]); // 재료
+  // 복수 태그 초기화
+  const initializeArrayState = (value: any[]) => (value.length === 0 ? [] : value);
+
+  const [liquorTaste, setLiquorTaste] = useState<tagType[]>(initializeArrayState(selectedLiquor?.tasteTypeDtos)); // 술의 맛
+  const [liquorState, setLiquorState] = useState<tagType[]>(initializeArrayState(selectedLiquor?.stateTypeDtos)); // 상태(기분)
+  const [liquorSell, setLiquorSell] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorSellDtos)); // 판매처
+  const [liquorSnack, setLiquorSnack] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorSnackRes)); // 추천안주
+  const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorMaterialDtos)); // 재료
 
   const [imgFile, setImgFile] = useState<File | null>(null);
+  const existImgFile = selectedLiquor?.liquorPictureUrl;
 
-  // 술 추가 함수
-  const handleSubmit = async () => {
-    const formData = new FormData();
+  // 술 수정 함수
+  const handleEditLiquor = async (priKey: number) => {
+    const editFormData = new FormData();
     if (imgFile) {
-      formData.append('file', imgFile);
+      editFormData.append('file', imgFile);
     }
 
     const snackId = liquorSnack.map((item) => item.id);
@@ -85,9 +89,12 @@ const LiquorAdd = () => {
       statePriKeys: stateId,
       tastePriKeys: tasteId,
     };
-    formData.append('liquorReq', JSON.stringify(liquorReq));
+    editFormData.append('liquorReq', JSON.stringify(liquorReq));
 
-    addLiquor(formData);
+    editLiquor({
+      priKey: priKey,
+      eFormD: editFormData,
+    });
   };
 
   // 이미지 변경 함수
@@ -193,7 +200,7 @@ const LiquorAdd = () => {
             placeholder="술 이름을 입력해주세요"
             label="술 이름"
           />
-          <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} />
+          <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />
           <DropdownSelector
             label="1차분류"
             placeholder="태그를 선택해주세요"
@@ -309,7 +316,7 @@ const LiquorAdd = () => {
             <Button onClick={closeModal} buttonType="reset">
               취소
             </Button>
-            <Button onClick={handleSubmit}>추가</Button>
+            <Button onClick={() => handleEditLiquor(selectedLiquor.id)}>수정</Button>
           </ButtonWrap>
         </Suspense>
       </ErrorBoundary>
@@ -317,7 +324,7 @@ const LiquorAdd = () => {
   );
 };
 
-export default LiquorAdd;
+export default LiquorEdit;
 
 const Wrapper = styled.div`
   position: relative;
