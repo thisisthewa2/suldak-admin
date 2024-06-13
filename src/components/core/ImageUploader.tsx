@@ -5,12 +5,13 @@ import { BASE_URL } from '@apis/interceptor';
 
 interface IProps {
   label?: string;
-  eFile?: string;
+  eFile?: string; // 현재 존재하는 파일
   file: File | null;
   onChange: (file: File | null) => void;
 }
 
 const ImageUploader = ({ label, eFile, file, onChange }: IProps) => {
+  const isShowPreview = eFile && !file;
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,7 @@ const ImageUploader = ({ label, eFile, file, onChange }: IProps) => {
     <Wrapper>
       {label && <Label>{label}</Label>}
       <ImageUploaderContainer>
-        {eFile && !file && <Preview src={`${BASE_URL}${eFile}`} alt="Existed Image"/>}
+        {isShowPreview && <Preview src={`${BASE_URL}${eFile}`} alt="Existed Image"/>}
         {file && <Preview src={URL.createObjectURL(file)} alt="Selected Image" />}
         <Button onClick={handleButtonClick}>불러오기</Button>
         <input
