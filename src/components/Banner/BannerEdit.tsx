@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import Button from '@components/core/Button';
 import Dropdown from '@components/core/Dropdown';
 import ImageUploader from '@components/core/ImageUploader';
+import Input from '@components/core/Input';
 
 // hooks
+import useFormInput from '@hooks/useFormInput';
 import useModal from '@hooks/useModal';
 import { useEditBannerMutation } from '@hooks/apis/Banner/useBannerMutation';
 
@@ -26,6 +28,10 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
   const [bannerCategory, setBannerCategory] = useState(selectedBanner.bannerCategory);
   const [isActive, setBannerActive] = useState(selectedBanner.isActive);
   const [imgFile, setImgFile] = useState<File | null>(null);
+  const [inputValue , setInputValue] = useFormInput({
+    title: selectedBanner.title,
+    subTitle: selectedBanner.subTitle,
+  })
   // 수정 전 이미지 파일
   const existImgFile = selectedBanner?.bannerImageUrl;
 
@@ -42,6 +48,8 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
     const bannerReq = {
       bannerCategory: bannerCategory,
       isActive: isActive,
+      title: inputValue.title,
+      subTitle: inputValue.subTitle,
     };
     
     editFormData.append('bannerReq', JSON.stringify(bannerReq));
@@ -70,19 +78,39 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
   return (
     <>
       <FormWrapper>
-        <Dropdown
-          options={BannerCategory}
-          onSelect={handleSelectCategory}
-          // 수정 할 배너 카테고리의 상태에 따라 placeholder 변경
-          placeholder={BannerCategory.find(opt => opt.value === bannerCategory)?.label || '배너 카테고리 선택'}
-        />
-        <Dropdown
-          options={BannerActive}
-          onSelect={handleSelectActive}
-          // 수정 할 배너 활성화 여부에 따라 placeholder 변경
-          placeholder={BannerActive.find(opt => opt.value === isActive)?.label || '활성화 여부 선택'}
-        />
         <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />
+        <DropdownWrapper>
+          <label>배너 분류</label>
+          <Dropdown
+            options={BannerCategory}
+            onSelect={handleSelectCategory}
+            // 수정 할 배너 카테고리의 상태에 따라 placeholder 변경
+            placeholder={BannerCategory.find(opt => opt.value === bannerCategory)?.label || '배너 카테고리 선택'}
+          />
+        </DropdownWrapper>
+        <DropdownWrapper>
+          <label>배너 활성화 여부</label>
+          <Dropdown
+            options={BannerActive}
+            onSelect={handleSelectActive}
+            // 수정 할 배너 활성화 여부에 따라 placeholder 변경
+            placeholder={BannerActive.find(opt => opt.value === isActive)?.label || '활성화 여부 선택'}
+          />
+        </DropdownWrapper>
+        <Input 
+          name='title'
+          label="배너 제목"
+          value={inputValue.title}
+          onChange={setInputValue}
+          placeholder='배너 제목을 입력해주세요.'
+        />
+        <Input 
+          name='subTitle'
+          label="배너 부제"
+          value={inputValue.subTitle}
+          onChange={setInputValue}
+          placeholder='배너 부제목을 입력해주세요.'
+        />
         
         <ButtonWrap>
           <Button onClick={closeModal} buttonType="reset">
@@ -111,4 +139,15 @@ const ButtonWrap = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+`;
+
+const DropdownWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  label {
+    display: block;
+    color: ${(props) => props.theme.text.primary};
+    width: 200px;
+    margin-bottom: 0.25rem;
+  }
 `;
