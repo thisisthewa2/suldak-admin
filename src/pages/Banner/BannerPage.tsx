@@ -84,7 +84,7 @@ const BannerPage = () => {
               placeholder="활성화"
             />
             <Input
-              placeholder="검색어를 입력해주세요... (배너 ID)"
+              placeholder="검색어를 입력해주세요..."
               onChange={searchInput.onChange}
             />
           </FormWrap>

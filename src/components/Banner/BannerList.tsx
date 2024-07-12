@@ -32,6 +32,8 @@ const BannerList = ({
   const { data: bannerList } = useGetBannerQuery({bannerCategory, isActive});
   const filteredData = useSearchFilter(bannerList?.data || [], searchKeyword, [
     'id',
+    'title',
+    'subTitle',
   ]);
 
   console.log("배너리스트:", bannerList);
@@ -65,7 +67,7 @@ const BannerList = ({
   // 테이블 컬럼
   const columns: IColumn[] = [
     {
-      Header: '이미지',
+      Header: '미리 보기',
       accessor: (row: any) => (
         <img
           src={
@@ -73,16 +75,26 @@ const BannerList = ({
               ? `${BASE_URL}${row.bannerImageUrl}`
               : 'https://i.namu.wiki/i/kaaN8gvIGQkip-KfwUCHPD9G_Ls2rurrMJsvzIXVs_h0gr-w3y2YeBfEbFgtiQ3_egAtZYnwU3IqaYPjaVM1Zw7SL-9v7pqq_qHyN8QPKh45mU4QC449P6rVBaq_96_QLi9zhSvw8wsuCGR34fVuZ5Ds_9nYO4QRjouK3-ApGAY.webp'
           }
-          width={100}
+          width={200}
           height={100}
         />
       ),
       width: '20%',
     },
     {
+      Header: '배너 분류',
+      accessor: 'bannerCategory',
+      width: '20%',
+    },
+    {
+      Header: '배너 이름',
+      accessor: 'title',
+      width: '20%',
+    },
+    {
       Header: '배너 ID',
       accessor: 'id',
-      width: '40%',
+      width: '20%',
     },
     {
       Header: '',
@@ -98,7 +110,7 @@ const BannerList = ({
           </Button>
         </ButtonWrap>
       ),
-      width: '40%',
+      width: '20%',
       align: 'right',
     },
   ];
