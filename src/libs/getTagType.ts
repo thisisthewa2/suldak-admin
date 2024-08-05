@@ -52,3 +52,17 @@ export const TagTypes = [
     value: 'taste-type', label: '맛'
   }
 ]
+
+// 모임 태그 default party-tag
+export const getPartyTagType = (type: string) => {
+  switch (type) {
+    default:
+      return 'party-tag';
+  }
+}
+
+export const PartyTagTypes = [
+  {
+    value: 'party-tag', label: '모임 태그'
+  }
+]

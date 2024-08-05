@@ -30,6 +30,16 @@ class TagApi {
     return data;
   };
 
+  // 모임 태그 추가 및 수정 (뒤에 붙은 P는 Party 입니다.)
+  addP = async ({ tagType, id, name }:IAdd) => {
+    const { data } = await axiosInstance.post(`/api/admin/${tagType}`, {
+      id: id ? id : null,
+      name,
+    });
+    
+    return data;
+  };
+
   // 삭제
   delete = async ({ tagType, priKey }: IDelete) => {
     const response = await axiosInstance.delete(
@@ -39,7 +49,16 @@ class TagApi {
     return response.data;
   };
 
-  // 조회
+  // 모임 태그 삭제 (뒤에 붙은 P는 Party 입니다.)
+  deleteP = async ({ tagType, priKey }: IDelete) => {
+    const response = await axiosInstance.delete(
+      `/api/admin/${tagType}/${priKey}`
+    );
+
+    return response.data;
+  };
+
+  // 조회 (tagType을 통해 기본 태그 & 모임 태그 분류)
   get = async ({ tagType }: IGet) => {
     const { data } = await axiosInstance.get(`/api/tag/view/${tagType}`);
     return data;
