@@ -25,6 +25,7 @@ const TestPage = lazy(() => import('@pages/TestPage'));
 const LiquorPage = lazy(() => import('@pages/Liquor/LiquorPage'));
 const TagPage = lazy(() => import('@pages/Tag/TagPage'));
 const BannerPage = lazy(() => import('@pages/Banner/BannerPage'));
+const RecommendPage = lazy(() => import('@pages/Recommend/RecommendPage'));
 
 const PartyTagPage = lazy(() => import('@pages/Party/PartyTagPage'));
 const FeedBackPage = lazy(() => import('@pages/Party/FeedBackPage'));
@@ -61,6 +62,9 @@ const RouterComponent = () => {
             {/* 모임 페이지 */}
             <Route path="/party-tag" element={<PartyTagPage />} />
             <Route path="/party-feedback" element={<FeedBackPage />} />
+
+            {/* 추천 검색어 페이지 */}
+            <Route path="/recommend" element={<RecommendPage />} />
 
             {/* 유저 & 어드민 페이지 */}
             <Route path="/admin" element={<AdminPage />} />

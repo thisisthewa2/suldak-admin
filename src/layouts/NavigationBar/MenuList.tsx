@@ -1,5 +1,5 @@
 import { AiFillHome, AiFillTag } from 'react-icons/ai';
-import { MdLiquor, MdQuestionAnswer } from 'react-icons/md';
+import { MdLiquor, MdQuestionAnswer, MdRecommend } from 'react-icons/md';
 import { FaUserCog } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
 import { PiTestTubeFill, PiUsersThreeFill, PiFlagBannerFill } from 'react-icons/pi';
@@ -28,6 +28,12 @@ export const menuList = [
     title: '배너',
     path: '/banner',
     icon: <PiFlagBannerFill />,
+  },
+  {
+    id: 'recommend',
+    title: '추천 검색어',
+    path: '/recommend',
+    icon: <MdRecommend />,
   },
   {
     id: 'party',
