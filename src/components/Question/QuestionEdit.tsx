@@ -17,7 +17,7 @@ import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedQuestion?: any;
+  selectedQuestion: any;
 }
 
 const QuestionEdit = ({ selectedQuestion }: IProps) => {

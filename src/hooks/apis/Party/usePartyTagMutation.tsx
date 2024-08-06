@@ -9,7 +9,7 @@ import TagApi from '@apis/services/TagApi';
 export const useAddPartyTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.addP, {
+  return useMutation(TagApi.addParty, {
     onSuccess: () => {
       showSuccessToastMessage('모임 태그가 추가되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['partyTagList'] });
@@ -24,7 +24,7 @@ export const useAddPartyTagMutation = () => {
 export const useEditPartyTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.addP, {
+  return useMutation(TagApi.addParty, {
     onSuccess: () => {
       showSuccessToastMessage('모임 태그 정보가 수정되었습니다.');
       // 태그 정보가 수정되면 태그 리스트를 재호출
@@ -40,7 +40,7 @@ export const useEditPartyTagMutation = () => {
 export const useDeletePartyTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.deleteP, {
+  return useMutation(TagApi.deleteParty, {
     onSuccess: () => {
       showSuccessToastMessage('모임 태그가 삭제되었습니다.');
       // 태그 정보가 수정되면 태그 리스트를 재호출

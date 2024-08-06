@@ -17,7 +17,7 @@ import { BannerCategory, BannerActive } from '@libs/getBannerType';
 
 // 배너 수정 Props
 interface IProps {
-  selectedBanner?: any;
+  selectedBanner: any;
 }
 
 /** 배너 수정 컴포넌트 */

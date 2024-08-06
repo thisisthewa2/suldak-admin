@@ -9,18 +9,18 @@ import useModal from '@hooks/useModal';
 import useFormInput from '@hooks/useFormInput';
 
 interface IProps {
-  selectedFeedBack?: any;
+  selectedFeedBack: any;
 }
 
 const FeedBackDetail = ({ selectedFeedBack }: IProps) => {
   const { closeModal } = useModal();
   const [inputValue,] = useFormInput({
-    partyName: selectedFeedBack?.partyName,
-    feedbackType: selectedFeedBack?.feedbackType,
-    badFeedbackReason: selectedFeedBack?.badFeedbackReason,
-    comment: selectedFeedBack?.comment,
-    writerNickname: selectedFeedBack?.writerNickname,
-    targetUserNickname: selectedFeedBack?.targetUserNickname,
+    partyName: selectedFeedBack.partyName,
+    feedbackType: selectedFeedBack.feedbackType,
+    badFeedbackReason: selectedFeedBack.badFeedbackReason,
+    comment: selectedFeedBack.comment,
+    writerNickname: selectedFeedBack.writerNickname,
+    targetUserNickname: selectedFeedBack.targetUserNickname,
   });
 
   return (
@@ -41,13 +41,13 @@ const FeedBackDetail = ({ selectedFeedBack }: IProps) => {
         <Input 
           name='badFeedbackReason'
           label="별로에요 사유"
-          value={inputValue.badFeedbackReason}
+          value={inputValue.badFeedbackReason || ''}
           disabled
         />
         <Input 
           name='comment'
           label="평가"
-          value={inputValue.comment}
+          value={inputValue.comment || ''}
           disabled
         />
         <Input 

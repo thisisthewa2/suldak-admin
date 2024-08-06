@@ -30,8 +30,8 @@ class TagApi {
     return data;
   };
 
-  // 모임 태그 추가 및 수정 (뒤에 붙은 P는 Party 입니다.)
-  addP = async ({ tagType, id, name }:IAdd) => {
+  // 모임 태그 추가 및 수정
+  addParty = async ({ tagType, id, name }:IAdd) => {
     const { data } = await axiosInstance.post(`/api/admin/${tagType}`, {
       id: id ? id : null,
       name,
@@ -49,8 +49,8 @@ class TagApi {
     return response.data;
   };
 
-  // 모임 태그 삭제 (뒤에 붙은 P는 Party 입니다.)
-  deleteP = async ({ tagType, priKey }: IDelete) => {
+  // 모임 태그 삭제
+  deleteParty = async ({ tagType, priKey }: IDelete) => {
     const response = await axiosInstance.delete(
       `/api/admin/${tagType}/${priKey}`
     );
