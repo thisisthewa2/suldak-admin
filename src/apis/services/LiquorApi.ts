@@ -12,7 +12,7 @@ export interface SearchParams {
 }
 
 interface IEdit {
-  eFormD: any;
+  eFormD: any; // Edit 데이터
   priKey: number;
 };
 
@@ -76,12 +76,6 @@ class LiquorApi {
     const { data } = await axiosInstance.put(
       `${BASE_URL}/api/admin/liquor/add/liquor/${priKey}`,
       eFormD,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: localStorage.getItem('token'),
-        },
-      }
     );
 
     return data;
