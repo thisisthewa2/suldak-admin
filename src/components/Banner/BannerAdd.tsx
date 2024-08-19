@@ -45,7 +45,6 @@ const BannerAdd = () => {
     };
     formData.append('bannerReq', JSON.stringify(bannerReq));
 
-    console.log("추가 된 폼데이터 :", formData);
     addBanner(formData);
 
     closeModal();

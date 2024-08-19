@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // components
 import Input from '@components/core/Input';
+import ImageUploader from '@components/core/ImageUploader';
 import Button from '@components/core/Button';
 
 // hooks
-import { useEditTagMutation } from '@hooks/apis/Tag/useTagMutation';
+import { useEditTagMutation, useEditFormTagMutation } from '@hooks/apis/Tag/useTagMutation';
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
@@ -18,22 +19,60 @@ interface IProps {
 const TagEdit = ({ selectedTag, tagType }: IProps) => {
   const { closeModal } = useModal();
   const { mutate: editTag } = useEditTagMutation();
+  const { mutate: editFormTag } = useEditFormTagMutation();
+
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  
+  // 수정 전 이미지 파일
+  const existImgFile = selectedTag.fileBaseNm;
 
   const tagText = useInput(selectedTag.name);
 
-  // 태그명 수정
+  // 태그 수정
   const handleEditTag = () => {
-    editTag({
-      id: selectedTag.id,
-      name: tagText.value,
-      tagType: tagType,
-    });
+    const editFormData = new FormData();
+
+    const dtoMapping = {
+      'liquor-name': 'liquorNameDto',
+      'liquor-snack': 'liquorNameDto',
+      'liquor-material': 'liquorMaterialDto',
+    } as const;
+  
+    const dtoKey = dtoMapping[tagType as keyof typeof dtoMapping];
+  
+    if (imgFile) {
+      const dtoData = {
+        id: selectedTag.id,
+        name: tagText.value,
+      };
+  
+      editFormData.append('file', imgFile);
+      editFormData.append(dtoKey, JSON.stringify(dtoData));
+  
+      editFormTag({
+        formD: editFormData,
+        tagType,
+      });
+    } else {
+      editTag({
+        id: selectedTag.id,
+        tagType,
+        name: tagText.value,
+      });
+    }
+
     closeModal();
+  };
+
+  // 이미지 변경 함수
+  const handleFileChange = (selectedFile: File | null) => {
+    setImgFile(selectedFile);
   };
 
   return (
     <>
       <Input label="태그명" value={tagText.value} onChange={tagText.onChange} />
+      {existImgFile && <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />}
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">

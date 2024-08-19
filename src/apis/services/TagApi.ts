@@ -7,6 +7,11 @@ interface IAdd {
   name: string;
 }
 
+interface IAddForm {
+  formD: any;
+  tagType: string;
+}
+
 // 태그 삭제 타입
 interface IDelete {
   tagType: string;
@@ -29,6 +34,12 @@ class TagApi {
 
     return data;
   };
+
+  addForm = async({ formD, tagType }: IAddForm) => {
+    const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, formD);
+
+    return data;
+  }
 
   // 모임 태그 추가 및 수정
   addParty = async ({ tagType, id, name }:IAdd) => {

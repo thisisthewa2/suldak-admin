@@ -5,7 +5,7 @@ interface IGet {
 }
 
 interface IAdd {
-  aIndex?: number;
+  aindex?: number;
   atext?: string;
   priKey?: number;
   questionPriKey: number;
@@ -24,11 +24,11 @@ interface IDelete {
 
 /** 프로필 질문 답변 API */
 class ProfileAnswerApi {
-  add = async ({ aIndex, atext, priKey, questionPriKey }: IAdd) => {
+  add = async ({ aindex, atext, priKey, questionPriKey }: IAdd) => {
     const { data } = await axiosInstance.post(
       `/api/admin/liquor/question/liquor-answer`,
       {
-        aIndex,
+        aindex,
         atext,
         priKey,
         questionPriKey,

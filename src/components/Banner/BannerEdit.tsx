@@ -33,7 +33,7 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
     subTitle: selectedBanner.subTitle,
   })
   // 수정 전 이미지 파일
-  const existImgFile = selectedBanner?.bannerImageUrl;
+  const existImgFile = selectedBanner.bannerImageUrl;
 
   console.log("배너 카테고리:", bannerCategory);
   console.log("배너 활성화:", isActive);
