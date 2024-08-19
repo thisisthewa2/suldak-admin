@@ -11,7 +11,7 @@ import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedTag?: any;
+  selectedTag: any;
   tagType: string;
 }
 

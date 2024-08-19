@@ -1,6 +1,6 @@
 import { axiosInstance } from '@apis/interceptor';
 
-/** 프로필 질문 API */
+/** 모임 피드백 API */
 class FeedBackApi {
   get = async () => {
     const { data } = await axiosInstance.get(

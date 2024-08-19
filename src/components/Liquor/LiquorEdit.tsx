@@ -22,7 +22,7 @@ import { useEditLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
 import { tagType } from '@components/core/DropSelector';
 
 interface IProps {
-  selectedLiquor?: any
+  selectedLiquor: any
 }
 
 /** 술 수정 컴포넌트 */

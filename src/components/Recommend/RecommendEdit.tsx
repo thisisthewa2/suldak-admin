@@ -11,7 +11,7 @@ import useToastify from '@hooks/useToastify';
 import { useAddRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
 
 interface IProps {
-  selectedRecommend?: any;
+  selectedRecommend: any;
 }
 
 /** 추천 검색어 수정 컴포넌트 */

@@ -11,7 +11,7 @@ import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedAdmin?: any;
+  selectedAdmin: any;
 }
 
 const AdminEdit = ({ selectedAdmin }: IProps) => {
