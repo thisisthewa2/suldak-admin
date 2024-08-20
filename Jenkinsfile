@@ -19,15 +19,19 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    bat 'yarn build'
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        bat 'yarn build'
+                    }
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    def buildFilePath = "${WORKSPACE}\\build"
-                    bat "xcopy /s /e /y ${buildFilePath}\\* ${BUILD_FILE_PATH}"
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        def buildFilePath = "${WORKSPACE}\\build"
+                        bat "xcopy /s /e /y ${buildFilePath}\\* ${BUILD_FILE_PATH}"
+                    }
                 }
             }
         }
@@ -35,12 +39,29 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
+            script {
+                archiveArtifacts artifacts: 'log.txt', allowEmptyArchive: true
+            }
         }
         success {
             echo 'Build succeeded!'
         }
         failure {
             echo 'Build failed!'
+            script {
+                // Capture the error log (if generated)
+                def errorLog = readFile('log.txt')
+                
+                // Send the error log via email
+                mail(
+                    to: 'jimrayder3701@gmail.com',
+                    subject: "Jenkins Job '${env.JOB_NAME}' Failed",
+                    body: """<p>Build ${env.BUILD_NUMBER} failed.</p>
+                             <p>Error log:</p>
+                             <pre>${errorLog}</pre>""",
+                    mimeType: 'text/html'
+                )
+            }
         }
     }
 }
