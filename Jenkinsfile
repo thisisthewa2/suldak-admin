@@ -1,23 +1,45 @@
 pipeline {
     agent any
+
+    environment {
+        PATH = "C:\\Windows\\System32;%PATH%;C:\\Program Files\\nodejs;C:\\Users\\cms\\AppData\\Roaming\\npm\\node_modules\\yarn\\bin"
+        BUILD_FILE_PATH = "C:\\suldak\\admin"
+    }
+
     stages {
-        stage('TEST') {
+        // 필요 없나....
+        // stage('Install') {
+        //     steps {
+        //         script {
+        //             bat "npm install -g yarn"
+        //             bat "yarn install"
+        //         }
+        //     }
+        // }
+        stage('Build') {
             steps {
-                echo 'Hello!'
+                script {
+                    bat 'yarn build'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    def buildFilePath = "${WORKSPACE}\\build"
+                    bat "xcopy /s /e /y ${buildFilePath}\\* ${BUILD_FILE_PATH}"
+                }
             }
         }
     }
     post {
         always {
-            // Clean up actions that should always be performed after build, like sending notifications
             echo 'Cleaning up...'
         }
         success {
-            // Actions to perform if the build succeeds
             echo 'Build succeeded!'
         }
         failure {
-            // Actions to perform if the build fails
             echo 'Build failed!'
         }
     }
