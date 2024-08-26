@@ -43,27 +43,16 @@ const TagAdd = ({}: IProps) => {
       showWarningToastMessage('태그명을 입력해주세요.');
       return;
     }
-
-    const dtoMapping = {
-      'liquor-name': 'liquorNameDto',
-      'liquor-snack': 'liquorNameDto',
-      'liquor-material': 'liquorMaterialDto',
-    } as const;
-
-    // liquor-material 예외를 위한 매핑처리
-    const dtoKey = dtoMapping[tagType as keyof typeof dtoMapping];
   
     if (imgFile) {
-      const dtoData = {
-        tagType,
+      const liquorNameDto = {
         name: tagName.value,
       };
-  
+
       formData.append('file', imgFile);
-      formData.append(dtoKey, JSON.stringify(dtoData));
+      formData.append('liquorNameDto', JSON.stringify(liquorNameDto));
   
       addFormTag({ formD: formData, tagType });
-      closeModal();
     } else {
       addTag({
         tagType,
@@ -80,7 +69,7 @@ const TagAdd = ({}: IProps) => {
   };
 
   useEffect(() => {
-    if(['liquor-name', 'liquor-snack', 'liquor-material'].includes(tagType)){
+    if(['liquor-name', 'liquor-snack'].includes(tagType)){
       setFileType(true);
     } else {
       setFileType(false);

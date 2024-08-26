@@ -39,7 +39,7 @@ export const useAddFormTagMutation = () => {
 export const useEditTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.add, {
+  return useMutation(TagApi.edit, {
     onSuccess: () => {
       showSuccessToastMessage('태그 정보가 수정되었습니다.');
       // 태그 정보가 수정되면 태그 리스트를 재호출
@@ -55,7 +55,7 @@ export const useEditTagMutation = () => {
 export const useEditFormTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.addForm, {
+  return useMutation(TagApi.editForm, {
     onSuccess: () => {
       showSuccessToastMessage('폼 데이터 태그가 수정되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['tagList'] });

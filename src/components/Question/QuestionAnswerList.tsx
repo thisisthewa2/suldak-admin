@@ -123,7 +123,7 @@ const AnswerListWrap = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 300px;
-  overflow: scroll;
+  overflow-y: auto;
   gap: 0.25rem;
 `;
 
