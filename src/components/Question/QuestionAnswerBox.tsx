@@ -68,7 +68,7 @@ const QuestionAnswerBox = ({
         return (
           <AnswerWrap>
             {/* 텍스트 영역 */}
-            <AnswerText>{atext}</AnswerText>
+            <AnswerText>{aindex}. {atext}</AnswerText>
 
             {/* 우측 아이콘 영역 */}
             <IconWrap>
