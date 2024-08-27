@@ -32,32 +32,27 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
   const handleEditTag = () => {
     const editFormData = new FormData();
 
-    const dtoMapping = {
-      'liquor-name': 'liquorNameDto',
-      'liquor-snack': 'liquorNameDto',
-      'liquor-material': 'liquorMaterialDto',
-    } as const;
-  
-    const dtoKey = dtoMapping[tagType as keyof typeof dtoMapping];
-  
-    if (imgFile) {
-      const dtoData = {
-        id: selectedTag.id,
+    if (tagType === 'liquor-name' || tagType === 'liquor-snack') {
+      const liquorNameDto = {
         name: tagText.value,
       };
   
-      editFormData.append('file', imgFile);
-      editFormData.append(dtoKey, JSON.stringify(dtoData));
-  
+      editFormData.append('liquorNameDto', JSON.stringify(liquorNameDto));
+      
+      if(imgFile !== null) {
+        editFormData.append('file', imgFile);
+      }
+      
       editFormTag({
-        formD: editFormData,
+        eFormD: editFormData,
+        priKey: selectedTag.id,
         tagType,
       });
     } else {
       editTag({
-        id: selectedTag.id,
-        tagType,
         name: tagText.value,
+        priKey: selectedTag.id,
+        tagType,
       });
     }
 

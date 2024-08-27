@@ -3,13 +3,34 @@ import { axiosInstance } from '@apis/interceptor';
 // 태그 추가 타입
 interface IAdd {
   tagType: string; // endpoint url
-  id?: number; // prikey
   name: string;
 }
 
+// 태그 수정 타입
+interface IEdit {
+  tagType: string;
+  name: string;
+  priKey: number;
+}
+
+// 폼 태그 추가
 interface IAddForm {
   formD: any;
   tagType: string;
+}
+
+// 폼 태그 수정
+interface IEditForm {
+  eFormD: any;
+  tagType: string;
+  priKey: number;
+}
+
+// 모임 태그 추가
+interface IAddParty {
+  tagType: string; 
+  name: string;
+  id?: number;
 }
 
 // 태그 삭제 타입
@@ -26,14 +47,21 @@ interface IGet {
 /** 태그 API */
 class TagApi {
   // 추가 및 수정 (id값이 있으면 수정)
-  add = async ({ tagType, id, name }: IAdd) => {
+  add = async ({ tagType, name }: IAdd) => {
     const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, {
-      id: id ? id : null,
       name,
     });
 
     return data;
   };
+
+  edit = async ({ tagType, priKey, name }: IEdit) => {
+    const { data } = await axiosInstance.put(`/api/admin/tag/add/${tagType}/${priKey}`, {
+      name,
+    });
+
+    return data;
+  }
 
   addForm = async({ formD, tagType }: IAddForm) => {
     const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, formD);
@@ -41,8 +69,14 @@ class TagApi {
     return data;
   }
 
+  editForm = async({ eFormD, tagType, priKey }: IEditForm) => {
+    const { data } = await axiosInstance.put(`/api/admin/tag/add/${tagType}/${priKey}`, eFormD);
+
+    return data;
+  }
+
   // 모임 태그 추가 및 수정
-  addParty = async ({ tagType, id, name }:IAdd) => {
+  addParty = async ({ tagType, id, name }:IAddParty) => {
     const { data } = await axiosInstance.post(`/api/admin/${tagType}`, {
       id: id ? id : null,
       name,
