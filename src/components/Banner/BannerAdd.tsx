@@ -27,6 +27,7 @@ const BannerAdd = () => {
   const [inputValue, setInputValue] = useFormInput({
     title: '',
     subTitle: '',
+    connectUrl: '',
   });
 
   // 배너 추가
@@ -42,6 +43,7 @@ const BannerAdd = () => {
       isActive: isActive,
       title: inputValue.title,
       subTitle: inputValue.subTitle,
+      connectUrl: inputValue.connectUrl,
     };
     formData.append('bannerReq', JSON.stringify(bannerReq));
 
@@ -98,6 +100,13 @@ const BannerAdd = () => {
           value={inputValue.subTitle}
           onChange={setInputValue}
           placeholder='배너 부제목을 입력해주세요.'
+        />
+        <Input 
+          name='connectUrl'
+          label="URL"
+          value={inputValue.connectUrl}
+          onChange={setInputValue}
+          placeholder='배너가 이동할 URL을 입력해주세요.'
         />
 
         <ButtonWrap>

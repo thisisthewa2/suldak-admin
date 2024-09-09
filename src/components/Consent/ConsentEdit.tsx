@@ -19,9 +19,10 @@ const ConsentEdit = ({ selectedConsent }: IProps) => {
   // 동의 항목 수정
   const handleEditConsent = (data: any) => {
     editConsent({
-      id: selectedConsent.id,
+      priKey: selectedConsent.id,
       itemType: selectedConsent.itemType,
       itemText: data,
+      itemSeq: selectedConsent.itemSeq,
     });
 
     closeModal();

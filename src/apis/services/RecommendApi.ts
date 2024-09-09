@@ -9,8 +9,8 @@ export interface IGet {
 // 검색어 추가 및 수정
 interface IAdd {
   searchType: string;
-  id?: number;
   text: string;
+  priKey?: number;
 }
 
 // 검색어 활성화 수정
@@ -43,11 +43,20 @@ class RecommendApi {
     return response.data;
   };
 
-  // 검색어 추가 및 수정 (id가 있다면 수정: Tag API 와 동일)
-  add = async ({ searchType, id, text }: IAdd) => {
+  // 검색어 추가
+  add = async ({ searchType, text }: IAdd) => {
     const { data } = await axiosInstance.post(`/api/admin/search/text/recommend`, {
       searchType,
-      id: id ? id : null,
+      text,
+    });
+    
+    return data;
+  };
+
+  // 검색어 수정
+  edit = async ({ searchType, text, priKey }: IAdd) => {
+    const { data } = await axiosInstance.put(`/api/admin/search/text/recommend/${priKey}`, {
+      searchType,
       text,
     });
     
@@ -55,9 +64,9 @@ class RecommendApi {
   };
 
   // 검색어 활성화 여부 수정
-  edit = async ({ priKey }: IEdit) => {
+  handleActive = async ({ priKey }: IEdit) => {
     const response = await axiosInstance.put(
-      `/api/admin/search/text/recommend/${priKey}`
+      `/api/admin/search/text/recommend/active/${priKey}`
     );
 
     return response.data;

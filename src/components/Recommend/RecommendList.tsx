@@ -10,7 +10,7 @@ import useModal from '@hooks/useModal';
 import { useSearchFilter } from '@hooks/useSearchFilter';
 import { useDeleteRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
 import { useGetRecommendQuery } from '@hooks/apis/Recommend/useRecommendQuery';
-import { useEditRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
+import { useHandleActiveRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
 
 // types
 import { IColumn } from '@components/core/Table';
@@ -36,14 +36,14 @@ const RecommendList = ({
   ]);
 
   // 추천 검색어 활성화 여부 변경
-  const { mutate: editRecommend } = useEditRecommendMutation();
+  const { mutate: handleActive } = useHandleActiveRecommendMutation();
   
   // 추천 검색어 삭제
   const { mutate: deleteRecommend } = useDeleteRecommendMutation();
 
   // 추천 검색어 활성화 여부 변경 함수
-  const handleEditRecommendActive = (priKey: number) => {
-    editRecommend({
+  const handleActiveRecommend = (priKey: number) => {
+    handleActive({
       priKey,
     });
   };
@@ -68,7 +68,7 @@ const RecommendList = ({
     
     openModal({
       content: <div>추천 검색어 활성 상태를 변경 하시겠습니까?</div>,
-      onConfirm: () => handleEditRecommendActive(priKey),
+      onConfirm: () => handleActiveRecommend(priKey),
     });
   }
 

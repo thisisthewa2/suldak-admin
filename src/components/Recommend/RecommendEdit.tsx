@@ -8,7 +8,7 @@ import Input from '@components/core/Input';
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 import useToastify from '@hooks/useToastify';
-import { useAddRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
+import { useEditRecommendMutation } from '@hooks/apis/Recommend/useRecommendMutation';
 
 interface IProps {
   selectedRecommend: any;
@@ -17,7 +17,7 @@ interface IProps {
 /** 추천 검색어 수정 컴포넌트 */
 const RecommendEdit = ({ selectedRecommend }: IProps) => {
   const { closeModal } = useModal();
-  const { mutate: editRecommend } = useAddRecommendMutation();
+  const { mutate: editRecommend } = useEditRecommendMutation();
   const { showWarningToastMessage } = useToastify();
   // 추천 검색어 상태
   const inputValue = useInput(selectedRecommend.text);
@@ -32,8 +32,8 @@ const RecommendEdit = ({ selectedRecommend }: IProps) => {
 
     editRecommend({
       searchType: selectedRecommend.searchType,
-      id: selectedRecommend.id,
       text: inputValue.value,
+      priKey: selectedRecommend.id,
     });
 
     closeModal();

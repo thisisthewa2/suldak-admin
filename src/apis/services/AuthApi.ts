@@ -53,16 +53,25 @@ class AuthApi {
   };
 
   // 관리자 추가
-  addAdmin = async ({ adminId, adminNm, adminPw, priKey }: IAdd) => {
+  addAdmin = async ({ adminId, adminNm, adminPw }: IAdd) => {
     const { data } = await axiosInstance.post(`/api/admin/auth/signup`, {
       adminId,
       adminNm,
       adminPw,
-      priKey: priKey ? priKey : null,
     });
 
     return data;
   };
+
+  editAdmin = async({ adminId, adminNm, adminPw, priKey }:IAdd) => {
+    const { data } = await axiosInstance.put(`/api/admin/auth/signup/${priKey}`, {
+      adminId,
+      adminNm,
+      adminPw,
+    });
+
+    return data;
+  }
 
   // 관리자 삭제
   deleteAdmin = async ({ priKey }: IDelete) => {
