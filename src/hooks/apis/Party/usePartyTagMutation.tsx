@@ -24,7 +24,7 @@ export const useAddPartyTagMutation = () => {
 export const useEditPartyTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.addParty, {
+  return useMutation(TagApi.editParty, {
     onSuccess: () => {
       showSuccessToastMessage('모임 태그 정보가 수정되었습니다.');
       // 태그 정보가 수정되면 태그 리스트를 재호출

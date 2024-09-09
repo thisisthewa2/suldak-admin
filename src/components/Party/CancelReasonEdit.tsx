@@ -5,35 +5,35 @@ import Input from '@components/core/Input';
 import Button from '@components/core/Button';
 
 // hooks
-import { useEditPartyTagMutation } from '@hooks/apis/Party/usePartyTagMutation';
+import { useEditReasonMutation } from '@hooks/apis/Party/useCancelReasonMutation';
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedTag: any;
-  tagType: string;
+  selectedReason: any;
+  roleType: string;
 }
 
-//** 모임 태그 수정 컴포넌트 */
-const PartyTagEdit = ({ selectedTag, tagType }: IProps) => {
+//** 모임 취소 이유 수정 컴포넌트 */
+const CancelReasonEdit = ({ selectedReason, roleType }: IProps) => {
   const { closeModal } = useModal();
-  const { mutate: editPartyTag } = useEditPartyTagMutation();
+  const { mutate: editReason } = useEditReasonMutation();
 
-  const tagText = useInput(selectedTag.name);
+  const reasonText = useInput(selectedReason.reason);
 
-  // 모임 태그명 수정
+  // 모임 취소 이유 수정
   const handleEditTag = () => {
-    editPartyTag({
-      name: tagText.value,
-      tagType: tagType,
-      priKey: selectedTag.id,
+    editReason({
+      reason: reasonText.value,
+      partyRoleType: roleType,
+      priKey: selectedReason.id,
     });
     closeModal();
   };
 
   return (
     <>
-      <Input label="태그명" value={tagText.value} onChange={tagText.onChange} />
+      <Input label="취소 이유" value={reasonText.value} onChange={reasonText.onChange} />
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">
@@ -45,7 +45,7 @@ const PartyTagEdit = ({ selectedTag, tagType }: IProps) => {
   );
 };
 
-export default PartyTagEdit;
+export default CancelReasonEdit;
 
 const ButtonWrap = styled.div`
   width: 100%;

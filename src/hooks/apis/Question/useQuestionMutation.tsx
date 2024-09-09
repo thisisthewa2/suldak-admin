@@ -6,7 +6,7 @@ import useToastify from '@hooks/useToastify';
 import QuestionApi from '@apis/services/QuestionApi';
 
 /** 프로필 질문 수정 */
-export const useEditQuesitonMutation = () => {
+export const useEditQuestionMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
   return useMutation(QuestionApi.edit, {

@@ -31,6 +31,7 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
   const [inputValue , setInputValue] = useFormInput({
     title: selectedBanner.title,
     subTitle: selectedBanner.subTitle,
+    connectUrl: selectedBanner.connectUrl,
   })
   // 수정 전 이미지 파일
   const existImgFile = selectedBanner.bannerImageUrl;
@@ -50,6 +51,7 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
       isActive: isActive,
       title: inputValue.title,
       subTitle: inputValue.subTitle,
+      connectUrl: inputValue.connectUrl,
     };
     
     editFormData.append('bannerReq', JSON.stringify(bannerReq));
@@ -110,6 +112,13 @@ const BannerEdit = ({ selectedBanner }: IProps) => {
           value={inputValue.subTitle}
           onChange={setInputValue}
           placeholder='배너 부제목을 입력해주세요.'
+        />
+        <Input 
+          name='connectUrl'
+          label="URL"
+          value={inputValue.connectUrl}
+          onChange={setInputValue}
+          placeholder='배너가 이동할 URL을 입력해주세요.'
         />
         
         <ButtonWrap>

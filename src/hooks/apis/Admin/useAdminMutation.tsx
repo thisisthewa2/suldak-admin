@@ -24,7 +24,7 @@ export const useAddAdminMutation = () => {
 export const useEditAdminMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(AuthApi.addAdmin, {
+  return useMutation(AuthApi.editAdmin, {
     onSuccess: () => {
       showSuccessToastMessage('어드민 정보가 수정되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['adminList'] });

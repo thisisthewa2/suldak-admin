@@ -24,7 +24,7 @@ export const useAddRecommendMutation = () => {
   });
 };
 
-/** 추천 검색어 활성화 수정 */
+/** 추천 검색어 수정 */
 export const useEditRecommendMutation = () => {
   const { showErrorToastMessage, showSuccessToastMessage } = useToastify();
   const { closeModal } = useModal();
@@ -54,6 +54,24 @@ export const useDeleteRecommendMutation = () => {
     },
     onError: () => {
       showErrorToastMessage('추천 검색어 삭제를 실패했습니다.');
+    },
+  });
+};
+
+/** 추천 검색어 활성화 핸들링 */
+export const useHandleActiveRecommendMutation = () => {
+  const { showErrorToastMessage, showSuccessToastMessage } = useToastify();
+  const { closeModal } = useModal();
+
+  return useMutation(RecommendApi.handleActive, {
+    onSuccess: () => {
+      showSuccessToastMessage('추천 검색어가 수정되었습니다.');
+      // 추천 검색어 리스트 재호출
+      queryClient.invalidateQueries({ queryKey: ['recommendList'] });
+      closeModal();
+    },
+    onError: () => {
+      showErrorToastMessage('추천 검색어 수정을 실패했습니다.');
     },
   });
 };

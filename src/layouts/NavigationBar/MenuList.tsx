@@ -42,6 +42,7 @@ export const menuList = [
     icon: <PiUsersThreeFill />,
     submenu: [
       { id: 'party-tag', title: '모임 태그', path: '/party-tag' },
+      { id: 'party-cancel', title: '모임 취소 이유', path: '/party-cancel' },
       {
         id: 'party-feedback',
         title: '모임 피드백',

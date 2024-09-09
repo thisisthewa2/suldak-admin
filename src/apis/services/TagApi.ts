@@ -30,13 +30,13 @@ interface IEditForm {
 interface IAddParty {
   tagType: string; 
   name: string;
-  id?: number;
 }
 
-// 태그 삭제 타입
+// 태그 수정 삭제 타입
 interface IDelete {
   tagType: string;
   priKey: number;
+  name?: string;
 }
 
 // 태그 조회
@@ -75,15 +75,23 @@ class TagApi {
     return data;
   }
 
-  // 모임 태그 추가 및 수정
-  addParty = async ({ tagType, id, name }:IAddParty) => {
+  // 모임 태그 추가
+  addParty = async ({ tagType, name }:IAddParty) => {
     const { data } = await axiosInstance.post(`/api/admin/${tagType}`, {
-      id: id ? id : null,
       name,
     });
     
     return data;
   };
+
+  // 모임 태그 수정
+  editParty = async ({ tagType, priKey, name }:IDelete) => {
+    const { data } = await axiosInstance.put(`/api/admin/${tagType}/${priKey}`, {
+      name,
+    });
+
+    return data;
+  }
 
   // 삭제
   delete = async ({ tagType, priKey }: IDelete) => {
