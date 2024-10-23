@@ -10,6 +10,7 @@ import Button from '@components/core/Button';
 import TextArea from '@components/core/TextArea';
 import ImageUploader from '@components/core/ImageUploader';
 import DropdownSelector from '@components/core/DropSelector';
+import RecipeTextEditor from '@components/core/RecipeTextEditor';
 
 // hooks
 import useFormInput from '@hooks/useFormInput';
@@ -40,8 +41,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
   });
 
   const [detailExplanation, handleDetailExplanation] = useTextarea<string>(selectedLiquor?.detailExplanation);
-  const [liquorRecipe, handleLiquorRecipe] = useTextarea<string>(selectedLiquor?.liquorRecipe);
-
+  const [liquorRecipe, handleLiquorRecipe] = useState<string[]>(selectedLiquor?.liquorRecipe); // 술 레시피
+  
   const [liquorName, setLiquorName] = useState<tagType[]>([selectedLiquor?.liquorNameDto]); // 1차 분류
   const [liquorDetail, setLiquorDetail] = useState<tagType[]>([selectedLiquor?.liquorDetailDto]); // 2차 분류
   const [liquorAbv, setLiquorAbv] = useState<tagType[]>([selectedLiquor?.liquorAbvDto]); // 술의 도수
@@ -231,12 +232,10 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             value={detailExplanation}
             onChange={handleDetailExplanation}
           />
-          <TextArea
-            name="liquorRecipe"
-            value={liquorRecipe}
-            onChange={handleLiquorRecipe}
-            placeholder="술의 레시피를 입력해주세요"
+          <RecipeTextEditor 
             label="술의 레시피"
+            onChange={handleLiquorRecipe}
+            value={liquorRecipe}
           />
           <Input
             name="searchTag"
