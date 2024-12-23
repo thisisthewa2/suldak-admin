@@ -20,11 +20,26 @@ export const useAddTagMutation = () => {
   });
 };
 
+/** 폼 데이터 태그 추가 */
+export const useAddFormTagMutation = () => {
+  const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
+
+  return useMutation(TagApi.addForm, {
+    onSuccess: () => {
+      showSuccessToastMessage('폼 데이터 태그가 추가되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['tagList'] });
+    },
+    onError: () => {
+      showErrorToastMessage('폼 데이터 태그 추가를 실패했습니다.');
+    },
+  });
+};
+
 /** 태그 수정 */
 export const useEditTagMutation = () => {
   const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
 
-  return useMutation(TagApi.add, {
+  return useMutation(TagApi.edit, {
     onSuccess: () => {
       showSuccessToastMessage('태그 정보가 수정되었습니다.');
       // 태그 정보가 수정되면 태그 리스트를 재호출
@@ -32,6 +47,21 @@ export const useEditTagMutation = () => {
     },
     onError: () => {
       showErrorToastMessage('태그 정보 수정을 실패했습니다.');
+    },
+  });
+};
+
+/** 폼 데이터 태그 수정 */
+export const useEditFormTagMutation = () => {
+  const { showSuccessToastMessage, showErrorToastMessage } = useToastify();
+
+  return useMutation(TagApi.editForm, {
+    onSuccess: () => {
+      showSuccessToastMessage('폼 데이터 태그가 수정되었습니다.');
+      queryClient.invalidateQueries({ queryKey: ['tagList'] });
+    },
+    onError: () => {
+      showErrorToastMessage('폼 데이터 태그 수정에 실패했습니다.');
     },
   });
 };

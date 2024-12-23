@@ -12,18 +12,18 @@ import ErrorFallback from '@components/core/ErrorFallback';
 import QuestionAnswerList from '@components/Question/QuestionAnswerList';
 
 // hooks
-import { useEditQuesitonMutation } from '@hooks/apis/Question/useQuestionMutation';
+import { useEditQuestionMutation } from '@hooks/apis/Question/useQuestionMutation';
 import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedQuestion?: any;
+  selectedQuestion: any;
 }
 
 const QuestionEdit = ({ selectedQuestion }: IProps) => {
   const { closeModal } = useModal();
   const { reset } = useQueryErrorResetBoundary();
-  const { mutate: editQuestion } = useEditQuesitonMutation();
+  const { mutate: editQuestion } = useEditQuestionMutation();
 
   const questionText = useInput(selectedQuestion.qtext);
 

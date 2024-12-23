@@ -33,6 +33,7 @@ const QuestionAnswerList = ({ questionPriKey }: IProps) => {
   const { mutate: add } = useAnswerAddMutation();
 
   const answerText = useInput('');
+  const aIndexValue = answerList.data.liquorAnswerRes.length;
 
   // 답변 추가 폼 열기/닫기
   const handleSetIsAddOpen = (isOpen: boolean) => {
@@ -49,7 +50,7 @@ const QuestionAnswerList = ({ questionPriKey }: IProps) => {
       return;
     }
     add({
-      aIndex: 20,
+      aindex: aIndexValue + 1,
       atext: answerText.value,
       questionPriKey,
     });
@@ -122,7 +123,7 @@ const AnswerListWrap = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 300px;
-  overflow: scroll;
+  overflow-y: auto;
   gap: 0.25rem;
 `;
 

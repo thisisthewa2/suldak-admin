@@ -12,18 +12,15 @@ import Title from '@components/core/Title';
 import Input from '@components/core/Input';
 import Loader from '@components/core/Loader';
 import QuestionList from '@components/Question/QuestionList';
-import Dropdown from '@components/core/Dropdown';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
 import useInput from '@hooks/useInput';
-import useModal from '@hooks/useModal';
 
 /** 프로필 질문 페이지 */
 const QuestionPage = () => {
   const { isTablet, isMobile } = useResponsive();
   const { reset } = useQueryErrorResetBoundary();
-  const { openModal } = useModal();
 
   const searchInput = useInput('');
 

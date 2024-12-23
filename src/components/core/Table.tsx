@@ -121,4 +121,6 @@ const Td = styled.td<{ $align?: 'left' | 'right' | 'center' }>`
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 0;
+  // styled-reset => vertical-align: baseline; 으로 고정되는 이슈
+  vertical-align: middle;
 `;

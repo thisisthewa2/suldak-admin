@@ -50,11 +50,16 @@ export default React.memo(Input);
 
 const InputWrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Label = styled.label`
   display: block;
   color: ${(props) => props.theme.text.primary};
+  min-width: 100px;
+  width: 200px;
   margin-bottom: 0.25rem;
 `;
 

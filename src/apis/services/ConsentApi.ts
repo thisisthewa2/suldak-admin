@@ -17,7 +17,7 @@ interface IAdd {
 
 // 동의 항목 수정
 interface IEdit {
-  id: number; // 동의 항목 기본키
+  priKey: number; // 동의 항목 기본키
   itemSeq?: number; // 동의 항목 순서
   itemText: string; // 동의 항목 내용
   itemType: itemType;
@@ -46,7 +46,7 @@ class ConsentApi {
 
   // 추가
   add = async ({ itemSeq, itemText, itemType }: IAdd) => {
-    const { data } = await axiosInstance.post(`/api/admin/consent/consent`, {
+    const { data } = await axiosInstance.post(`/api/admin/consent`, {
       itemSeq: itemSeq || 0,
       itemText,
       itemType,
@@ -56,9 +56,8 @@ class ConsentApi {
   };
 
   // 수정
-  edit = async ({ id, itemSeq, itemText, itemType }: IEdit) => {
-    const { data } = await axiosInstance.post(`/api/admin/consent/consent`, {
-      id,
+  edit = async ({ itemSeq, itemText, itemType, priKey }: IEdit) => {
+    const { data } = await axiosInstance.put(`/api/admin/consent/${priKey}`, {
       itemSeq: itemSeq || 0,
       itemText,
       itemType,
@@ -70,7 +69,7 @@ class ConsentApi {
   // 삭제
   delete = async ({ priKey }: IDelete) => {
     const response = await axiosInstance.delete(
-      `/api/admin/consent/consent/${priKey}`
+      `/api/admin/consent/${priKey}`
     );
 
     return response.data;

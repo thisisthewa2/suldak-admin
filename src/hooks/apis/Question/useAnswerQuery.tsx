@@ -18,3 +18,20 @@ export const useGetAnswerQuery = (questionPriKey: number) => {
     }
   );
 };
+
+// /** 프로필 질문 답변 가중치를 가져오는 쿼리 */
+// export const useGetAnswerWeightQuery = (liquorAnswerPriKey: number) => {
+//   return useQuery(
+//     ['answerWeightList', liquorAnswerPriKey],
+//     () =>
+//       AnswerApi.getWeight({
+//         liquorAnswerPriKey,
+//       }),
+//     {
+//       suspense: true,
+//       useErrorBoundary: true,
+//       retry: false,
+//       refetchOnWindowFocus: false,
+//     }
+//   );
+// };

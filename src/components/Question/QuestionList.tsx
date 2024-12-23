@@ -71,9 +71,3 @@ const ButtonWrap = styled.div`
   justify-content: flex-end;
   gap: 1rem;
 `;
-
-const ListbuttonWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;

@@ -8,7 +8,7 @@ import useModal from '@hooks/useModal';
 import { useEditConsentMutation } from '@hooks/apis/Consent/useConsentMutation';
 
 interface IProps {
-  selectedConsent?: any;
+  selectedConsent: any;
 }
 
 /** 동의 항목 수정 컴포넌트 */
@@ -19,9 +19,10 @@ const ConsentEdit = ({ selectedConsent }: IProps) => {
   // 동의 항목 수정
   const handleEditConsent = (data: any) => {
     editConsent({
-      id: selectedConsent.id,
+      priKey: selectedConsent.id,
       itemType: selectedConsent.itemType,
       itemText: data,
+      itemSeq: selectedConsent.itemSeq,
     });
 
     closeModal();

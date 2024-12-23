@@ -66,7 +66,7 @@ const AdminList = ({ searchKeyword = '' }: IProps) => {
     },
     {
       Header: '생성일자',
-      accessor: 'createdAt',
+      accessor: (row: any) => row.createdAt.slice(2, 10),
       width: '40%',
     },
     {

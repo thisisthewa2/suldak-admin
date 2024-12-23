@@ -15,6 +15,7 @@ export type tagType = {
 };
 
 interface IProps {
+  label?: string;
   placeholder?: string;
   selectedTagList: tagType[];
   tagType: string;
@@ -24,6 +25,7 @@ interface IProps {
 
 /** 드롭다운 선택시 아이템 렌더링 하는 컴포넌트 */
 const DropdownSelector = ({
+  label,
   placeholder = '선택해주세요',
   selectedTagList,
   tagType,
@@ -67,25 +69,28 @@ const DropdownSelector = ({
 
   return (
     <DropdownWrapper ref={wrapperRef}>
-      <DropdownHeader onClick={handleToggle}>
-        {selectedTagList?.length > 0
-          ? selectedTagList.map((tag: tagType) => (
-              <Tag key={tag.id} pk={tag.id} name={tag.name} onClickDelete={handleDeleteTag}>
+      {label && <Label>{label}</Label>}
+      <DropdownContainer>
+        <DropdownHeader onClick={handleToggle}>
+          {selectedTagList?.length > 0
+            ? selectedTagList.map((tag: tagType) => (
+                <Tag key={tag.id} pk={tag.id} name={tag.name} onClickDelete={handleDeleteTag}>
+                  {tag.name}
+                </Tag>
+              ))
+            : placeholder}
+          <Arrow $isOpen={isOpen} />
+        </DropdownHeader>
+        {isOpen && (
+          <DropdownListWrapper>
+            {tagList.data.map((tag: tagType) => (
+              <Tag key={tag.id} pk={tag.id} name={tag.name} onClick={handleSelectTag}>
                 {tag.name}
               </Tag>
-            ))
-          : placeholder}
-        <Arrow $isOpen={isOpen} />
-      </DropdownHeader>
-      {isOpen && (
-        <DropdownListWrapper>
-          {tagList.data.map((tag: tagType) => (
-            <Tag key={tag.id} pk={tag.id} name={tag.name} onClick={handleSelectTag}>
-              {tag.name}
-            </Tag>
-          ))}
-        </DropdownListWrapper>
-      )}
+            ))}
+          </DropdownListWrapper>
+        )}
+      </DropdownContainer>
     </DropdownWrapper>
   );
 };
@@ -96,6 +101,22 @@ const DropdownWrapper = styled.div`
   position: relative;
   color: ${(props) => props.theme.text.secondary};
   font-size: 0.9rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DropdownContainer = styled.div`
+  width: 100%;
+`;
+
+const Label = styled.label`
+  display: block;
+  color: ${(props) => props.theme.text.primary};
+  min-width: 100px;
+  width: 200px;
+  margin-bottom: 0.25rem;
 `;
 
 const DropdownHeader = styled.div`
@@ -127,8 +148,6 @@ const DropdownListWrapper = styled.div`
   gap: 1rem;
   /* min-height: 50px; */
   top: 120%;
-  left: 0;
-  width: 100%;
   color: ${(props) => props.theme.text.primary};
   background-color: ${(props) => props.theme.componentBgColor};
   border: 1px solid ${(props) => props.theme.form.border};

@@ -1,8 +1,8 @@
 import { AiFillHome, AiFillTag } from 'react-icons/ai';
-import { MdLiquor, MdQuestionAnswer } from 'react-icons/md';
+import { MdLiquor, MdQuestionAnswer, MdRecommend } from 'react-icons/md';
 import { FaUserCog } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
-import { PiTestTubeFill, PiUsersThreeFill } from 'react-icons/pi';
+import { PiTestTubeFill, PiUsersThreeFill, PiFlagBannerFill } from 'react-icons/pi';
 
 export const menuList = [
   {
@@ -24,12 +24,25 @@ export const menuList = [
     icon: <AiFillTag />,
   },
   {
+    id: 'banner',
+    title: '배너',
+    path: '/banner',
+    icon: <PiFlagBannerFill />,
+  },
+  {
+    id: 'recommend',
+    title: '추천 검색어',
+    path: '/recommend',
+    icon: <MdRecommend />,
+  },
+  {
     id: 'party',
     title: '모임',
     path: '/party',
     icon: <PiUsersThreeFill />,
     submenu: [
       { id: 'party-tag', title: '모임 태그', path: '/party-tag' },
+      { id: 'party-cancel', title: '모임 취소 이유', path: '/party-cancel' },
       {
         id: 'party-feedback',
         title: '모임 피드백',
