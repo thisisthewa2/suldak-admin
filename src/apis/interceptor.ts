@@ -5,7 +5,7 @@ interface HeaderType extends AxiosRequestHeaders {
   Authorization: string | null;
 }
 
-export const BASE_URL = 'http://122.45.170.200:8083';
+export const BASE_URL = 'https://api.suldak.co.kr/admin';
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
