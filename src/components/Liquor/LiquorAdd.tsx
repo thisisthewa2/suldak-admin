@@ -52,7 +52,6 @@ const LiquorAdd = () => {
   const [liquorState, setLiquorState] = useState<tagType[]>([]); // 상태(기분)
   const [liquorSell, setLiquorSell] = useState<tagType[]>([]); // 판매처
   const [liquorSnack, setLiquorSnack] = useState<tagType[]>([]); // 추천안주
-  const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>([]); // 재료
 
   const [imgFile, setImgFile] = useState<File | null>(null);
 
@@ -65,7 +64,6 @@ const LiquorAdd = () => {
 
     const snackId = liquorSnack.map((item) => item.id);
     const sellId = liquorSell.map((item) => item.id);
-    const materialId = liquorMaterial.map((item) => item.id);
     const stateId = liquorState.map((item) => item.id);
     const tasteId = liquorTaste.map((item) => item.id);
 
@@ -82,7 +80,6 @@ const LiquorAdd = () => {
       liquorNameId: liquorName[0].id.toString(),
       snackPriKeys: snackId,
       sellPriKeys: sellId,
-      materialPriKeys: materialId,
       statePriKeys: stateId,
       tastePriKeys: tasteId,
     };
@@ -136,11 +133,6 @@ const LiquorAdd = () => {
           setLiquorSnack((prev) => [...prev, tag]);
         }
         break;
-      case 'liquor-material':
-        if (isExistTags(liquorMaterial, tag.id) === false) {
-          setLiquorMaterial((prev) => [...prev, tag]);
-        }
-        break;
     }
   };
 
@@ -175,11 +167,6 @@ const LiquorAdd = () => {
         const newSnackList = liquorSnack.filter((item) => item.id !== tag.id);
         setLiquorSnack(newSnackList);
         break;
-      case 'liquor-material':
-        const newMaterialList = liquorMaterial.filter(
-          (item) => item.id !== tag.id
-        );
-        setLiquorMaterial(newMaterialList);
     }
   };
 
@@ -258,15 +245,6 @@ const LiquorAdd = () => {
             placeholder="추천안주를 선택해주세요"
             tagType="liquor-snack"
             selectedTagList={liquorSnack}
-            onClickTags={handleChangeTags}
-            onDeleteTags={handleDeleteTags}
-          />
-
-          <DropdownSelector
-            label="재료"
-            placeholder="재료를 선택해주세요"
-            tagType="liquor-material"
-            selectedTagList={liquorMaterial}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />
