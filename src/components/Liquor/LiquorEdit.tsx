@@ -55,7 +55,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
   const [liquorState, setLiquorState] = useState<tagType[]>(initializeArrayState(selectedLiquor?.stateTypeDtos)); // 상태(기분)
   const [liquorSell, setLiquorSell] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorSellDtos)); // 판매처
   const [liquorSnack, setLiquorSnack] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorSnackRes)); // 추천안주
-  const [liquorMaterial, setLiquorMaterial] = useState<tagType[]>(initializeArrayState(selectedLiquor?.liquorMaterialDtos)); // 재료
 
   const [imgFile, setImgFile] = useState<File | null>(null);
   const existImgFile = selectedLiquor?.liquorPictureUrl;
@@ -69,7 +68,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
 
     const snackId = liquorSnack.map((item) => item.id);
     const sellId = liquorSell.map((item) => item.id);
-    const materialId = liquorMaterial.map((item) => item.id);
     const stateId = liquorState.map((item) => item.id);
     const tasteId = liquorTaste.map((item) => item.id);
 
@@ -86,7 +84,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
       liquorNameId: liquorName[0].id.toString(),
       snackPriKeys: snackId,
       sellPriKeys: sellId,
-      materialPriKeys: materialId,
       statePriKeys: stateId,
       tastePriKeys: tasteId,
     };
@@ -143,11 +140,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
           setLiquorSnack((prev) => [...prev, tag]);
         }
         break;
-      case 'liquor-material':
-        if (isExistTags(liquorMaterial, tag.id) === false) {
-          setLiquorMaterial((prev) => [...prev, tag]);
-        }
-        break;
     }
   };
 
@@ -182,11 +174,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
         const newSnackList = liquorSnack.filter((item) => item.id !== tag.id);
         setLiquorSnack(newSnackList);
         break;
-      case 'liquor-material':
-        const newMaterialList = liquorMaterial.filter(
-          (item) => item.id !== tag.id
-        );
-        setLiquorMaterial(newMaterialList);
     }
   };
 
@@ -265,15 +252,6 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             placeholder="추천안주를 선택해주세요"
             tagType="liquor-snack"
             selectedTagList={liquorSnack}
-            onClickTags={handleChangeTags}
-            onDeleteTags={handleDeleteTags}
-          />
-
-          <DropdownSelector
-            label="재료"
-            placeholder="재료를 선택해주세요"
-            tagType="liquor-material"
-            selectedTagList={liquorMaterial}
             onClickTags={handleChangeTags}
             onDeleteTags={handleDeleteTags}
           />

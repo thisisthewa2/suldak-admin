@@ -6,8 +6,6 @@ export const getTagType = (type: string) => {
       return 'liquor-abv'
     case '2차분류':
       return 'liquor-detail'
-    case '재료':
-      return 'liquor-material'
     case '1차분류':
       return 'liquor-name'
     case '판매처':
@@ -35,9 +33,6 @@ export const TagTypes = [
   },
   {
     value: 'liquor-detail', label: '2차분류'
-  },
-  {
-    value: 'liquor-material', label: '재료'
   },
   {
     value: 'liquor-sell', label: '판매처'
