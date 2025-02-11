@@ -23,6 +23,7 @@ import LiquorFilter from '@components/Liquor/LiquorFilter';
 
 import { SearchParams } from '@apis/services/LiquorApi';
 
+
 /** 술 관리 페이지 */
 const LiquorPage = () => {
   const { isTablet, isMobile } = useResponsive();
@@ -112,8 +113,12 @@ const LiquorPage = () => {
   };
 
   useEffect(() => {
-    console.log(searchParams);
-  }, [searchParams]);
+    setSearchParams((prev) => ({
+      ...prev,
+      pageNum: 0, // 검색 시 페이지 0으로 초기화
+      recordSize: searchInput.value ? 9999 : 10, // 검색 시 임의의 값을 recordSize에 적용
+    }));
+  }, [searchInput.value]);
 
   return (
     <>
