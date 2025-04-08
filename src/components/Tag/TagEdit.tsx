@@ -37,7 +37,13 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
         name: tagText.value,
       };
 
-      editFormData.append('liquorNameDto', JSON.stringify(liquorSnackDto));
+      if (tagType === 'liquor-name') {
+        editFormData.append('liquorNameDto', JSON.stringify(liquorSnackDto));
+      } else {
+        if (tagType === 'liquor-snack') {
+          editFormData.append('liquorSnackDto', JSON.stringify(liquorSnackDto));
+        }
+      }
 
       if (imgFile !== null) {
         editFormData.append('file', imgFile);

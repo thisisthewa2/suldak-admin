@@ -10,7 +10,11 @@ import useModal from '@hooks/useModal';
 import useInput from '@hooks/useInput';
 
 interface IProps {
-  selectedTag: any;
+  selectedTag: {
+    id: number;
+    name: string;
+    orderNum: number;
+  };
   tagType: string;
 }
 
@@ -20,6 +24,7 @@ const PartyTagEdit = ({ selectedTag, tagType }: IProps) => {
   const { mutate: editPartyTag } = useEditPartyTagMutation();
 
   const tagText = useInput(selectedTag.name);
+  const tagOrderNum = useInput(selectedTag.orderNum.toString());
 
   // 모임 태그명 수정
   const handleEditTag = () => {
@@ -27,6 +32,7 @@ const PartyTagEdit = ({ selectedTag, tagType }: IProps) => {
       name: tagText.value,
       tagType: tagType,
       priKey: selectedTag.id,
+      orderNum: Number(tagOrderNum.value),
     });
     closeModal();
   };
@@ -34,6 +40,7 @@ const PartyTagEdit = ({ selectedTag, tagType }: IProps) => {
   return (
     <>
       <Input label="태그명" value={tagText.value} onChange={tagText.onChange} />
+      <Input label="우선순위" value={tagOrderNum.value} onChange={tagOrderNum.onChange} />
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">
