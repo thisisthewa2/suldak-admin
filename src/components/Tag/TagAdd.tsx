@@ -43,15 +43,15 @@ const TagAdd = ({}: IProps) => {
       showWarningToastMessage('태그명을 입력해주세요.');
       return;
     }
-  
+
     if (imgFile) {
       const liquorNameDto = {
         name: tagName.value,
       };
 
       formData.append('file', imgFile);
-      formData.append('liquorNameDto', JSON.stringify(liquorNameDto));
-  
+      formData.append('liquorSnackDto', JSON.stringify(liquorNameDto));
+
       addFormTag({ formD: formData, tagType });
     } else {
       addTag({
@@ -69,12 +69,12 @@ const TagAdd = ({}: IProps) => {
   };
 
   useEffect(() => {
-    if(['liquor-name', 'liquor-snack'].includes(tagType)){
+    if (['liquor-name', 'liquor-snack'].includes(tagType)) {
       setFileType(true);
     } else {
       setFileType(false);
     }
-  },[tagType]);
+  }, [tagType]);
 
   return (
     <Wrapper>

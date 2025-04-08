@@ -22,7 +22,7 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
   const { mutate: editFormTag } = useEditFormTagMutation();
 
   const [imgFile, setImgFile] = useState<File | null>(null);
-  
+
   // 수정 전 이미지 파일
   const existImgFile = selectedTag.fileBaseNm;
 
@@ -33,16 +33,22 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
     const editFormData = new FormData();
 
     if (tagType === 'liquor-name' || tagType === 'liquor-snack') {
-      const liquorNameDto = {
+      const liquorSnackDto = {
         name: tagText.value,
       };
-  
-      editFormData.append('liquorNameDto', JSON.stringify(liquorNameDto));
-      
-      if(imgFile !== null) {
+
+      if (tagType === 'liquor-name') {
+        editFormData.append('liquorNameDto', JSON.stringify(liquorSnackDto));
+      } else {
+        if (tagType === 'liquor-snack') {
+          editFormData.append('liquorSnackDto', JSON.stringify(liquorSnackDto));
+        }
+      }
+
+      if (imgFile !== null) {
         editFormData.append('file', imgFile);
       }
-      
+
       editFormTag({
         eFormD: editFormData,
         priKey: selectedTag.id,
@@ -67,7 +73,9 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
   return (
     <>
       <Input label="태그명" value={tagText.value} onChange={tagText.onChange} />
-      {existImgFile && <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />}
+      {(tagType === 'liquor-name' || tagType === 'liquor-snack') && (
+        <ImageUploader label="이미지" onChange={handleFileChange} file={imgFile} eFile={existImgFile} />
+      )}
 
       <ButtonWrap>
         <Button onClick={closeModal} buttonType="reset">

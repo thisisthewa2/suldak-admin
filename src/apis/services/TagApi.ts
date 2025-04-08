@@ -13,6 +13,13 @@ interface IEdit {
   priKey: number;
 }
 
+interface IEditParty {
+  name: string;
+  tagType: string;
+  priKey: number;
+  orderNum: number;
+}
+
 // 폼 태그 추가
 interface IAddForm {
   formD: any;
@@ -28,7 +35,7 @@ interface IEditForm {
 
 // 모임 태그 추가
 interface IAddParty {
-  tagType: string; 
+  tagType: string;
   name: string;
 }
 
@@ -61,52 +68,49 @@ class TagApi {
     });
 
     return data;
-  }
+  };
 
-  addForm = async({ formD, tagType }: IAddForm) => {
+  addForm = async ({ formD, tagType }: IAddForm) => {
     const { data } = await axiosInstance.post(`/api/admin/tag/add/${tagType}`, formD);
 
     return data;
-  }
+  };
 
-  editForm = async({ eFormD, tagType, priKey }: IEditForm) => {
+  editForm = async ({ eFormD, tagType, priKey }: IEditForm) => {
     const { data } = await axiosInstance.put(`/api/admin/tag/add/${tagType}/${priKey}`, eFormD);
 
     return data;
-  }
+  };
 
   // 모임 태그 추가
-  addParty = async ({ tagType, name }:IAddParty) => {
+  addParty = async ({ tagType, name }: IAddParty) => {
     const { data } = await axiosInstance.post(`/api/admin/${tagType}`, {
       name,
     });
-    
+
     return data;
   };
 
   // 모임 태그 수정
-  editParty = async ({ tagType, priKey, name }:IDelete) => {
-    const { data } = await axiosInstance.put(`/api/admin/${tagType}/${priKey}`, {
+  editParty = async ({ tagType, priKey, name, orderNum }: IEditParty) => {
+    const { data } = await axiosInstance.put(`/api/admin/tag/add/${tagType}/${priKey}`, {
       name,
+      orderNum,
     });
 
     return data;
-  }
+  };
 
   // 삭제
   delete = async ({ tagType, priKey }: IDelete) => {
-    const response = await axiosInstance.delete(
-      `/api/admin/tag/del/${tagType}/${priKey}`
-    );
+    const response = await axiosInstance.delete(`/api/admin/tag/del/${tagType}/${priKey}`);
 
     return response.data;
   };
 
   // 모임 태그 삭제
   deleteParty = async ({ tagType, priKey }: IDelete) => {
-    const response = await axiosInstance.delete(
-      `/api/admin/${tagType}/${priKey}`
-    );
+    const response = await axiosInstance.delete(`/api/admin/${tagType}/${priKey}`);
 
     return response.data;
   };
