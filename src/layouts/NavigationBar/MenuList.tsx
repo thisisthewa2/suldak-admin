@@ -73,6 +73,12 @@ export const menuList = [
     icon: <HiDocumentText />,
   },
   {
+    id: 'notice',
+    title: '공지사항',
+    path: '/notice',
+    icon: <HiDocumentText />,
+  },
+  {
     id: 'test',
     title: '실험실',
     path: '/test',

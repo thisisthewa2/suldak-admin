@@ -15,8 +15,8 @@ interface RecipeProps {
   value?: string[];
 }
 
-/** 술 레시피 에디터 커스텀 컴포넌트 */
-const RecipeTextEditor = ({ onChange, label, value }: RecipeProps) => {
+/** 술 재료 에디터 커스텀 컴포넌트 */
+const MaterialTextEditor = ({ onChange, label, value }: RecipeProps) => {
   const { currentTheme } = useTheme();
   const editorRef = useRef<Editor>(null);
 
@@ -50,7 +50,7 @@ const RecipeTextEditor = ({ onChange, label, value }: RecipeProps) => {
 
         onChange(liquorRecipe);
       } else {
-        console.log('특별한 레시피가 없습니다.');
+        console.log('특별한 재료가 없습니다.');
       }
     }
   };
@@ -65,7 +65,7 @@ const RecipeTextEditor = ({ onChange, label, value }: RecipeProps) => {
           toolbarItems={toolbarItems}
           hideModeSwitch
           language="ko-KR"
-          placeholder="상단 번호 매기기를 적용하고 순서에 맞게 레시피를 입력 해주세요."
+          placeholder="상단 번호 매기기를 적용하고 순서에 맞게 재료를 입력 해주세요."
           theme={currentTheme === 'DARK' ? 'dark' : 'light'}
           usageStatistics={false}
           autofocus
@@ -76,7 +76,7 @@ const RecipeTextEditor = ({ onChange, label, value }: RecipeProps) => {
   );
 };
 
-export default RecipeTextEditor;
+export default MaterialTextEditor;
 
 const Wrapper = styled.div`
   width: 100%;

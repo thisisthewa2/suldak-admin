@@ -22,12 +22,10 @@ interface IProps {
 
 /** 술 목록 컴포넌트 */
 const LiquorList = ({ params, onChangePage, searchKeyword = '' }: IProps) => {
-  const { openModal } = useModal(); 
+  const { openModal } = useModal();
   const { data: liquorList } = useGetLiquorQuery(params);
-  
-  const filteredData = useSearchFilter(liquorList?.data.content || [], searchKeyword, [
-    'name',
-  ]);
+
+  const filteredData = useSearchFilter(liquorList?.data.content || [], searchKeyword, ['name']);
 
   const { mutate: deleteLiquor } = useDeleteLiquorMutation();
 
@@ -82,10 +80,7 @@ const LiquorList = ({ params, onChangePage, searchKeyword = '' }: IProps) => {
         // JSX를 반환하는 함수를 제공할 수 있습니다.
         <ButtonWrap>
           <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
-          <Button 
-            buttonType="cancel"
-            onClick={() => handleOpenDeleteModal(row.id)} 
-          >
+          <Button buttonType="cancel" onClick={() => handleOpenDeleteModal(row.id)}>
             삭제
           </Button>
         </ButtonWrap>
