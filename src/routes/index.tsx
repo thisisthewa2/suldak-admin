@@ -1,12 +1,6 @@
 import { useEffect, lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 
 // components
 import NavigationBar from '@layouts/NavigationBar/NavigationBar';
@@ -36,6 +30,7 @@ const UserPage = lazy(() => import('@pages/User/UserPage'));
 const QuestionPage = lazy(() => import('@pages/Question/QuestionPage'));
 
 const ConsentPage = lazy(() => import('@pages/Consent/ConsentPage'));
+const NoticePage = lazy(() => import('@pages/Notice/NoticePage'));
 
 // 에러페이지
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
@@ -77,6 +72,9 @@ const RouterComponent = () => {
 
             {/* 동의 항목 페이지 */}
             <Route path="/consent" element={<ConsentPage />} />
+
+            {/* 공지사항 페이지 */}
+            <Route path="/notice" element={<NoticePage />} />
 
             <Route path="/test" element={<TestPage />} />
           </Route>

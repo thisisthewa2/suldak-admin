@@ -23,7 +23,6 @@ import LiquorFilter from '@components/Liquor/LiquorFilter';
 
 import { SearchParams } from '@apis/services/LiquorApi';
 
-
 /** 술 관리 페이지 */
 const LiquorPage = () => {
   const { isTablet, isMobile } = useResponsive();
@@ -54,9 +53,7 @@ const LiquorPage = () => {
   const handleChangeFilter = (filterType: string, filterId: number) => {
     setSearchParams((prev) => {
       if (filterType === 'liquorNamePriKeys') {
-        const updatedLiquorNamePriKeys = prev.liquorNamePriKeys.includes(
-          filterId
-        )
+        const updatedLiquorNamePriKeys = prev.liquorNamePriKeys.includes(filterId)
           ? prev.liquorNamePriKeys.filter((id) => id !== filterId)
           : [...prev.liquorNamePriKeys, filterId];
 
@@ -65,9 +62,7 @@ const LiquorPage = () => {
           liquorNamePriKeys: updatedLiquorNamePriKeys,
         };
       } else if (filterType === 'liquorDetailPriKeys') {
-        const updatedLiquorDetailPriKeys = prev.liquorDetailPriKeys.includes(
-          filterId
-        )
+        const updatedLiquorDetailPriKeys = prev.liquorDetailPriKeys.includes(filterId)
           ? prev.liquorDetailPriKeys.filter((id) => id !== filterId)
           : [...prev.liquorDetailPriKeys, filterId];
 
@@ -132,19 +127,12 @@ const LiquorPage = () => {
           </TitleWrap>
 
           <FormWrap>
-            <Input
-              placeholder="검색어를 입력해주세요..."
-              onChange={searchInput.onChange}
-            />
+            <Input placeholder="검색어를 입력해주세요..." onChange={searchInput.onChange} />
           </FormWrap>
 
           <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
             <Suspense fallback={<Loader />}>
-              <LiquorList
-                params={searchParams}
-                onChangePage={handleChangePage}
-                searchKeyword={searchInput.value}
-              />
+              <LiquorList params={searchParams} onChangePage={handleChangePage} searchKeyword={searchInput.value} />
             </Suspense>
           </ErrorBoundary>
         </Box>
@@ -153,10 +141,7 @@ const LiquorPage = () => {
             <Title>필터</Title>
             <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
               <Suspense fallback={<Loader />}>
-                <LiquorFilter
-                  onChangeFilter={handleChangeFilter}
-                  filterList={searchParams}
-                />
+                <LiquorFilter onChangeFilter={handleChangeFilter} filterList={searchParams} />
               </Suspense>
             </ErrorBoundary>
           </FilterWrap>
