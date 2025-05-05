@@ -25,6 +25,7 @@ import LiquorApi from '@apis/services/LiquorApi';
 
 // types
 import { tagType } from '@components/core/DropSelector';
+import MaterialTextEditor from '@components/core/MaterialTextEditor';
 
 /** 술 추가 컴포넌트 */
 const LiquorAdd = () => {
@@ -40,7 +41,8 @@ const LiquorAdd = () => {
   });
 
   const [detailExplanation, handleDetailExplanation] = useTextarea<string>('');
-  const [liquorRecipe, handleLiquorRecipe] = useState<string[]>();
+  const [liquorRecipe, handleLiquorRecipe] = useState<string[]>(); // 술의 레시피
+  const [liquorMaterialList, handleLiquorMaterialList] = useState<string[]>(); // 술 재료 목록
 
   // 태그
   const [liquorName, setLiquorName] = useState<tagType[]>([]); // 1차 분류
@@ -72,6 +74,7 @@ const LiquorAdd = () => {
       summaryExplanation: inputValue.summaryExplanation,
       searchTag: inputValue.searchTag,
       liquorRecipe: liquorRecipe,
+      liquorMaterialList,
       detailAbv: inputValue.detailAbv,
       detailExplanation: detailExplanation,
       liquorAbvId: liquorAbv[0].id.toString(),
@@ -212,11 +215,8 @@ const LiquorAdd = () => {
             value={detailExplanation}
             onChange={handleDetailExplanation}
           />
-          <RecipeTextEditor 
-            label="술의 레시피"
-            onChange={handleLiquorRecipe}
-            value={liquorRecipe}
-          />
+          <RecipeTextEditor label="술의 레시피" onChange={handleLiquorRecipe} value={liquorRecipe} />
+          <MaterialTextEditor label="술의 재료" onChange={handleLiquorMaterialList} value={liquorMaterialList} />
           <Input
             name="searchTag"
             value={inputValue.searchTag}

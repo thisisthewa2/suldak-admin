@@ -25,6 +25,7 @@ const TagEdit = ({ selectedTag, tagType }: IProps) => {
 
   // 수정 전 이미지 파일
   const existImgFile = selectedTag.fileBaseNm;
+  console.log(existImgFile);
 
   const tagText = useInput(selectedTag.name);
 

@@ -21,13 +21,14 @@ import { useEditLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
 
 // types
 import { tagType } from '@components/core/DropSelector';
+import MaterialTextEditor from '@components/core/MaterialTextEditor';
 
 interface IProps {
-  selectedLiquor: any
+  selectedLiquor: any;
 }
 
 /** 술 수정 컴포넌트 */
-const LiquorEdit = ({selectedLiquor}: IProps) => {
+const LiquorEdit = ({ selectedLiquor }: IProps) => {
   const { closeModal } = useModal();
   const { reset } = useQueryErrorResetBoundary();
   const { mutate: editLiquor } = useEditLiquorMutation();
@@ -42,7 +43,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
 
   const [detailExplanation, handleDetailExplanation] = useTextarea<string>(selectedLiquor?.detailExplanation);
   const [liquorRecipe, handleLiquorRecipe] = useState<string[]>(selectedLiquor?.liquorRecipe); // 술 레시피
-  
+  const [liquorMaterialList, handleLiquorMaterialList] = useState<string[]>(selectedLiquor?.liquorMaterialList); // 술 재료
+
   const [liquorName, setLiquorName] = useState<tagType[]>([selectedLiquor?.liquorNameDto]); // 1차 분류
   const [liquorDetail, setLiquorDetail] = useState<tagType[]>([selectedLiquor?.liquorDetailDto]); // 2차 분류
   const [liquorAbv, setLiquorAbv] = useState<tagType[]>([selectedLiquor?.liquorAbvDto]); // 술의 도수
@@ -76,6 +78,7 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
       summaryExplanation: inputValue.summaryExplanation,
       searchTag: inputValue.searchTag,
       liquorRecipe: liquorRecipe,
+      liquorMaterialList,
       detailAbv: inputValue.detailAbv,
       detailExplanation: detailExplanation,
       liquorAbvId: liquorAbv[0].id.toString(),
@@ -219,11 +222,8 @@ const LiquorEdit = ({selectedLiquor}: IProps) => {
             value={detailExplanation}
             onChange={handleDetailExplanation}
           />
-          <RecipeTextEditor 
-            label="술의 레시피"
-            onChange={handleLiquorRecipe}
-            value={liquorRecipe}
-          />
+          <RecipeTextEditor label="술의 레시피" onChange={handleLiquorRecipe} value={liquorRecipe} />
+          <MaterialTextEditor label="술의 재료" onChange={handleLiquorMaterialList} value={liquorMaterialList} />
           <Input
             name="searchTag"
             value={inputValue.searchTag}
