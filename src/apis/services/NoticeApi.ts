@@ -13,14 +13,13 @@ class NoticeApi {
     return data;
   };
 
-  add = async (formD: { title: string; body: string }) => {
-    const { data } = await axiosInstance.post(`${BASE_URL}/api/notice`, formD, {
+  add = async ({ formD, sendAlarm }: { formD: { title: string; body: string }; sendAlarm: boolean }) => {
+    const { data } = await axiosInstance.post(`${BASE_URL}/api/notice?sendAlarm=${sendAlarm}`, formD, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token'),
       },
     });
-
     return data;
   };
 

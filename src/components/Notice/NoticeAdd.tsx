@@ -7,6 +7,7 @@ import { useState } from 'react';
 export default function NoticeAdd() {
   const title = useInput('');
   const [body, setBody] = useState('');
+  const [isAlarm, setIsAlarm] = useState(false);
 
   const { mutate: addNotice } = useAddNoticeMutation();
 
@@ -14,9 +15,17 @@ export default function NoticeAdd() {
     setBody(event.target.value);
   };
 
+  const handleToggleIsAlarm = () => {
+    setIsAlarm((prev) => !prev);
+  };
+
   return (
     <>
       <Input label="제목" name="name" value={title.value} onChange={title.onChange} />
+      <div>
+        <label>알람 보내기</label>
+        <input type="checkbox" checked={isAlarm} onChange={handleToggleIsAlarm} />
+      </div>
 
       <textarea
         value={body}
@@ -28,8 +37,11 @@ export default function NoticeAdd() {
       <Button
         onClick={() =>
           addNotice({
-            title: title.value,
-            body,
+            formD: {
+              title: title.value,
+              body,
+            },
+            sendAlarm: isAlarm,
           })
         }
       >
