@@ -24,6 +24,7 @@ interface IProps {
   onConfirm?: (data?: any) => void;
   cancelBtnText?: string;
   onCancel?: (data?: any) => void;
+  onChange?: (markdown: string) => void;
 }
 
 /** 텍스트 에디터 컴포넌트 */
@@ -33,6 +34,7 @@ const TextEditor = ({
   onConfirm,
   cancelBtnText,
   onCancel,
+  onChange,
 }: IProps) => {
   const { currentTheme } = useTheme();
   const editorRef = useRef<Editor>(null);
@@ -46,11 +48,18 @@ const TextEditor = ({
     ['scrollSync'],
   ];
 
-  // 입력된 데이터 html로 추출
+  const handleChange = () => {
+    const markdown = editorRef.current?.getInstance().getMarkdown();
+    if (onChange && markdown !== undefined) {
+      onChange(markdown);
+    }
+  };
+
+  // 입력된 데이터 markdown으로 추출
   const handleRegister = () => {
     if (onConfirm) {
-      onConfirm(editorRef.current?.getInstance().getHTML());
-      console.log(editorRef.current?.getInstance());
+      const markdown = editorRef.current?.getInstance().getMarkdown();
+      onConfirm(markdown);
     }
   };
 
@@ -68,6 +77,7 @@ const TextEditor = ({
         usageStatistics={false} // 구글 분석 통계 수집 거부
         initialValue={initialValue}
         autofocus
+        onChange={handleChange}
       />
 
       <ButtonWrap>

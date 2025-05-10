@@ -1,31 +1,30 @@
-import Button from '@components/core/Button';
 import Input from '@components/core/Input';
+import TextEditor from '@components/core/TextEditor';
 import { useDeleteNoticeMutation, useEditNoticeMutation } from '@hooks/apis/Notice/useNoticeMutation';
 import { useGetNoticeDetailQuery } from '@hooks/apis/Notice/useNoticeQuery';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import useInput from '@hooks/useInput';
+import { useState } from 'react';
 
 export default function NoticeEdit({ noticeId }: { noticeId: number }) {
-  const { mutate: editNotice } = useEditNoticeMutation();
+  const { mutate: editNotice } = useEditNoticeMutation(noticeId);
   const { mutate: deleteNotice } = useDeleteNoticeMutation();
   const { data: notice, isLoading } = useGetNoticeDetailQuery(noticeId);
 
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const title = useInput(notice.title);
+  const [body, setBody] = useState(notice.body);
 
-  useEffect(() => {
-    if (notice) {
-      setTitle(notice.title);
-      setBody(notice.body);
-    }
-  }, [notice]);
-
-  const handleChangeBody = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(event.target.value);
+  const handleChangeBody = (markdown: string) => {
+    setBody(markdown);
   };
 
-  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+  const handleSubmit = () => {
+    editNotice({
+      formD: {
+        title: title.value,
+        body: body,
+      },
+      noticeId,
+    });
   };
 
   if (isLoading || !notice) {
@@ -34,39 +33,16 @@ export default function NoticeEdit({ noticeId }: { noticeId: number }) {
 
   return (
     <>
-      <Input label="제목" name="name" value={title} onChange={handleChangeTitle} />
+      <Input label="제목" name="name" value={title.value} onChange={title.onChange} />
 
-      <textarea
-        value={body}
+      <TextEditor
+        initialValue={notice.body}
         onChange={handleChangeBody}
-        placeholder="내용을 입력하세요"
-        style={{ width: '100%', height: '200px' }}
+        onConfirm={handleSubmit}
+        confirmBtnText="공지 수정"
+        onCancel={() => deleteNotice(noticeId)}
+        cancelBtnText="공지 삭제"
       />
-
-      <ButtonWrapper>
-        <Button buttonType="cancel" onClick={() => deleteNotice(noticeId)}>
-          삭제
-        </Button>
-        <Button
-          onClick={() =>
-            editNotice({
-              formD: {
-                title,
-                body,
-              },
-              noticeId,
-            })
-          }
-        >
-          수정
-        </Button>
-      </ButtonWrapper>
     </>
   );
 }
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;

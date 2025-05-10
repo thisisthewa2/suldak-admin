@@ -27,7 +27,7 @@ export const useAddNoticeMutation = () => {
 /**
  * 공지사항 수정
  */
-export const useEditNoticeMutation = () => {
+export const useEditNoticeMutation = (noticeId: number) => {
   const { showErrorToastMessage, showSuccessToastMessage } = useToastify();
   const { closeModal } = useModal();
 
@@ -36,6 +36,7 @@ export const useEditNoticeMutation = () => {
       showSuccessToastMessage('공지사항이 수정되었습니다.');
 
       queryClient.invalidateQueries({ queryKey: ['noticeList'] });
+      queryClient.invalidateQueries({ queryKey: ['notice', noticeId] });
       closeModal();
     },
     onError: () => {
