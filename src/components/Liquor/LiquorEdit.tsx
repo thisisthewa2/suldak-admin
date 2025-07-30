@@ -50,7 +50,12 @@ const LiquorEdit = ({ liquorId }: IProps) => {
 
   // 단일/복수 태그 초기화 함수
   const initializeSingleState = (value: any): tagType[] => (value ? [value] : []);
-  const initializeArrayState = (value: any): tagType[] => (Array.isArray(value) && value.length > 0 ? value : []);
+  const initializeArrayState = (value: any): tagType[] => {
+    if (!value || !Array.isArray(value) || value.length === 0) {
+      return [];
+    }
+    return value;
+  };
 
   const [liquorName, setLiquorName] = useState<tagType[]>([]);
   const [liquorDetail, setLiquorDetail] = useState<tagType[]>([]);
@@ -80,10 +85,10 @@ const LiquorEdit = ({ liquorId }: IProps) => {
       setLiquorDetail(initializeSingleState(selectedLiquor.liquorDetailDto));
       setLiquorAbv(initializeSingleState(selectedLiquor.liquorAbvDto));
       setLiquorCapacity(initializeSingleState(selectedLiquor.drinkingCapacityDto));
-      setLiquorTaste(initializeArrayState(selectedLiquor.tasteTypeDtos));
-      setLiquorState(initializeArrayState(selectedLiquor.stateTypeDtos));
-      setLiquorSell(initializeArrayState(selectedLiquor.liquorSellDtos));
-      setLiquorSnack(initializeArrayState(selectedLiquor.liquorSnackRes));
+      setLiquorTaste(initializeArrayState(selectedLiquor?.tasteTypeDtos));
+      setLiquorState(initializeArrayState(selectedLiquor?.stateTypeDtos));
+      setLiquorSell(initializeArrayState(selectedLiquor?.liquorSellDtos));
+      setLiquorSnack(initializeArrayState(selectedLiquor?.liquorSnackRes));
       setExistImgFile(selectedLiquor.liquorPictureUrl);
     }
   }, [selectedLiquor]);
