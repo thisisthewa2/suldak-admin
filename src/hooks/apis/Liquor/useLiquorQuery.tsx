@@ -30,3 +30,13 @@ export const useGetLiquorQuery = (params: SearchParams) => {
     refetchOnWindowFocus: false,
   });
 };
+
+/** 술 상세 정보 조회 쿼리 */
+export const useGetLiquorDetailQuery = (liquorId: number) => {
+  return useQuery(['liquor-detail', liquorId], () => LiquorApi.getDetail(liquorId), {
+    suspense: true,
+    useErrorBoundary: true,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+};
