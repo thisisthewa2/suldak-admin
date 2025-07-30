@@ -13,6 +13,7 @@ import { useSearchFilter } from '@hooks/useSearchFilter';
 import useModal from '@hooks/useModal';
 import { SearchParams } from '@apis/services/LiquorApi';
 import { useDeleteLiquorMutation } from '@hooks/apis/Liquor/useLiquorMutation';
+import { Suspense } from 'react';
 
 interface IProps {
   params: SearchParams;
@@ -33,7 +34,11 @@ const LiquorList = ({ params, onChangePage, searchKeyword = '' }: IProps) => {
   const handleOpenEditModal = (row: any) => {
     openModal({
       title: '술 수정',
-      content: <LiquorEdit selectedLiquor={row} />,
+      content: (
+        <Suspense>
+          <LiquorEdit liquorId={row.liquorId} />
+        </Suspense>
+      ),
       isCloseBtn: true,
     });
   };
