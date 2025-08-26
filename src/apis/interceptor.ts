@@ -16,7 +16,7 @@ export const axiosInstance = axios.create({
 
 // api 요청 인터셉터
 axiosInstance.interceptors.request.use((config) => {
-  console.log('--- Request ---');
+  // console.log('--- Request ---');
 
   const headers = config.headers as HeaderType;
   const token = localStorage.getItem('token');
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use((config) => {
 
   // 폼데이터를 사용하는 경우
   if (config.data instanceof FormData) {
-    console.log('test');
+    // console.log('test');
     config.headers['Content-Type'] = 'multipart/form-data';
   }
   // JSON 데이터만 보내는 경우
@@ -38,14 +38,14 @@ axiosInstance.interceptors.request.use((config) => {
 
   config.withCredentials = true;
 
-  console.log(config);
+  // console.log(config);
   return config;
 });
 
 // api 응답 인터셉터
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response);
+    // console.log(response);
 
     if (response.data.errorCode === 9999 || response.data.errorCode === 406) {
       localStorage.removeItem('token');

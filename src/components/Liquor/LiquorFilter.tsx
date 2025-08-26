@@ -17,19 +17,14 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
   const { data: abvData } = useGetTagQuery('liquor-abv');
   const { data: tasteData } = useGetTagQuery('taste-type');
 
-  console.log("filterList.taste:", filterList.tastePriKeys);
+  // console.log("filterList.taste:", filterList.tastePriKeys);
   return (
     <>
       <Title>1차 분류</Title>
       <FilterTagWrap>
         {nameData.data.map((abv: any) => (
           <div onClick={() => onChangeFilter('liquorNamePriKeys', abv.id)}>
-            <Tag
-              key={abv.id}
-              isActived={
-                filterList.liquorNamePriKeys.includes(abv.id) ? true : false
-              }
-            >
+            <Tag key={abv.id} isActived={filterList.liquorNamePriKeys.includes(abv.id) ? true : false}>
               {abv.name}
             </Tag>
           </div>
@@ -40,12 +35,7 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
       <FilterTagWrap>
         {detailData.data.map((abv: any) => (
           <div onClick={() => onChangeFilter('liquorDetailPriKeys', abv.id)}>
-            <Tag
-              key={abv.id}
-              isActived={
-                filterList.liquorDetailPriKeys.includes(abv.id) ? true : false
-              }
-            >
+            <Tag key={abv.id} isActived={filterList.liquorDetailPriKeys.includes(abv.id) ? true : false}>
               {abv.name}
             </Tag>
           </div>
@@ -56,12 +46,7 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
       <FilterTagWrap>
         {abvData.data.map((abv: any) => (
           <div onClick={() => onChangeFilter('liquorAbvPriKeys', abv.id)}>
-            <Tag
-              key={abv.id}
-              isActived={
-                filterList.liquorAbvPriKeys.includes(abv.id) ? true : false
-              }
-            >
+            <Tag key={abv.id} isActived={filterList.liquorAbvPriKeys.includes(abv.id) ? true : false}>
               {abv.name}
             </Tag>
           </div>
@@ -72,12 +57,7 @@ const LiquorFilter = ({ filterList, onChangeFilter }: Props) => {
       <FilterTagWrap>
         {tasteData.data.map((abv: any) => (
           <div onClick={() => onChangeFilter('tastePriKeys', abv.id)}>
-            <Tag
-              key={abv.id}
-              isActived={
-                filterList.tastePriKeys.includes(abv.id) ? true : false
-              }
-            >
+            <Tag key={abv.id} isActived={filterList.tastePriKeys.includes(abv.id) ? true : false}>
               {abv.name}
             </Tag>
           </div>
