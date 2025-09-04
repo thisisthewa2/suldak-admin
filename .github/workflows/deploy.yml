@@ -2,7 +2,7 @@ name: git push into another repo to deploy to vercel
 
 on:
   push:
-    branches: [main]
+    branches: ['main']
 
 jobs:
   build:
@@ -21,9 +21,9 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.SULDAK_ADMIN_TOKEN }}
         with:
           source-directory: 'output'
-          destination-github-username: 'LEEKICHAN0102'
-          destination-repository-name: 'suldak-admin'
-          user-email: ${{ secrets.LEEKICHAN_ACCOUNT_EMAIL }}
+          destination-github-username: thisisthewa2
+          destination-repository-name: suldak-admin
+          user-email: ${{ secrets.THISISTHEWA2_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
