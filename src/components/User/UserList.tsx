@@ -23,11 +23,11 @@ const UserList = ({ searchKeyword = '', selectUser }: IProps) => {
   const { openModal } = useModal();
   const { data: userList } = useGetUserQuery();
 
-  const filteredData = useSearchFilter(userList?.data || [], searchKeyword, [
-    'nickname',
-    'userEmail',
-    'warningCnt',
-  ]);
+  const filteredData = useSearchFilter(
+    userList?.data?.content || [],
+    searchKeyword,
+    ['nickname', 'userEmail', 'warningCnt'],
+  );
 
   // 유저 상세 정보 모달 열기
   const handleOpenInfoModal = (userData: any) => {
