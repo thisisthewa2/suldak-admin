@@ -1,66 +1,32 @@
-import { Suspense, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from 'react-query';
 
 // components
-import ErrorFallback from '@components/core/ErrorFallback';
 import RowContainer from '@components/RowContainer';
 import Button from '@components/core/Button';
 import Box from '@components/core/Box';
 import Title from '@components/core/Title';
-import Input from '@components/core/Input';
-import Loader from '@components/core/Loader';
-import Dropdown from '@components/core/Dropdown';
 import Breadcrumbs from '@components/core/Breadcrumbs';
-
-import ConsentList from '@components/Consent/ConsentList';
 
 // hooks
 import useResponsive from '@hooks/useResponsive';
-import useInput from '@hooks/useInput';
-import useModal from '@hooks/useModal';
-import ConsentAdd from '@components/Consent/ConsentAdd';
-
-// utils
-import { ConsentTypes } from '@libs/getConsentType';
-
-// types
-import { itemType } from '@apis/services/ConsentApi';
 
 /** 동의 항목 페이지 */
 const ConsentPage = () => {
   const { isTablet, isMobile } = useResponsive();
-  const { reset } = useQueryErrorResetBoundary();
-  const { openModal } = useModal();
 
-  const searchInput = useInput('');
-
-  // 동의 항목 타입 상태
-  const [consentType, setConsentType] = useState<itemType>('TEAM_OF_SERVICE');
-  const [selectedConsent, setSelectedConsent] = useState<any>();
-
-  // 동의 항목 타입 선택 함수
-  const handleSelectType = (selected: { value: itemType; label: string }) => {
-    setConsentType(selected.value);
-  };
-
-  // 동의 항목 선택 함수
-  const handleSelectConsent = (consent: any) => {
-    setSelectedConsent(consent);
-  };
-
-  // 동의 항목 추가 모달 열기
-  const handleOpenAddModal = () => {
-    openModal({
-      title: '동의 항목 추가',
-      content: <ConsentAdd />,
-    });
+  // Notion 페이지로 리다이렉트하는 함수
+  const redirectToNotion = () => {
+    window.open(
+      'https://www.notion.so/memo-note/25dc06e8a8b2807aa6a8c565860b9a8e?source=copy_link',
+      '_blank',
+    );
   };
 
   useEffect(() => {
-    console.log(consentType);
-  }, [consentType]);
+    // 페이지 로드 시 자동으로 Notion으로 리다이렉트
+    redirectToNotion();
+  }, []);
 
   return (
     <>
@@ -68,31 +34,17 @@ const ConsentPage = () => {
       <RowContainer isTablet={isTablet} isMobile={isMobile}>
         <Box gridColumn="12">
           <TitleWrap>
-            <Title>동의 항목 목록</Title>
-            <Button onClick={handleOpenAddModal}>항목 추가 +</Button>
+            <Title>동의 항목 관리</Title>
+            <Button onClick={redirectToNotion}>Notion에서 관리하기</Button>
           </TitleWrap>
 
-          <FormWrap>
-            <Dropdown
-              options={ConsentTypes}
-              onSelect={handleSelectType}
-              placeholder="서비스 이용 약관"
-            />
-            <Input
-              placeholder="검색어를 입력해주세요... ( 내용 검색 )"
-              onChange={searchInput.onChange}
-            />
-          </FormWrap>
-
-          <ErrorBoundary fallbackRender={ErrorFallback} onReset={reset}>
-            <Suspense fallback={<Loader />}>
-              <ConsentList
-                consentType={consentType}
-                searchKeyword={searchInput.value}
-                selectedConsent={handleSelectConsent}
-              />
-            </Suspense>
-          </ErrorBoundary>
+          <NoticeContainer>
+            <p>동의 항목 관리는 Notion 페이지에서 진행됩니다.</p>
+            <p>
+              위의 버튼을 클릭하거나 자동으로 리다이렉트되는 페이지를
+              이용해주세요.
+            </p>
+          </NoticeContainer>
         </Box>
       </RowContainer>
     </>
@@ -109,9 +61,22 @@ const TitleWrap = styled.div`
   margin-bottom: 1rem;
 `;
 
-const FormWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+const NoticeContainer = styled.div`
+  padding: 2rem;
+  background-color: ${({ theme }) => theme.componentBgColor};
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.form.border};
+  text-align: center;
+
+  p {
+    margin: 0.5rem 0;
+    color: ${({ theme }) => theme.text.secondary};
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  p:first-child {
+    font-weight: 600;
+    color: ${({ theme }) => theme.text.primary};
+  }
 `;
