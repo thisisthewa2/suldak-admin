@@ -2,7 +2,7 @@ import { axiosInstance, BASE_URL } from '@apis/interceptor';
 
 class NoticeApi {
   get = async () => {
-    const { data } = await axiosInstance.get(`/api/notice/view/list`);
+    const { data } = await axiosInstance.get(`/api/notice/view`);
 
     return data;
   };

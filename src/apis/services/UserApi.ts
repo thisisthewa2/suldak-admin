@@ -6,7 +6,7 @@ import { axiosInstance } from '@apis/interceptor';
 class UserApi {
   // 유저 목록 조회
   get = async () => {
-    const { data } = await axiosInstance.get(`/api/user/view/user`, {
+    const { data } = await axiosInstance.get(`/api/user/view`, {
       params: {
         // birthdayYear: 0,
         // endYear: 0,
