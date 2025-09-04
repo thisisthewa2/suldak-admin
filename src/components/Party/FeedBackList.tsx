@@ -20,7 +20,9 @@ const FeedBackList = ({ searchKeyword = '' }: IProps) => {
   const { data: feedbackList } = useGetFeedBackQuery();
 
   const filteredData = useSearchFilter(
-    feedbackList?.data || [], searchKeyword, ['id', 'feedbackType']
+    feedbackList?.data?.content || [],
+    searchKeyword,
+    ['id', 'feedbackType'],
   );
 
   // 피드백 상세 정보 모달 열기
