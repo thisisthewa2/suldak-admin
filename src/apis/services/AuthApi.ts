@@ -45,9 +45,9 @@ class AuthApi {
     return data;
   };
 
-  // 관리자 조회
+  // 관리자 목록 조회
   getAdmins = async () => {
-    const { data } = await axiosInstance.get(`/api/admin/auth/admin-user`);
+    const { data } = await axiosInstance.get(`/api/admin/auth`);
 
     return data;
   };
@@ -63,21 +63,20 @@ class AuthApi {
     return data;
   };
 
-  editAdmin = async({ adminId, adminNm, adminPw, priKey }:IAdd) => {
-    const { data } = await axiosInstance.put(`/api/admin/auth/signup/${priKey}`, {
+  // 관리자 수정
+  editAdmin = async ({ adminId, adminNm, adminPw, priKey }: IAdd) => {
+    const { data } = await axiosInstance.put(`/api/admin/auth/${priKey}`, {
       adminId,
       adminNm,
       adminPw,
     });
 
     return data;
-  }
+  };
 
   // 관리자 삭제
   deleteAdmin = async ({ priKey }: IDelete) => {
-    const response = await axiosInstance.delete(
-      `/api/admin/auth/admin-user/${priKey}`
-    );
+    const response = await axiosInstance.delete(`/api/admin/auth/${priKey}`);
 
     return response.data;
   };

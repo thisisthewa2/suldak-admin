@@ -22,10 +22,11 @@ interface IProps {
 const AdminList = ({ searchKeyword = '' }: IProps) => {
   const { openModal } = useModal();
   const { data: adminList } = useGetAdminQuery();
-  const filteredData = useSearchFilter(adminList?.data || [], searchKeyword, [
-    'adminNm',
-    'adminId',
-  ]);
+  const filteredData = useSearchFilter(
+    adminList?.data?.content || [],
+    searchKeyword,
+    ['adminNm', 'adminId'],
+  );
 
   const { mutate: deleteAdmin } = useDeleteAdminMutation();
 
@@ -76,7 +77,7 @@ const AdminList = ({ searchKeyword = '' }: IProps) => {
           <Button onClick={() => handleOpenEditModal(row)}>수정</Button>
           <Button
             buttonType="cancel"
-            onClick={() => handleOpenDeleteModal(row.id)}
+            onClick={() => handleOpenDeleteModal(row.adminUserId)}
           >
             삭제
           </Button>

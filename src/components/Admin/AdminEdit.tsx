@@ -26,7 +26,7 @@ const AdminEdit = ({ selectedAdmin }: IProps) => {
     editAdmin({
       adminId: adminId.value,
       adminNm: adminName.value,
-      priKey: selectedAdmin.id,
+      priKey: selectedAdmin.adminUserId,
       adminPw: '',
     });
     closeModal();
